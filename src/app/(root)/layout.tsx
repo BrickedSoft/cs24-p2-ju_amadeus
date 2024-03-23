@@ -1,0 +1,37 @@
+import type { Metadata } from "next";
+import { Inter, Work_Sans } from "next/font/google";
+
+import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-work-sans",
+});
+
+export const metadata: Metadata = {
+  title: "Create Next App",
+  description: "Web app for the second phase of Code Samurai 2024",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className={`${inter.variable} ${workSans.variable}`}>
+        <div className="flex flex-col justify-between min-h-screen overflow-hidden">
+          {children}
+        </div>
+      </body>
+    </html>
+  );
+}

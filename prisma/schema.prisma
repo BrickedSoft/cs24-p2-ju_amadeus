@@ -9,6 +9,34 @@ datasource db {
 }
 
 model User {
-  id   String @id @default(cuid())
-  name String
+  id            String       @id @default(cuid())
+  name          String?
+  email         String       @unique
+  emailVerified DateTime?
+  password      String
+  resetPassword DateTime?
+  resetToken    String?
+  loginToken    LoginToken[]
+  role          Role         @relation(fields: [roleId], references: [id])
+  roleId        String
+}
+
+model Role {
+  id   String @id @default(uuid())
+  name String @unique
+  user User[]
+  permission Permission[]
+}
+
+model Permission{
+  id String @id @default(cuid())
+  name String @unique
+  role Role[]
+
+}
+model LoginToken {
+  id     String  @id @default(cuid())
+  token  String?
+  user   User    @relation(fields: [userId], references: [id])
+  userId String
 }

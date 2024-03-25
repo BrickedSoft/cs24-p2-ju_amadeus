@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { socialLinks } from "@/assets/data/footer";
+import { socialLinks } from "@/assets/data/Footer";
 
 const FooterSocialLinks: React.FC = () => {
   return (

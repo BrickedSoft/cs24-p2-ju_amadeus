@@ -14,7 +14,6 @@ model User {
   email         String       @unique
   emailVerified DateTime?
   password      String
-  resetPassword DateTime?
   resetToken    String?
   loginToken    LoginToken[]
   role          Role         @relation(fields: [roleId], references: [id])
@@ -22,21 +21,63 @@ model User {
 }
 
 model Role {
-  id   String @id @default(uuid())
-  name String @unique
-  user User[]
+  id         String       @id @default(uuid())
+  name       String       @unique
+  user       User[]
   permission Permission[]
 }
 
-model Permission{
-  id String @id @default(cuid())
+model Permission {
+  id   String @id @default(cuid())
   name String @unique
   role Role[]
-
 }
+
 model LoginToken {
   id     String  @id @default(cuid())
   token  String?
   user   User    @relation(fields: [userId], references: [id])
   userId String
+}
+
+model STS {
+  id           String         @id @default(cuid())
+  wardNumber   String
+  name         String?
+  capacity     Float?
+  longitude    Float?
+  latitude     Float?
+  vehicleEntry VehicleEntry[]
+}
+
+model LandFill {
+  id           String         @id @default(cuid())
+  name         String
+  longitude    Float?
+  latitude     Float?
+  vehicleEntry VehicleEntry[]
+}
+
+model Vehicle {
+  id           String         @id @default(cuid())
+  number       String
+  type         String
+  capacity     String
+  vehicleEntry VehicleEntry[]
+}
+
+model VehicleEntry {
+  id            String   @id @default(cuid())
+  wasteVolume   Float
+  arrivalTime   DateTime
+  departureTime DateTime
+
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
+  vehicleId String
+
+  STS   STS    @relation(fields: [STSId], references: [id])
+  STSId String
+
+  landFill   LandFill @relation(fields: [landFillId], references: [id])
+  landFillId String
 }

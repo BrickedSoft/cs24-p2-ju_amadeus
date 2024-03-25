@@ -1,5 +1,19 @@
-const Home = () => {
-  return <div>Home</div>;
+import Header from "@/components/Header";
+import Hero from "../_home/Hero";
+import Components from "../_home/Components";
+import Footer from "@/components/footer";
+
+const Home: React.FC = () => {
+  return (
+    <main className="bg-background w-full">
+      <section className="w-full h-screen bg-primary/[.15]">
+        <Header />
+        <Hero />
+      </section>
+      <Components />
+      <Footer/>
+    </main>
+  );
 };
 
 export default Home;

@@ -2,20 +2,20 @@
 
 @layer base {
   :root {
-    --background: #fff;
+    --background: #f0f4f4;
     --foreground: #292929;
 
-    --card: #f2f5fe;
+    --card: #f0f4f4;
     --card-foreground: var(--foreground);
 
     --popover: #000064;
     --popover-foreground: #de150f;
 
-    --primary: #de0c1d;
-    --primary-foreground: #d228fa;
+    --primary: #048a52;
+    --primary-foreground: #fff;
 
-    --secondary: #d228f6;
-    --secondary-foreground: #de0c1d;
+    --secondary: #8a043c;
+    --secondary-foreground: #292929;
 
     --muted: #d228f6;
     --muted-foreground: #d93a9d;
@@ -30,7 +30,7 @@
     --input: #d73fbb;
     --ring: #de150f;
 
-    --radius: 0.5rem;
+    --radius: 11px;
   }
 
   .dark {
@@ -71,6 +71,99 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* ------------------------------ custom input ------------------------------ */
+  input[type="radio"]:checked + label .outer > .inner {
+    @apply !opacity-100 !visible;
+  }
+
+  input[type="radio"]:checked + label .outer {
+    @apply !rounded-full;
+  }
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration {
+    appearance: none;
+  }
+
+  /* --------------------------------- header --------------------------------- */
+
+  .header {
+    @apply h-16 md:h-[88px];
+  }
+
+  /* -------------------------------- container ------------------------------- */
+  .container-body {
+    @apply mx-auto w-full max-w-[1320px] px-5;
+  }
+
+  .container-content {
+    @apply mx-auto w-full max-w-[940px] px-5;
+  }
+
+  /* --------------------------------- heading -------------------------------- */
+
+  .heading-primary {
+    @apply text-4xl md:text-[55px] font-extrabold leading-[44px] md:leading-[60px] font-secondary;
+  }
+
+  .heading-secondary {
+    @apply text-2xl md:text-4xl font-bold text-foreground leading-8 md:leading-[43px] font-secondary;
+  }
+
+  .heading-tertiary {
+    @apply text-lg md:text-2xl font-bold text-foreground leading-[22px] md:leading-[31px] font-secondary;
+  }
+
+  /* ------------------------------ text classes ------------------------------ */
+  .text-base {
+    @apply text-xs md:text-base font-normal leading-6 text-foreground;
+  }
+
+  .text-large {
+    @apply text-sm md:text-lg leading-[22px] md:leading-[29px] text-foreground;
+  }
+
+  /* ---------------------------------- links --------------------------------- */
+  .anchor {
+    @apply flex items-center gap-2 capitalize text-base md:text-lg font-medium underline underline-offset-8 leading-[23px] text-primary hover:text-secondary w-max transition duration-300;
+  }
+
+  /* ----------------------------- general classes ---------------------------- */
+  .text-shadow {
+    text-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+  }
+
+  /* --------------------------------- navbar --------------------------------- */
+  .navbar {
+    @apply absolute top-full left-0 right-0 lg:relative shadow-lg lg:shadow-none;
+  }
+
+  .nav-links {
+    @apply px-4 xl:px-6 py-4 xl:py-5 text-sm font-bold leading-[18px] text-foreground hover:bg-secondary inline-block transition-colors duration-300;
+  }
+
+  /* -------------------------------- scrollbar ------------------------------- */
+  ::-webkit-scrollbar {
+    @apply w-[15.5px];
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply rounded-[10px] shadow-[inset_0_0_10px_10px_transparent] border-[3.5px] border-solid border-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-[10px] shadow-[inset_0_0_10px_10px] shadow-[#747474]/80 hover:shadow-[#747474] border-[3.5px] border-solid border-transparent transition-colors duration-300;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 

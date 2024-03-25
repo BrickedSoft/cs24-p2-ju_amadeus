@@ -1,9 +1,7 @@
 import { LoginToken } from "@prisma/client";
 import prisma from "../db"
-import { z } from 'zod'
 
-
-export const validateTokenUser = async (headers: Headers): Promise<string | undefined> => {
+export const validateTokenUser = async (headers: Headers, requiredRole: string = "none"): Promise<string | undefined> => {
   const userId = headers.get('userid')
   const token = headers.get('token')
 
@@ -18,6 +16,11 @@ export const validateTokenUser = async (headers: Headers): Promise<string | unde
   })
 
   if (!loginToken.length || loginToken[0].token != token)
+    return undefined
+
+  const user = await prisma.user.findUnique({ where: { id: userId } })
+  const role = await prisma.role.findUnique({ where: { id: user?.roleId } })
+  if (requiredRole != "none" && role?.name != requiredRole)
     return undefined
 
   return userId

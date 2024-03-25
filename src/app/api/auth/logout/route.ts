@@ -1,8 +1,6 @@
-import { LoginToken, User } from "@prisma/client"
 import { NextRequest, NextResponse } from "next/server"
-import { boolean, z } from 'zod'
+import {  z } from 'zod'
 import prisma from "@/lib/db"
-import { generateRandomToken, validatePassword } from "@/lib/utils/encoding"
 import { validateTokenUser } from "@/lib/db-utils/auth"
 
 const schema = z.object({
@@ -13,7 +11,7 @@ const schema = z.object({
 export async function POST(request: NextRequest) {
   const parsed = schema.safeParse(await request.json())
 
-  const userId = await validateTokenUser(await request.json())
+  const userId = await validateTokenUser(request.headers)
 
   if (!parsed.success || !userId) {
     return NextResponse.json(

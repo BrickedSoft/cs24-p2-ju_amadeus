@@ -16,8 +16,8 @@ const workSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Create Next App",
-  description: "Web app for the second phase of Code Samurai 2024",
+  title: "EcoSync",
+  description: "Revolutionizing Waste Management in Dhaka North City Corporation",
 };
 
 export default function RootLayout({

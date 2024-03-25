@@ -1,6 +1,6 @@
 import { LoginToken, Role, User } from "@prisma/client"
 import { NextRequest, NextResponse } from "next/server"
-import { boolean, z } from 'zod'
+import { z } from 'zod'
 import prisma from "@/lib/db"
 import { generateRandomToken, validatePassword } from "@/lib/utils/encoding"
 import { roleList } from "@/lib/constants/userContants"

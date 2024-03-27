@@ -8,16 +8,15 @@ import {
   button,
   errors as defaultErrors,
   fields,
-  forgot,
   title,
-} from "@/assets/data/auth/login";
+} from "@/assets/data/auth/change-password";
 import { Button } from "@/components/ui/button";
 
 type FormInputsType = {
   [key: string]: string;
 };
 
-const Login: React.FC = () => {
+const ChangePassword: React.FC = () => {
   const [isValid, setIsValid] = useState(true);
   const [isFulfilled, setIsFulfilled] = useState(false);
 
@@ -66,21 +65,12 @@ const Login: React.FC = () => {
 
         <div className="flex flex-col justify-center items-center gap-4 md:gap-6">
           <Button type="submit" size={"lg"} className="self-stretch">
-            {button.login.title}
+            {button.title}
           </Button>
-          <div className="flex items-center justify-center gap-2 md:gap-3">
-            <p className="text-small font-medium">{forgot}</p>
-            <Link
-              href={button.reset.href}
-              className="anchor no-underline font-bold"
-            >
-              {button.reset.title}
-            </Link>
-          </div>
         </div>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default ChangePassword;

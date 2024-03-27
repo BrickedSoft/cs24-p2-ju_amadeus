@@ -1,3 +1,5 @@
+import { routes } from "../routes";
+
 export const name = "Login";
 export const title = "Welcome Back";
 
@@ -23,8 +25,11 @@ export const fields = [
 ];
 
 export const forgot = "Forgot Password?";
-export const reset = "Reset";
 export const errors = {
   empty: "This is required",
   default: "Something went wrong",
+};
+export const button = {
+  login: { title: "Login", href: routes.login },
+  reset: { title: "Reset", href: routes.initiate },
 };

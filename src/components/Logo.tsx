@@ -31,7 +31,7 @@ const Logo = (props: React.SVGProps<SVGSVGElement>) => (
       </linearGradient>
       <style>
         {
-          ".cls-5,.cls-6{fill:#fff;stroke-miterlimit:10;stroke-width:2px;stroke:#002c0c}.cls-6{fill:#005b33}"
+          ".cls-5,.cls-6{fill:#fff;stroke-miterlimit:10;strokeWidth:2px;stroke:#002c0c}.cls-6{fill:#005b33}"
         }
       </style>
     </defs>

@@ -17,7 +17,8 @@ const workSans = Work_Sans({
 
 export const metadata: Metadata = {
   title: "EcoSync",
-  description: "Revolutionizing Waste Management in Dhaka North City Corporation",
+  description:
+    "Revolutionizing Waste Management in Dhaka North City Corporation",
 };
 
 export default function RootLayout({

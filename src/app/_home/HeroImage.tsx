@@ -1,4 +1,3 @@
-import * as React from "react";
 const HeroImage = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     className="animated"
@@ -4065,4 +4064,5 @@ const HeroImage = (props: React.SVGProps<SVGSVGElement>) => (
     </defs>
   </svg>
 );
+
 export default HeroImage;

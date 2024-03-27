@@ -2,7 +2,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 180 15% 95%;
     --foreground: 0 0% 16%;
 
     --card: 180 14% 92%;
@@ -27,9 +27,14 @@
     --destructive: 210 100% 47%;
     --destructive-foreground: 291 80% 52%;
 
+    --error: 1.88 100% 50%;
+    --error-foreground: 1.88 100% 50%;
+
     --border: 311 70% 60%;
     --input: 311 70% 60%;
     --ring: 350 80% 49%;
+
+    --radius: 0.6875rem;
   }
 }
 
@@ -87,6 +92,10 @@
   }
 
   /* ------------------------------ text classes ------------------------------ */
+  .text-small {
+    @apply text-xs md:text-sm font-normal leading-6 text-foreground;
+  }
+
   .text-medium {
     @apply text-xs md:text-base font-normal leading-6 text-foreground;
   }
@@ -97,6 +106,10 @@
 
   /* ---------------------------------- links --------------------------------- */
   .anchor {
+    @apply flex items-center gap-2 capitalize text-sm md:text-base font-medium text-primary hover:text-secondary w-max transition duration-300;
+  }
+
+  .anchor-lg {
     @apply flex items-center gap-2 capitalize text-base md:text-lg font-medium underline underline-offset-8 leading-[23px] text-primary hover:text-secondary w-max transition duration-300;
   }
 

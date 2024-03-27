@@ -1,7 +1,5 @@
 import Login from "./login/page";
 
-const Auth = () => {
-  return <Login />;
-};
+const Auth = () => <Login />;
 
 export default Auth;

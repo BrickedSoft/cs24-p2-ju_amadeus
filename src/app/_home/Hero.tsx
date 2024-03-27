@@ -1,11 +1,10 @@
-import { name } from "@/assets/data/auth/create";
-import { name as profileName } from "@/assets/data/dashboard/profile";
-import { hero } from "@/assets/data/home/hero";
+import { buttons, hero } from "@/assets/data/home/hero";
 import { Leaf } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import HeroImage from "../_home/HeroImage";
 
-const Hero:React.FC = () => {
+const Hero: React.FC = () => {
   return (
     <section className="max-w-[1340px] w-full h-[calc(100vh-80px)] pt-10 md:pt-0 px-5 mx-auto grid md:grid-cols-2 justify-center md:justify-between items-center gap-16 md:gap-24">
       <div className="flex flex-col items-center md:block">
@@ -17,10 +16,14 @@ const Hero:React.FC = () => {
           {hero.description}
         </p>
         <div className="flex gap-4">
-          <Button size="lg">{profileName}</Button>
-          <Button size="lg" variant={"white"}>
-            {name}
-          </Button>
+          <Link href={buttons[0].href}>
+            <Button size="lg">{buttons[0].title}</Button>
+          </Link>
+          <Link href={buttons[1].href}>
+            <Button size="lg" variant={"white"}>
+              {buttons[1].title}
+            </Button>
+          </Link>
         </div>
       </div>
       <div className="max-w-[500px] md:w-full h-full md:h-auto md:justify-self-end mx-auto md:mx-0">

@@ -31,7 +31,7 @@ const Login: React.FC = () => {
   const onSubmit: SubmitHandler<FormInputsType> = (data) => console.log(data);
 
   return (
-    <div className="flex flex-col gap-8 md:gap-12">
+    <div className="flex flex-col gap-6 md:gap-12">
       <h1 className="heading-secondary text-center">{title}</h1>
       <form
         onChange={() => setIsValid(true)}

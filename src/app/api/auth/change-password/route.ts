@@ -13,9 +13,9 @@ const schema = z.object({
 export async function POST(request: NextRequest) {
   const parsed = schema.safeParse(await request.json())
 
-  const userId = await validateTokenUser(request.headers)
+  const auth = await validateTokenUser(request)
 
-  if (!parsed.success || !userId) {
+  if (!parsed.success || !auth) {
     return NextResponse.json(
       { message: "Invalid request" },
       { status: 400 }
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
   const user: User | null = await prisma.user.findUnique({
     where: {
-      id: userId
+      id: auth.userId
     }
   })
 
@@ -37,11 +37,19 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  if (!validatePassword(oldPassword, user.password))
+  if (oldPassword == newPassword)
+    return NextResponse.json(
+      { message: "New password cannot be same as old password" },
+      { status: 400 }
+    )
+
+  if (! await validatePassword(oldPassword, user.password))
     return NextResponse.json(
       { message: "Wrong old password" },
       { status: 400 }
     )
+
+
 
   await prisma.user.update({
     where: user,

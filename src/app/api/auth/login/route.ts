@@ -57,10 +57,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ status: 400 })
 
   const res = NextResponse.json(
-    { message: "Success", role: role.name },
+    { message: "Success"},
     { status: 200 })
 
-  res.headers.set('userId', user.id)
-  res.headers.set('token', loginToken.token)
+
+  // token with one month expiration
+  const oneMonth = 30 * 24 * 60 * 60 * 1000
+
+  res.cookies.set('userId', user.id, { expires: Date.now() + oneMonth })
+  res.cookies.set('token', loginToken.token, { expires: Date.now() + oneMonth })
+  res.cookies.set('role',role.name , { expires: Date.now() + oneMonth })
+
+
   return res
 }

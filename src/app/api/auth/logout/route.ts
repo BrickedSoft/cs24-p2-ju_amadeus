@@ -1,32 +1,33 @@
 import { NextRequest, NextResponse } from "next/server"
-import {  z } from 'zod'
+import { z } from 'zod'
 import prisma from "@/lib/db"
 import { validateTokenUser } from "@/lib/db-utils/auth"
 
-const schema = z.object({
-  userId: z.string(),
-  token: z.string()
-});
-
 export async function POST(request: NextRequest) {
-  const parsed = schema.safeParse(await request.json())
+  const auth = await validateTokenUser(request)
 
-  const userId = await validateTokenUser(request.headers)
-
-  if (!parsed.success || !userId) {
+  if (!auth) {
     return NextResponse.json(
       { message: "Invalid request" },
       { status: 400 }
     )
   }
-  const { token } = parsed.data
 
   await prisma.loginToken.deleteMany({
-    where: { userId: userId, token: token },
+    where: { userId: auth.userId, token: auth.token },
   });
 
-  return NextResponse.json(
+  const res = NextResponse.json(
     { message: "Success" },
     { status: 200 })
+
+  // make it expire
+  const oneMonth = 30 * 24 * 60 * 60 * 1000
+
+  res.cookies.set('userId', '', { expires: Date.now() - oneMonth })
+  res.cookies.set('token', '', { expires: Date.now() - oneMonth })
+  res.cookies.set('role','' , { expires: Date.now() - oneMonth })
+
+  return res
 
 }

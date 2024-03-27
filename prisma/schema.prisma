@@ -16,8 +16,12 @@ model User {
   password      String
   resetToken    String?
   loginToken    LoginToken[]
+
   role          Role         @relation(fields: [roleId], references: [id])
   roleId        String
+
+  STS STS[]
+  landfill LandFill[]
 }
 
 model Role {
@@ -48,6 +52,7 @@ model STS {
   longitude    Float?
   latitude     Float?
   vehicleEntry VehicleEntry[]
+  manager User[]
 }
 
 model LandFill {
@@ -56,6 +61,7 @@ model LandFill {
   longitude    Float?
   latitude     Float?
   vehicleEntry VehicleEntry[]
+  manager User[]
 }
 
 model Vehicle {

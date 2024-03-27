@@ -6,11 +6,11 @@ import { RoleType } from "@/lib/constants/userContants";
 export async function GET(request: NextRequest,
   { params }: { params: { userId: string } }) {
 
-  const userId = await validateTokenUser(request.headers)
-  const adminAccess = await validateTokenUser(request.headers, RoleType.SYSTEM_ADMIN)
+  const auth = await validateTokenUser(request)
+  const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN)
   const queryUserId = params.userId
 
-  if (!adminAccess && (!userId || userId != queryUserId))
+  if (!authAdmin && (!auth || auth.userId != queryUserId))
     return NextResponse.json({
       message: "Insuficient permission"
     },
@@ -41,11 +41,11 @@ export async function GET(request: NextRequest,
 export async function DELETE(request: NextRequest,
   { params }: { params: { userId: string } }) {
 
-  const userId = await validateTokenUser(request.headers, RoleType.SYSTEM_ADMIN)
+  const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN)
 
   const queryUserId = params.userId
 
-  if (!userId)
+  if (!authAdmin)
     return NextResponse.json({
       message: "Insuficient permission"
     },

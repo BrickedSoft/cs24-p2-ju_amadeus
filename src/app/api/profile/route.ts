@@ -4,15 +4,15 @@ import { validateTokenUser } from "@/lib/db-utils/auth";
 
 
 export async function GET(request: NextRequest) {
-  const userId = await validateTokenUser(request.headers)
+  const auth = await validateTokenUser(request)
 
-  if (!userId)
+  if (!auth)
     return NextResponse.json({
       message: "Invalid login"
     },
       { status: 400 })
 
-  const user = await prisma.user.findUnique({ where: { id: userId } });
+  const user = await prisma.user.findUnique({ where: { id: auth.userId } });
 
   return NextResponse.json({
     user: user
@@ -21,19 +21,19 @@ export async function GET(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  const userId = await validateTokenUser(request.headers)
+  const auth = await validateTokenUser(request)
 
-  if (!userId)
+  if (!auth)
     return NextResponse.json({
       message: "Invalid login"
     },
       { status: 400 })
 
   const updates = await request.json()
-  const user = await prisma.user.findUnique({ where: { id: userId } })
+  const user = await prisma.user.findUnique({ where: { id: auth.userId } })
   const updatedUser = await prisma.user.update({
     where: {
-      id: userId
+      id: auth.userId
     },
     data: {
       ...user,

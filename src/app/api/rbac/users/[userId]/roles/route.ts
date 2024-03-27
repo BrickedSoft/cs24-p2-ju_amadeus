@@ -12,9 +12,9 @@ export async function PUT(request: NextRequest,
   { params }: { params: { userId: string } }) {
   const parsed = schema.safeParse(await request.json())
 
-  const userId = await validateTokenUser(request.headers, RoleType.SYSTEM_ADMIN)
+  const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN)
 
-  if (!parsed.success || !userId) {
+  if (!parsed.success || !authAdmin) {
     return NextResponse.json(
       { message: "Invalid request" },
       { status: 400 }

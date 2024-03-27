@@ -13,9 +13,9 @@ const schema = z.object({
 });
 
 export async function GET(request: NextRequest) {
-  const userId = await validateTokenUser(request.headers, RoleType.SYSTEM_ADMIN)
+  const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN)
 
-  if (!userId)
+  if (!authAdmin)
     return NextResponse.json({
       message: "Insuficient permission"
     },
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const userId = await validateTokenUser(request.headers, RoleType.SYSTEM_ADMIN)
+  const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN)
 
   const parsed = schema.safeParse(await request.json())
 
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     },
       { status: 400 })
 
-  if (!userId)
+  if (!authAdmin)
     return NextResponse.json({
       message: "Insuficient permission"
     },

@@ -2,7 +2,7 @@ import { name, components } from "@/assets/data/home/Components";
 
 const Components: React.FC = () => {
   return (
-    <section className="container-body py-24">
+    <section className="container-body py-10 md:py-16">
       <main className="flex flex-col items-center gap-12 md:gap-20">
         <h1 className="heading-primary">{name}</h1>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 justify-center gap-y-12 gap-x-10">

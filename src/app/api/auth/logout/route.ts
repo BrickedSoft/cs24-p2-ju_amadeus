@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
-import { z } from 'zod'
 import prisma from "@/lib/db"
 import { validateTokenUser } from "@/lib/db-utils/auth"
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   const auth = await validateTokenUser(request)
 
   if (!auth) {

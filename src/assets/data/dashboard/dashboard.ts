@@ -9,3 +9,5 @@ export const navLinks: NavLink[] = [
   { label: 'Entry', href: `${currentPath}/entry` },
   { label: 'Account', href: `${currentPath}/account` },
 ];
+
+export const sideNavValue = ['General', 'Password and logins'];

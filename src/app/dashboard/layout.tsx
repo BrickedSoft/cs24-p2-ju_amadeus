@@ -1,5 +1,5 @@
 import Navbar from './_navbar/Navbar';
-import '../(root)/globals.css'
+import '../(root)/globals.css';
 export default function DashboardLayout({
   children,
 }: Readonly<{
@@ -7,7 +7,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <>
-        <Navbar />
+      <Navbar />
       <div>{children}</div>
     </>
   );

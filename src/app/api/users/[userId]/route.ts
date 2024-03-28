@@ -30,7 +30,8 @@ export async function GET(request: NextRequest,
       name: user.name,
       email: user.email,
       roleId: user.roleId,
-      resetToken: user.resetToken
+      resetToken: user.resetToken,
+      role: auth?.role
     }
   },
     { status: 200 });

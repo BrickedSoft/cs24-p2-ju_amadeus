@@ -2,7 +2,7 @@
 import { useFormState } from 'react-dom';
 import { getCookie } from 'cookies-next';
 import { CardType } from '@/assets/data/dashboard/account/general';
-import SubmitButton from '../../_account/SubmitButton';
+import SubmitButton from '../../../../../components/ui/SubmitButton';
 import { Input } from '@/components/ui/input';
 import { regenerateResetTokenWithId } from '@/lib/db-utils/user/profile';
 

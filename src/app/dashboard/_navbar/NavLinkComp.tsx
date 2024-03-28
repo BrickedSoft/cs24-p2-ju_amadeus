@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 const NavLinkComp: React.FC<NavLink> = ({ label, href }) => {
   const currPath = usePathname();
   const active =
-    currPath == href || (currPath.includes(href) && href.length > 10)
+    href == currPath || (currPath.includes(href) && href != '/dashboard')
       ? 'text-gray-900'
       : '';
 

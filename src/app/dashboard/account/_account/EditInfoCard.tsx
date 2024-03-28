@@ -1,6 +1,6 @@
 'use client';
 import { Input } from '@/components/ui/input';
-import SubmitButton from './SubmitButton';
+import SubmitButton from '../../../../components/ui/SubmitButton';
 import { CardType } from '@/assets/data/dashboard/account/general';
 
 const EditInfoCard: React.FC<{

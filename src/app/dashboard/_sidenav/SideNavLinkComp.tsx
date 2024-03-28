@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const SideNavLinkComp: React.FC<NavLink> = ({ label, href }) => {
-  const active = usePathname() == href ? 'text-gray-900' : '';
+  const currPath = usePathname();
+  const active = currPath.includes(href) ? 'text-gray-900' : '';
 
   return (
     <Link href={href}>

@@ -1,5 +1,6 @@
-import { sideNavAccount } from '@/assets/data/dashboard/dashboard';
+import { sideNavEntry } from '@/assets/data/dashboard/dashboard';
 import SideNav from '../_sidenav/SideNav';
+import { RoleType } from '@/lib/constants/userContants';
 
 export default function AccountLayout({
   children,
@@ -9,7 +10,7 @@ export default function AccountLayout({
   return (
     <main className='bg-background w-full px-12 mt-24 '>
       <div className='flex'>
-        <SideNav sideNavValue={sideNavAccount} />
+        <SideNav sideNavValue={sideNavEntry(RoleType.SYSTEM_ADMIN)} />
         <div className=' w-full flex flex-col items-center px-4'>
           <div className='w-full max-w-[829px] min-w-[410px]'>{children}</div>
         </div>

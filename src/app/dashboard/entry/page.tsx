@@ -1,9 +1,8 @@
+import { redirect, RedirectType } from "next/navigation";
+
 const Entry: React.FC = () => {
-  return (
-    <main className='bg-background w-full'>
-      <p className=''>Entry!</p>
-    </main>
-  );
+  redirect('/dashboard/entry/users', RedirectType.replace)
+  
 };
 
 export default Entry;

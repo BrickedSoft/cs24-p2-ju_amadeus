@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "yarn db:generate && next build",
+    "build": "yarn db:generate && yarn db:migrate && yarn db:push && next build",
     "db:generate": "yarn pnpify prisma generate",
+    "db:migrate": "yarn pnpify prisma migrate",
+    "db:push": "yarn pnpify prisma db push",
     "start": "next start",
     "lint": "next lint",
     "seed": "node prisma/seed.ts"

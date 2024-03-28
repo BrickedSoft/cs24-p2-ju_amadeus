@@ -8,6 +8,7 @@ const Account: React.FC = async () => {
     `${userDataEndpoint}/${cookieStore.get('userId')?.value}`,
     {
       cache: 'no-store',
+      // @ts-ignore
       headers: {
         cookie: cookieStore,
       },

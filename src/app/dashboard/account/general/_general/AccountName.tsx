@@ -3,21 +3,21 @@ import { useFormState } from 'react-dom';
 import { updateUserWithId } from '@/lib/db-utils/user/profile';
 import { getCookie } from 'cookies-next';
 import { CardType } from '@/assets/data/dashboard/account/general';
-import EditInfoCard from '../_account/EditInfoCard';
+import EditInfoCard from '../../_account/EditInfoCard';
 
 const initialState = {
   message: '',
 };
 
 const formInfo: CardType = {
-  title: 'Email',
+  title: 'Display name',
   description:
-    'Please enter the email address you want to use to log in with Vercel.',
-  instruction: 'We will email you to verify the change.',
+    'Please enter your full name, or a display name you are comfortable with.',
+  instruction: 'Please use 32 characters at maximum.',
   actionLabel: 'Save',
 };
 
-const AccountEmail: React.FC<{ email: string }> = ({ email }) => {
+const AccountName: React.FC<{ name: string }> = ({ name }) => {
   const userId = getCookie('userId');
   const [state, formAction] = useFormState(
     updateUserWithId.bind(null, userId || ''),
@@ -28,11 +28,11 @@ const AccountEmail: React.FC<{ email: string }> = ({ email }) => {
       formAction={formAction}
       state={state}
       info={formInfo}
-      value={email}
-      name='email'
-      disabled={true}
+      value={name}
+      name={'name'}
+      disabled={false}
     />
   );
 };
 
-export default AccountEmail;
+export default AccountName;

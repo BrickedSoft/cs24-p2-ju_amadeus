@@ -14,7 +14,7 @@ export const navLinks: NavLink[] = [
 
 export const sideNavAccount: NavLink[] = [{
   label: 'General',
-  href: `${currentPath}/account`
+  href: `${currentPath}/account/general`
 },
 {
   label: 'Password and logins',
@@ -46,7 +46,7 @@ export const sideNavEntry = (roleType: RoleType) => {
         href: `${currentPath}/entry/landfill-sites`,
       },
     ];
-    
 
-    return sideNavValues
+
+  return sideNavValues
 }

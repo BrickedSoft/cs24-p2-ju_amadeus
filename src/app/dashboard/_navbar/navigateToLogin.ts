@@ -1,6 +1,6 @@
 'use server'
 
-import { redirect } from 'next/navigation'
+import { redirect, RedirectType } from 'next/navigation'
 import { cookies } from 'next/headers'
 
 export async function navigateToLogin(data: FormData) {
@@ -14,5 +14,5 @@ export async function navigateToLogin(data: FormData) {
   cookies().set('userId', 'value', { expires: Date.now() - oneDay })
   cookies().set('role', 'value', { expires: Date.now() - oneDay })
 
-  redirect('/')
+  redirect('/', RedirectType.replace)
 }

@@ -5,7 +5,6 @@ import { RoleType } from "@/lib/constants/userContants";
 
 export async function GET(request: NextRequest,
   { params }: { params: { userId: string } }) {
-
   const auth = await validateTokenUser(request)
   const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN)
   const queryUserId = params.userId
@@ -26,6 +25,7 @@ export async function GET(request: NextRequest,
       { status: 400 })
 
   return NextResponse.json({
+    message: "success",
     user: {
       name: user.name,
       email: user.email,

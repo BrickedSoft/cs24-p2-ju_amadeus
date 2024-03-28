@@ -1,14 +1,13 @@
 import Navbar from './_navbar/Navbar';
-import '../(root)/globals.css';
 export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div>
       <Navbar />
       <div>{children}</div>
-    </>
+    </div>
   );
 }

@@ -11,6 +11,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import Link from 'next/link';
+
 
 const TableHeader: React.FC<{ column: any; name: string }> = ({
   column,
@@ -70,7 +72,9 @@ export const columns: ColumnDef<Vehicle>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <Link href={`/dashboard/entry/vehicles/${vehicle.id}/delete`}>
+              <DropdownMenuItem>Delete</DropdownMenuItem>
+            </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       );

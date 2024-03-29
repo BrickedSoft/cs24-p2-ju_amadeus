@@ -2,6 +2,7 @@
 import { z } from "zod"
 import prisma from "@/lib/db"
 import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 export const addVehicle = async (prevState: any, formData: FormData) => {
   const schema = z.object({
@@ -29,5 +30,5 @@ export const addVehicle = async (prevState: any, formData: FormData) => {
     }
   })
   revalidatePath('/')
-  return { message: 'Vehicle created.' }
+  redirect('/dashboard/entry/vehicles')
 }

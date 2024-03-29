@@ -76,7 +76,9 @@ export const columns: ColumnDef<User>[] = [
             <Link href={`/dashboard/entry/users/${user.id}`}>
               <DropdownMenuItem>Update</DropdownMenuItem>
             </Link>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
+            <Link href={`/dashboard/entry/users/${user.id}/delete`}>
+              <DropdownMenuItem>Delete</DropdownMenuItem>
+            </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       );

@@ -9,6 +9,7 @@ export const path = {
   logout: "logout",
   changePassword: "change-password",
   profile: "profile",
+  dashboard: "dashboard",
 };
 
 export const routes = {
@@ -20,4 +21,5 @@ export const routes = {
   logout: `/${path.auth}/${path.logout}`,
   changePassword: `/${path.auth}/${path.changePassword}`,
   profile: `/${path.profile}`,
+  dashboard: `/${path.dashboard}`,
 };

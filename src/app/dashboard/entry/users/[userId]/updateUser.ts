@@ -12,20 +12,19 @@ export const updateUser = async (userId: string, prevState: any, formData: FormD
   })
 
   const parsed = schema.parse({
-    name: formData.get('name') || undefined,
-    email: formData.get('email') || undefined,
-    role: formData.get('role') || undefined,
-  })
+    name: formData.get("name") || undefined,
+    email: formData.get("email") || undefined,
+    role: formData.get("role") || undefined,
+  });
 
   await prisma.user.update({
     where: { id: userId },
     data: {
       name: parsed.name,
       email: parsed.email,
-      role: { connect: { name: parsed.role } }
+      role: { connect: { name: parsed.role } },
     },
-
-  })
-  revalidatePath('/')
-  redirect('/dashboard/entry/users/')
-}
+  });
+  revalidatePath("/");
+  redirect("/dashboard/entry/users/");
+};

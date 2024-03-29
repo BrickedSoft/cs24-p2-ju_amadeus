@@ -11,7 +11,7 @@ const Home: React.FC = () => {
         <Hero />
       </section>
       <Components />
-      <Footer/>
+      <Footer />
     </main>
   );
 };

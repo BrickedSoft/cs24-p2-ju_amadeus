@@ -1,1 +1,1 @@
-export const name = 'Profile'
+export const name = "Profile";

@@ -35,7 +35,6 @@ export const createUser = async (prevState: any, formData: FormData) => {
       role: { connect: { id: role?.id } }
     }
   })
-
   revalidatePath('/')
   redirect('/dashboard/entry/users/')
 

@@ -3,13 +3,11 @@ import prisma from "@/lib/db";
 import { validateTokenUser } from "@/lib/db-utils/auth";
 import { RoleType } from "@/lib/constants/userContants";
 import { z } from 'zod'
-import { hashPassword } from "@/lib/utils/encoding";
 
 const schema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  password: z.string().min(6),
-  role: z.string()
+  number: z.string(),
+  type: z.string(),
+  capacity: z.string(),
 });
 
 export async function GET(request: NextRequest) {
@@ -21,20 +19,10 @@ export async function GET(request: NextRequest) {
     },
       { status: 400 })
 
-  const users = await prisma.user.findMany({
-    include: {
-      role: true
-    }
-  });
+  const vehicles = await prisma.vehicle.findMany();
 
   return NextResponse.json({
-    users: users.map(ele => ({
-      id: ele.id,
-      name: ele.name,
-      email: ele.email,
-      roleId: ele.roleId,
-      role: ele.role.name
-    }))
+    vehicles: vehicles
   },
     { status: 200 });
 }
@@ -56,27 +44,25 @@ export async function POST(request: NextRequest) {
     },
       { status: 400 })
 
-  const { name, email, password, role } = parsed.data
-  const userExist = await prisma.user.findUnique({ where: { email: email } })
+  const { number, type, capacity } = parsed.data
+  const vehicleExist = await prisma.vehicle.findUnique({ where: { number: number } })
 
-  if (userExist)
+  if (vehicleExist)
     return NextResponse.json({
-      message: "Email already in use"
+      message: "Vehicle number already registered"
     },
       { status: 400 })
 
-  const userRole = await prisma.role.findUnique({ where: { name: role } })
-  const user = await prisma.user.create({
+  const vehicle = await prisma.vehicle.create({
     data: {
-      name: name,
-      email: email,
-      password: await hashPassword(password),
-      role: { connect: { id: userRole?.id } }
+      number: number,
+      type: type,
+      capacity: capacity
     },
   });
 
   return NextResponse.json({
-    user: user
+    vehicle: vehicle
   },
     { status: 200 });
 }

@@ -17,10 +17,10 @@ model User {
   resetToken    String?
   loginToken    LoginToken[]
 
-  role          Role         @relation(fields: [roleId], references: [id])
-  roleId        String
+  role   Role   @relation(fields: [roleId], references: [id])
+  roleId String
 
-  STS STS[]
+  STS      STS[]
   landfill LandFill[]
 }
 
@@ -52,7 +52,7 @@ model STS {
   longitude    Float?
   latitude     Float?
   vehicleEntry VehicleEntry[]
-  manager User[]
+  manager      User[]
 }
 
 model LandFill {
@@ -61,14 +61,14 @@ model LandFill {
   longitude    Float?
   latitude     Float?
   vehicleEntry VehicleEntry[]
-  manager User[]
+  manager      User[]
 }
 
 model Vehicle {
   id           String         @id @default(cuid())
-  number       String
+  number       String         @unique
   type         String
-  capacity     String
+  capacity     Float
   vehicleEntry VehicleEntry[]
 }
 

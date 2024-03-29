@@ -4,6 +4,7 @@ import { z } from "zod"
 import prisma from "@/lib/db"
 import { hashPassword } from "@/lib/utils/encoding"
 import { Role } from "@prisma/client"
+import { revalidatePath } from "next/cache"
 
 export const createUser = async (prevState: any, formData: FormData) => {
   const schema = z.object({
@@ -33,6 +34,6 @@ export const createUser = async (prevState: any, formData: FormData) => {
       role: { connect: { id: role?.id } }
     }
   })
-
+  revalidatePath('/')
   return { message: 'User created.' }
 }

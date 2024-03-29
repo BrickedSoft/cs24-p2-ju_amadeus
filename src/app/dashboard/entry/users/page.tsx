@@ -1,12 +1,8 @@
-import { DataTable } from '../_data-table/data-table';
-import { columns } from './columns';
+import { DataTable } from './_users/data-table';
+import { columns } from './_users/columns';
 import { User } from '@prisma/client';
 import { cookies } from 'next/headers';
 import { userDataEndpoint } from '@/assets/data/api/endpoints';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-
-
 
 async function getData(cookieStore: any): Promise<User[]> {
   let userList = await fetch(`${userDataEndpoint}`, {
@@ -28,10 +24,7 @@ export default async function Users() {
   const data = await getData(cookieStore);
 
   return (
-    <div className='container mx-auto py-10'>
-      <Link href={'/dashboard/entry/users/new'}>
-        <Button className='mb-4'>Add new user</Button>
-      </Link>
+    <div className='container h-full'>
       <DataTable
         columns={columns}
         data={data}

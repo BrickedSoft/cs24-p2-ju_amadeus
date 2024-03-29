@@ -3,7 +3,7 @@ import { useFormState } from 'react-dom';
 import { Input } from '@/components/ui/input';
 import SubmitButton from '@/components/ui/SubmitButton';
 import { useEffect, useState } from 'react';
-import { updateSts } from './updateSts';
+import { updateLandfill } from './updateLandfill';
 import CardLoading from '@/components/ui/card-loading';
 const initialState = {
   message: '',
@@ -21,36 +21,36 @@ interface FormInfo {
 
 const data: FormInfo = {
   actionLabel: 'Submit',
-  description: 'Enter STS informations',
-  title: 'STS details',
+  description: 'Enter landfil site informations',
+  title: 'Landfill site details',
   formValues: [
     {
       name: 'name',
       label: 'Name',
     },
-    { name: 'wardNumber', label: 'Ward Number' },
-    { name: 'capacity', label: 'Capacity' },
     { name: 'longitude', label: 'Longitude' },
     { name: 'latitude', label: 'Latitude' },
   ],
 };
 
-const EditUser: React.FC<{ params: { stsId: string } }> = ({ params }) => {
-  const [sts, setSts] = useState();
+const EditLandfill: React.FC<{ params: { landfillId: string } }> = ({
+  params,
+}) => {
+  const [landfill, setLandfill] = useState();
 
   useEffect(() => {
-    fetch(`/api/sts/${params.stsId}`)
+    fetch(`/api/landfill/${params.landfillId}`)
       .then((res) => res.json())
       .then((data) => {
-        setSts(data.sts);
+        setLandfill(data.landfill);
       });
-  }, [params.stsId]);
+  }, [params.landfillId]);
 
   const [state, formAction] = useFormState(
-    updateSts.bind(null, params.stsId),
+    updateLandfill.bind(null, params.landfillId),
     initialState
   );
-  return sts ? (
+  return landfill ? (
     <form
       action={formAction}
       className='bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8'>
@@ -64,7 +64,7 @@ const EditUser: React.FC<{ params: { stsId: string } }> = ({ params }) => {
             name={ele.name}
             id={ele.name}
             type='text'
-            placeholder={sts[ele.name]}
+            placeholder={landfill[ele.name]}
             maxLength={32}
             className='max-w-[560px] border-gray-300 placeholder:text-gray-600 h-10'
           />
@@ -85,4 +85,4 @@ const EditUser: React.FC<{ params: { stsId: string } }> = ({ params }) => {
   );
 };
 
-export default EditUser;
+export default EditLandfill;

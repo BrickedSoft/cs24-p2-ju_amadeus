@@ -30,6 +30,7 @@ export const sideNavEntry = (roleType: RoleType) => {
         href: `${currentPath}/entry/users`,
       },
       {
+
         label: 'Vehicles',
         href: `${currentPath}/entry/vehicles`,
       },

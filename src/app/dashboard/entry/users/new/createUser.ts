@@ -34,7 +34,6 @@ export const createUser = async (prevState: any, formData: FormData) => {
       role: { connect: { id: role?.id } }
     }
   })
-
   revalidatePath('/')
   return { message: 'User created.' }
 }

@@ -4,7 +4,6 @@ import { deleteUser } from "./deleteUser";
 
 import SubmitButton from "@/components/ui/SubmitButton";
 import { useFormState } from "react-dom";
-import { useEffect } from "react";
 
 const initialState = {
   message: "",

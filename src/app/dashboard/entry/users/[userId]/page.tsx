@@ -10,7 +10,6 @@ import {
 import { Input } from '@/components/ui/input';
 import SubmitButton from '@/components/ui/SubmitButton';
 import { useEffect, useState } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
 import { updateUser } from './updateUser';
 import CardLoading from '@/components/ui/card-loading';
 const initialState = {

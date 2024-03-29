@@ -2,6 +2,8 @@
 import { z } from "zod"
 import prisma from "@/lib/db"
 import { revalidatePath } from "next/cache"
+import { validateTokenUser } from "@/lib/db-utils/auth"
+import { redirect } from "next/navigation"
 
 export const updateUser = async (prevState: any, formData: FormData) => {
   const schema = z.object({
@@ -26,5 +28,5 @@ export const updateUser = async (prevState: any, formData: FormData) => {
 
   })
   revalidatePath('/')
-  return { message: 'User updated.' }
+  redirect('/dashboard/entry/users/')
 }

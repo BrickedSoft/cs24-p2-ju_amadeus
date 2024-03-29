@@ -1,4 +1,4 @@
-import Navbar from './_navbar/Navbar';
+import Navbar from "./_navbar/Navbar";
 export default function DashboardLayout({
   children,
 }: Readonly<{

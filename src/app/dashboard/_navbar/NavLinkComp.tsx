@@ -4,7 +4,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const NavLinkComp: React.FC<NavLink> = ({ label, href }) => {
-  const active = usePathname().includes(href) ? 'text-black' : '';
+  const currPath = usePathname();
+  const active =
+    href == currPath || (currPath.includes(href) && href != '/dashboard')
+      ? 'text-gray-900'
+      : '';
 
   return (
     <Link

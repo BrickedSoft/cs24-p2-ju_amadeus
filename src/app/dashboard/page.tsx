@@ -1,6 +1,6 @@
 const Dashboard: React.FC = () => {
   return (
-    <main className='bg-background w-full'>
+    <main className='w-full'>
       <p className=''>Welcome to Dashboard!</p>
     </main>
   );

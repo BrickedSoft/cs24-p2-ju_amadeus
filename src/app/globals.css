@@ -19,7 +19,7 @@
     --secondary-foreground: 0 0% 16%;
 
     --muted: 291 80% 52%;
-    --muted-foreground: 327 60% 61%;
+    --muted-foreground: 0 0% 0%;
 
     --accent: 291 80% 52%;
     --accent-foreground: 350 80% 49%;
@@ -30,7 +30,7 @@
     --error: 1.88 100% 50%;
     --error-foreground: 1.88 100% 50%;
 
-    --border: 311 70% 60%;
+    --border: 0 0% 87.84%;
     --input: 311 70% 60%;
     --ring: 350 80% 49%;
 

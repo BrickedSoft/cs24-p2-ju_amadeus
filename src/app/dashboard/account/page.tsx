@@ -1,5 +1,7 @@
+import { redirect, RedirectType } from 'next/navigation';
+
 const Account: React.FC = () => {
-  return <main className='bg-background w-full'>account!</main>;
+  redirect('/dashboard/account/general', RedirectType.replace);
 };
 
 export default Account;

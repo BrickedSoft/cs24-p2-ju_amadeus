@@ -21,13 +21,19 @@ export async function GET(request: NextRequest) {
     },
       { status: 400 })
 
-  const users = await prisma.user.findMany();
+  const users = await prisma.user.findMany({
+    include: {
+      role: true
+    }
+  });
 
   return NextResponse.json({
     users: users.map(ele => ({
+      id: ele.id,
       name: ele.name,
       email: ele.email,
-      roleId: ele.roleId
+      roleId: ele.roleId,
+      role: ele.role.name
     }))
   },
     { status: 200 });

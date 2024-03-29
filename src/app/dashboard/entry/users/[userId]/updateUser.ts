@@ -1,16 +1,15 @@
-"use server";
-import { z } from "zod";
-import prisma from "@/lib/db";
-import { revalidatePath } from "next/cache";
-import { validateTokenUser } from "@/lib/db-utils/auth";
-import { redirect } from "next/navigation";
+'use server'
+import { z } from "zod"
+import prisma from "@/lib/db"
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
-export const updateUser = async (prevState: any, formData: FormData) => {
+export const updateUser = async (userId: string, prevState: any, formData: FormData) => {
   const schema = z.object({
-    name: z.string().min(1),
-    email: z.string().min(1),
-    role: z.string().min(1),
-  });
+    name: z.string().optional(),
+    email: z.string().optional(),
+    role: z.string().optional()
+  })
 
   const parsed = schema.parse({
     name: formData.get("name") || undefined,
@@ -19,7 +18,7 @@ export const updateUser = async (prevState: any, formData: FormData) => {
   });
 
   await prisma.user.update({
-    where: { email: parsed.email },
+    where: { id: userId },
     data: {
       name: parsed.name,
       email: parsed.email,

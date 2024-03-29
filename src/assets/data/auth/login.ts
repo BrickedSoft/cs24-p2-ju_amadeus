@@ -11,6 +11,7 @@ export const fields = [
     type: "email",
     errors: {
       empty: "This is required",
+      wrong: "Invalid Email or Password",
     },
   },
   {
@@ -20,6 +21,7 @@ export const fields = [
     type: "password",
     errors: {
       empty: "This is required",
+      wrong: "Invalid Email or Password",
     },
   },
 ];
@@ -27,7 +29,6 @@ export const fields = [
 export const forgot = "Forgot Password?";
 export const errors = {
   empty: "This is required",
-  wrong: "Invalid Email or Password",
   default: "Something went wrong",
 };
 export const button = {

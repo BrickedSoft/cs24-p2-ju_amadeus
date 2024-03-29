@@ -6,6 +6,7 @@ import { generateRandomToken } from "@/lib/utils/encoding";
 
 const schema = z.object({
   email: z.string().email(),
+  resetToken: z.string(),
 });
 
 export async function POST(request: NextRequest) {
@@ -15,7 +16,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Invalid request" }, { status: 400 });
   }
 
-  const { email } = parsed.data;
+  const { email, resetToken } = parsed.data;
 
   const user: User | null = await prisma.user.findUnique({
     where: {
@@ -23,9 +24,13 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  if (!user) {
+  if (!user)
     return NextResponse.json({ message: "Invalid email" }, { status: 400 });
-  }
+  else if (user.resetToken != resetToken)
+    return NextResponse.json(
+      { message: "Invalid reset token" },
+      { status: 400 }
+    );
 
   const updatedUser = await prisma.user.update({
     where: { id: user.id },
@@ -37,6 +42,6 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json(
     { message: "Success", resetToken: updatedUser.resetToken },
-    { status: 200 },
+    { status: 200 }
   );
 }

@@ -1,8 +1,26 @@
-const Spinner = () => (
+type Size = "sm" | "md" | "lg";
+type PropsType = {
+  size?: Size;
+};
+
+const getSize = (size: Size) => {
+  switch (size) {
+    case "sm":
+      return "h-4 w-4";
+    case "md":
+      return "h-6 w-6";
+    case "lg":
+      return "h-8 w-8";
+    default:
+      return "h-6 w-6";
+  }
+};
+
+const Spinner: React.FC<PropsType> = ({ size = "md" }) => (
   <div role="status">
     <svg
       aria-hidden="true"
-      className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-green-600"
+      className={`${getSize(size)} text-gray-200 animate-spin dark:text-gray-600 fill-green-600`}
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

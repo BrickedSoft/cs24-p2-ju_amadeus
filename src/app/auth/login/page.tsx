@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import { login } from "@/assets/data/api/endpoints";
 import { routes } from "@/assets/data/routes";
-import Spinner from "@/components/Spinner";
+import Spinner from "@/components/ui/spinner";
 import {
   button,
   errors as defaultErrors,
@@ -40,8 +40,8 @@ const Login: React.FC = () => {
         fields.map((item) =>
           setError(item.id, {
             type: "manual",
-            message: defaultErrors.wrong,
-          }),
+            message: item.errors.wrong,
+          })
         );
       });
 
@@ -72,7 +72,7 @@ const Login: React.FC = () => {
                 {errors[item.id] ? (
                   (errors[item.id]?.message as string) || defaultErrors.default
                 ) : (
-                  <span className="text-transparent">a</span>
+                  <span className="text-transparent">-</span>
                 )}
               </p>
             </div>
@@ -82,7 +82,7 @@ const Login: React.FC = () => {
         <div className="flex flex-col justify-center items-center gap-4 md:gap-6">
           <Button type="submit" size={"lg"} className="self-stretch">
             {isSubmitting ? (
-              <Spinner variant="secondary" />
+              <Spinner/>
             ) : (
               button.login.title
             )}

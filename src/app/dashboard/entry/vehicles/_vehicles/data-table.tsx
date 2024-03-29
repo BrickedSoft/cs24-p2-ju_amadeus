@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   ColumnDef,
@@ -9,7 +9,7 @@ import {
   getSortedRowModel,
   SortingState,
   useReactTable,
-} from '@tanstack/react-table';
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -18,11 +18,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import React from 'react';
-import { Input } from '@/components/ui/input';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/table";
+import React from "react";
+import { Input } from "@/components/ui/input";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -35,7 +35,7 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const table = useReactTable({
     data,
@@ -52,26 +52,26 @@ export function DataTable<TData, TValue>({
   });
   return (
     <div>
-      <div className='flex justify-between items-center'>
-        <div className='flex items-center py-4'>
+      <div className="flex justify-between items-center">
+        <div className="flex items-center py-4">
           <Input
-            placeholder='Search by vehicle number'
+            placeholder="Search by vehicle number"
             value={
-              (table.getColumn('number')?.getFilterValue() as string) ?? ''
+              (table.getColumn("number")?.getFilterValue() as string) ?? ""
             }
             onChange={(event) =>
-              table.getColumn('number')?.setFilterValue(event.target.value)
+              table.getColumn("number")?.setFilterValue(event.target.value)
             }
-            className='max-w-sm'
+            className="max-w-sm"
           />
         </div>
-        <Link href={'/dashboard/entry/vehicles/new'}>
-          <Button className='text-sm bg-gray-300 text-black hover:bg-black hover:text-white rounded-sm'>
+        <Link href={"/dashboard/entry/vehicles/new"}>
+          <Button className="text-sm bg-gray-300 text-black hover:bg-black hover:text-white rounded-sm">
             Add vehicle
           </Button>
         </Link>
       </div>
-      <div className='rounded-md border overflow-scroll h-[500px]'>
+      <div className="rounded-md border overflow-scroll h-[500px]">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -83,7 +83,7 @@ export function DataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -96,12 +96,13 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}>
+                  data-state={row.getIsSelected() && "selected"}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -111,7 +112,8 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'>
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>

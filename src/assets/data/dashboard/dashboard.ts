@@ -4,46 +4,46 @@ export interface NavLink {
   label: string;
   href: string;
 }
-const currentPath = '/dashboard';
+const currentPath = "/dashboard";
 
 export const navLinks: NavLink[] = [
-  { label: 'Overview', href: `${currentPath}` },
-  { label: 'Entry', href: `${currentPath}/entry` },
-  { label: 'Account', href: `${currentPath}/account` },
+  { label: "Overview", href: `${currentPath}` },
+  { label: "Entry", href: `${currentPath}/entry` },
+  { label: "Account", href: `${currentPath}/account` },
 ];
 
-export const sideNavAccount: NavLink[] = [{
-  label: 'General',
-  href: `${currentPath}/account/general`
-},
-{
-  label: 'Password and logins',
-  href: `${currentPath}/account/password-logins`
-}];
+export const sideNavAccount: NavLink[] = [
+  {
+    label: "General",
+    href: `${currentPath}/account/general`,
+  },
+  {
+    label: "Password and logins",
+    href: `${currentPath}/account/password-logins`,
+  },
+];
 
 export const sideNavEntry = (roleType: RoleType) => {
-  let sideNavValues: NavLink[] = []
+  let sideNavValues: NavLink[] = [];
   if (roleType == RoleType.SYSTEM_ADMIN)
     sideNavValues = [
       {
-        label: 'Users',
+        label: "Users",
         href: `${currentPath}/entry/users`,
       },
       {
-
-        label: 'Vehicles',
+        label: "Vehicles",
         href: `${currentPath}/entry/vehicles`,
       },
       {
-        label: 'STS',
+        label: "STS",
         href: `${currentPath}/entry/sts`,
       },
       {
-        label: 'Landfill Sites',
+        label: "Landfill Sites",
         href: `${currentPath}/entry/landfill-sites`,
       },
     ];
 
-
-  return sideNavValues
-}
+  return sideNavValues;
+};

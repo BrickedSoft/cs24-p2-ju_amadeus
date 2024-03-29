@@ -1,6 +1,6 @@
 export interface CardType {
-  title: string
-  description: string
-  instruction: string
-  actionLabel: string
+  title: string;
+  description: string;
+  instruction: string;
+  actionLabel: string;
 }

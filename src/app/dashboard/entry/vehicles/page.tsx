@@ -1,12 +1,12 @@
-import { DataTable } from './_vehicles/data-table';
-import { columns } from './_vehicles/columns';
-import {Vehicle } from '@prisma/client';
-import { cookies } from 'next/headers';
-import { vehicleDataEndpoint } from '@/assets/data/api/endpoints';
+import { DataTable } from "./_vehicles/data-table";
+import { columns } from "./_vehicles/columns";
+import { Vehicle } from "@prisma/client";
+import { cookies } from "next/headers";
+import { vehicleDataEndpoint } from "@/assets/data/api/endpoints";
 
 async function getData(cookieStore: any): Promise<Vehicle[]> {
   let vehicleList = await fetch(`${vehicleDataEndpoint}`, {
-    cache: 'no-store',
+    cache: "no-store",
     headers: {
       cookie: cookieStore,
     },
@@ -24,11 +24,8 @@ export default async function Vehicles() {
   const data = await getData(cookieStore);
 
   return (
-    <div className='container h-full'>
-      <DataTable
-        columns={columns}
-        data={data}
-      />
+    <div className="container h-full">
+      <DataTable columns={columns} data={data} />
     </div>
   );
 }

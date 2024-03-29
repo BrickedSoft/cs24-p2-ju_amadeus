@@ -1,24 +1,25 @@
-'use client';
-import { NavLink } from '@/assets/data/dashboard/dashboard';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+"use client";
+import { NavLink } from "@/assets/data/dashboard/dashboard";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const NavLinkComp: React.FC<NavLink> = ({ label, href }) => {
   const currPath = usePathname();
   const active =
-    href == currPath || (currPath.includes(href) && href != '/dashboard')
-      ? 'text-gray-900'
-      : '';
+    href == currPath || (currPath.includes(href) && href != "/dashboard")
+      ? "text-gray-900"
+      : "";
 
   return (
     <Link
       href={href}
       key={href}
       className={
-        'text-md backdrop-blur  cursor-pointer text-gray-600 ' + active
-      }>
+        "text-md backdrop-blur  cursor-pointer text-gray-600 " + active
+      }
+    >
       <p>{label}</p>
-      {active && <hr className='border-green-400 border-[1.45px]' />}
+      {active && <hr className="border-green-400 border-[1.45px]" />}
     </Link>
   );
 };

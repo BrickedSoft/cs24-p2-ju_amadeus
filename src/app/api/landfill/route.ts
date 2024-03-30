@@ -4,18 +4,32 @@ import { validateTokenUser } from "@/lib/db-utils/auth";
 import { RoleType } from "@/lib/constants/userContants";
 
 export async function GET(request: NextRequest) {
-  const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN)
+  const auth = await validateTokenUser(request)
 
-  if (!authAdmin)
+  if (!auth)
     return NextResponse.json({
       message: "Insuficient permission"
     },
       { status: 400 })
 
-  const landfills = await prisma.landFill.findMany()
+  if (auth.role == RoleType.SYSTEM_ADMIN)
+    return NextResponse.json({
+      landfills: await prisma.landFill.findMany()
+    },
+      { status: 200 });
+
+  if (auth.role == RoleType.LANDFILL_MANAGER)
+    return NextResponse.json({
+      landfills: await prisma.landFill.findMany({
+        where: {
+          manager: { some: { id: auth.userId } }
+        }
+      })
+    },
+      { status: 200 });
 
   return NextResponse.json({
-    landfills: landfills
+    landfills: undefined
   },
     { status: 200 });
 }

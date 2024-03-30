@@ -2,8 +2,7 @@
 import { useFormState } from 'react-dom';
 import { Input } from '@/components/ui/input';
 import SubmitButton from '@/components/ui/SubmitButton';
-import { createLandfill } from './createLAndfill';
-
+import { createLandfill } from './createLandfill';
 const initialState = {
   message: '',
 };
@@ -27,7 +26,7 @@ const data: FormInfo = {
       name: 'name',
       label: 'Name',
     },
-   
+
     { name: 'longitude', label: 'Longitude' },
     { name: 'latitude', label: 'Latitude' },
   ],

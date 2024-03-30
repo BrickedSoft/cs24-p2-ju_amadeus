@@ -73,7 +73,7 @@ model Vehicle {
   fuelCostUnloaded Float
   fuelCostLoaded   Float
   vehicleEntry     VehicleEntry[]
-  STS              STS?            @relation(fields: [stsId], references: [id])
+  STS              STS?           @relation(fields: [stsId], references: [id])
   stsId            String?
 }
 
@@ -86,9 +86,9 @@ model VehicleEntry {
   vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
   vehicleId String
 
-  STS   STS    @relation(fields: [STSId], references: [id])
-  STSId String
+  STS   STS?    @relation(fields: [STSId], references: [id])
+  STSId String?
 
-  landFill   LandFill @relation(fields: [landFillId], references: [id])
-  landFillId String
+  landFill   LandFill? @relation(fields: [landFillId], references: [id])
+  landFillId String?
 }

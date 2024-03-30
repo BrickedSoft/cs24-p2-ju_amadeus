@@ -24,9 +24,8 @@ export const sideNavAccount: NavLink[] = [
 ];
 
 export const sideNavEntry = (roleType: RoleType) => {
-  let sideNavValues: NavLink[] = [];
   if (roleType == RoleType.SYSTEM_ADMIN)
-    sideNavValues = [
+    return [
       {
         label: "Users",
         href: `${currentPath}/entry/users`,
@@ -45,5 +44,48 @@ export const sideNavEntry = (roleType: RoleType) => {
       },
     ];
 
-  return sideNavValues;
+  if (roleType == RoleType.STS_MANAGER)
+    return [
+      {
+        label: "Vehicle Entries",
+        href: `${currentPath}/entry/vehicle-entries`,
+      },
+      {
+        label: "Route optimization",
+        href: `${currentPath}/entry/route-optimization`,
+      },
+      {
+        label: "Fleet optimization",
+        href: `${currentPath}/entry/fleet-optimization`,
+      },
+
+    ];
+
+  if (roleType == RoleType.LANDFILL_MANAGER)
+    return [
+      {
+        label: "Vehicle Entries",
+        href: `${currentPath}/entry/vehicle-entries`,
+      },
+      {
+        label: "Generate Bill",
+        href: `${currentPath}/entry/generate-bill`,
+      },
+    ];
+
+
+  return [
+    { href: `/`, label: 'none'}
+  ]
 };
+
+export const roleFromString = (value: string | undefined) => {
+  if (!value) return RoleType.UNASSIGNED
+  if (value == RoleType.LANDFILL_MANAGER)
+    return RoleType.LANDFILL_MANAGER
+  if (value == RoleType.STS_MANAGER)
+    return RoleType.STS_MANAGER
+  if (value == RoleType.SYSTEM_ADMIN)
+    return RoleType.SYSTEM_ADMIN
+  return RoleType.UNASSIGNED
+}

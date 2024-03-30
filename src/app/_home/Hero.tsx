@@ -12,18 +12,13 @@ const Hero: React.FC = () => {
           <h1 className="relative heading-primary z-20">{hero.title}</h1>
           <Leaf className="absolute -top-[70%] md:-top-[calc(100%+5px)] left-1/3 w-8 md:w-16 h-auto" />
         </div>
-        <p className="text-base leading-6 md:text-[20px] md:leading-8 mb-8 md:mb-12 text-center md:text-start">
-          {hero.description}
-        </p>
-        <div className="flex gap-4">
-          <Link href={buttons[0].href}>
-            <Button size="lg">{buttons[0].title}</Button>
-          </Link>
-          <Link href={buttons[1].href}>
-            <Button size="lg" variant={"white"}>
-              {buttons[1].title}
-            </Button>
-          </Link>
+        <div className="max-w-[540px]">
+          <h3 className="heading-tertiary text-center md:text-start mb-4 md:mb-6">
+            {hero.description[0]}
+          </h3>
+          <p className="text-medium text-center md:text-start leading-7 text-gray-500 font-medium">
+            {hero.description[1]}
+          </p>
         </div>
       </div>
       <div className="max-w-[500px] md:w-full h-full md:h-auto md:justify-self-end mx-auto md:mx-0">

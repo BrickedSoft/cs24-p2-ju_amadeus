@@ -2,8 +2,10 @@ import { routes } from "../routes";
 
 export const hero = {
   title: "EcoSync",
-  description:
-    "Revolutionizing waste management in Dhaka North City Corporation with innovative solutions.",
+  description: [
+    "Optimizing Waste Management for a Sustainable Future.",
+    "Dhaka's waste management gets a smart upgrade. EcoSync streamlines collection with real-time data and intelligent routing, building a cleaner, greener future.",
+  ],
 };
 
 export const buttons = [

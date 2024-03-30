@@ -3,7 +3,7 @@ import { routes } from "../../routes";
 export const name = "Reset Password";
 export const title = "Forgot Password?";
 export const description =
-  "Enter the email address along with the backup code to reset your password.";
+  "Please provide the email address and the reset token to initiate the reset process.";
 
 export const fields = [
   {

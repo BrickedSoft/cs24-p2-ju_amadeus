@@ -30,13 +30,13 @@ export async function POST(request: NextRequest) {
   } else if (user.resetToken != resetToken)
     return NextResponse.json(
       { message: "Invalid reset token" },
-      { status: 400 }
+      { status: 400 },
     );
 
   if (user.resetToken != resetToken) {
     return NextResponse.json(
       { message: "Invalid reset token" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 

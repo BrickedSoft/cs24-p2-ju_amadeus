@@ -47,7 +47,7 @@ const ResetPasswordInitiate: React.FC = () => {
           setError(item.id, {
             type: "manual",
             message: item.errors.wrong,
-          })
+          }),
         );
       });
   };

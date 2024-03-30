@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
   else if (user.resetToken != resetToken)
     return NextResponse.json(
       { message: "Invalid reset token" },
-      { status: 400 }
+      { status: 400 },
     );
 
   //TODO: Write a code to generate new reset token after 10 failed attempts

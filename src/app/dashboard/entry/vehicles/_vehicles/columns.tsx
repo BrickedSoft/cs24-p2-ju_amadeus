@@ -55,6 +55,9 @@ export const columns: ColumnDef<Vehicle>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <Link href={`/dashboard/entry/vehicles/${vehicle.id}`}>
+              <DropdownMenuItem>Update</DropdownMenuItem>
+            </Link>
             <Link href={`/dashboard/entry/vehicles/${vehicle.id}/delete`}>
               <DropdownMenuItem>Delete</DropdownMenuItem>
             </Link>

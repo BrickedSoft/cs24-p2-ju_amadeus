@@ -59,7 +59,10 @@ const EditUser: React.FC<{ params: { userId: string } }> = ({ params }) => {
       });
   }, [params.userId]);
 
-  const [state, formAction] = useFormState(updateUser, initialState);
+  const [state, formAction] = useFormState(
+    updateUser.bind(null, params.userId),
+    initialState
+  );
   return user ? (
     <form
       action={formAction}
@@ -75,8 +78,7 @@ const EditUser: React.FC<{ params: { userId: string } }> = ({ params }) => {
             name={ele.name}
             id={ele.name}
             placeholder={user[ele.name]}
-            type="text"
-            required
+            type='text'
             maxLength={32}
             className="max-w-[560px] border-gray-300 placeholder:text-gray-600 h-10"
           />

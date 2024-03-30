@@ -27,8 +27,10 @@ const data: FormInfo = {
       name: "number",
       label: "Number",
     },
-    { name: "type", label: "Type" },
-    { name: "capacity", label: "Capacity" },
+    { name: 'type', label: 'Type' },
+    { name: 'capacity', label: 'Capacity' },
+    { name: 'fuelCostUnloaded', label: 'Fuel cost per kilometer - Unloaded' },
+    { name: 'fuelCostLoaded', label: 'Fuel cost per kilometer - Fully loaded' },
   ],
 };
 

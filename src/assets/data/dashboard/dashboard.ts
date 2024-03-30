@@ -24,9 +24,8 @@ export const sideNavAccount: NavLink[] = [
 ];
 
 export const sideNavEntry = (roleType: RoleType) => {
-  let sideNavValues: NavLink[] = [];
   if (roleType == RoleType.SYSTEM_ADMIN)
-    sideNavValues = [
+    return [
       {
         label: "Users",
         href: `${currentPath}/entry/users`,
@@ -45,5 +44,6 @@ export const sideNavEntry = (roleType: RoleType) => {
       },
     ];
 
-  return sideNavValues;
-};
+
+  return sideNavValues
+}

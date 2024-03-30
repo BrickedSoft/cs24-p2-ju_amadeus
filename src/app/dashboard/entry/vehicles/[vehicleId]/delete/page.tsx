@@ -22,7 +22,7 @@ const DeleteVehicle: React.FC<{ params: { vehicleId: string } }> = ({
         action={formAction}
         className="bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8"
       >
-        <p className="text-lg font-medium">Delete User</p>
+        <p className="text-lg font-medium">Delete Vehicle</p>
         <p className="mt-4 mb-1 text-sm">Delete vehicle with id:</p>
         <Input
           contentEditable={false}

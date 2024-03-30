@@ -8,9 +8,9 @@ export const updateSts = async (stsId: string, prevState: any, formData: FormDat
   const schema = z.object({
     name: z.string().optional(),
     wardNumber: z.string().optional(),
-    capacity: z.number().optional(),
-    longitude: z.number().optional(),
-    latitude: z.number().optional(),
+    capacity: z.string().optional(),
+    longitude: z.string().optional(),
+    latitude: z.string().optional(),
   })
 
   const parsed = schema.parse({
@@ -25,10 +25,10 @@ export const updateSts = async (stsId: string, prevState: any, formData: FormDat
     where: { id: stsId },
     data: {
       name: parsed.name,
-      capacity: parsed.capacity,
-      longitude: parsed.longitude,
-      latitude: parsed.latitude,
-      wardNumber: parsed.wardNumber
+      capacity: parsed.capacity? parseFloat(parsed.capacity) : undefined,
+      longitude:parsed.longitude? parseFloat(parsed.longitude) : undefined,
+      latitude: parsed.latitude? parseFloat(parsed.latitude) : undefined,
+      wardNumber: parsed.wardNumber ,
     }
   })
   revalidatePath('/')

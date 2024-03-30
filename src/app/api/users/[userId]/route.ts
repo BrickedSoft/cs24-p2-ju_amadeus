@@ -19,10 +19,13 @@ export async function GET(
       { status: 400 },
     );
 
-  const user = await prisma.user.findUnique({ where: { id: queryUserId }, include: {
-    STS: true,
-    landfill: true
-  } });
+  const user = await prisma.user.findUnique({
+    where: { id: queryUserId }, include: {
+      STS: true,
+      landfill: true,
+      role: true
+    }
+  });
 
   if (!user)
     return NextResponse.json(
@@ -40,7 +43,7 @@ export async function GET(
         email: user.email,
         roleId: user.roleId,
         resetToken: user.resetToken,
-        role: auth?.role,
+        role: user.role.name,
         STS: user.STS,
         landfill: user.landfill
       },

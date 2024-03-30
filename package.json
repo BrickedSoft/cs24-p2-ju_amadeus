@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "db:build": "yarn db:generate && yarn db:migrate && next build",
-    "build": "next build",
+    "build": "yarn db:generate && yarn db:migrate && yarn seed && next build",
     "db:generate": "yarn pnpify prisma generate",
     "db:migrate": "yarn pnpify prisma migrate deploy",
     "db:push": "yarn pnpify prisma db push",

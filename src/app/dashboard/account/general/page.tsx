@@ -1,9 +1,9 @@
 import { userDataEndpoint } from "@/assets/data/api/endpoints";
-import AccountName from "./_general/AccountName";
+import { cardData } from "@/assets/data/dashboard/account/general";
 import { cookies } from "next/headers";
-import AccountEmail from "./_general/AccountEmail";
-import { CardType } from "@/assets/data/dashboard/account/general";
 import InfoCard from "../_account/InfoCard";
+import AccountEmail from "./_general/AccountEmail";
+import AccountName from "./_general/AccountName";
 
 const Account: React.FC = async () => {
   const cookieStore = cookies();
@@ -15,26 +15,11 @@ const Account: React.FC = async () => {
       headers: {
         cookie: cookieStore,
       },
-    },
+    }
   ).then(async (res) => {
     const data = await res.json();
     return data;
   });
-
-  const cardData: CardType[] = [
-    {
-      title: "Role",
-      description: "This is your assigned role by the System Admin",
-      instruction: "Your permissions are adjusted based on your role",
-      actionLabel: "role",
-    },
-    {
-      title: "Reset token",
-      description: "This is your token to recover your account",
-      instruction: "Make sure to write down this code",
-      actionLabel: "resetToken",
-    },
-  ];
 
   return (
     <>

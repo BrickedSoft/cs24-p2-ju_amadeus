@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import AccountReset from "./_password/AccountReset";
 import { userDataEndpoint } from "@/assets/data/api/endpoints";
+import PasswordChange from "./_password/PasswordChange";
 
 const Account: React.FC = async () => {
   const cookieStore = cookies();
@@ -23,6 +24,7 @@ const Account: React.FC = async () => {
   return (
     <>
       <AccountReset resetToken={userData.user.resetToken} />
+      <PasswordChange />
     </>
   );
 };

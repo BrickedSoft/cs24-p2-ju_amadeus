@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import ecoSync from "@/api/ecoSync";
+import { initiateReset } from "@/assets/data/api/endpoints";
 import {
   button,
   errors as defaultErrors,
@@ -11,30 +13,50 @@ import {
   fields,
   title,
 } from "@/assets/data/auth/reset-password/initiate";
+import { routes } from "@/assets/data/routes";
 import { Button } from "@/components/ui/button";
+import Spinner from "@/components/ui/spinner";
+import { AuthContext } from "@context/AuthContext";
 
 type FormInputsType = {
   [key: string]: string;
 };
 
 const ResetPasswordInitiate: React.FC = () => {
-  const [isValid, setIsValid] = useState(true);
-  const [isFulfilled, setIsFulfilled] = useState(false);
-
+  const router = useRouter();
+  const { setAuth } = useContext(AuthContext);
   const {
     handleSubmit,
     register,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit: SubmitHandler<FormInputsType> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormInputsType> = (data) => {
+    ecoSync
+      .post(initiateReset, { ...data })
+      .then(function () {
+        setAuth({
+          email: data.email,
+          resetToken: data.resetToken,
+        });
+        router.replace(routes.confirm);
+      })
+      .catch(function (error) {
+        fields.map((item) =>
+          setError(item.id, {
+            type: "manual",
+            message: item.errors.wrong,
+          }),
+        );
+      });
+  };
 
   return (
     <div className="flex flex-col gap-6 md:gap-12">
       <h1 className="heading-secondary text-center">{title}</h1>
       <p className="max-w-[410px] text-small text-center">{description}</p>
       <form
-        onChange={() => setIsValid(true)}
         onSubmit={handleSubmit(onSubmit)}
         className="min-w-[280px] md:min-w-[300px] lg:min-w-[420px] flex flex-col justify-center gap-4 md:gap-8"
       >
@@ -58,7 +80,7 @@ const ResetPasswordInitiate: React.FC = () => {
                 {errors[item.id] ? (
                   (errors[item.id]?.message as string) || defaultErrors.default
                 ) : (
-                  <span className="text-transparent">a</span>
+                  <span className="text-transparent">-</span>
                 )}
               </p>
             </div>
@@ -67,7 +89,7 @@ const ResetPasswordInitiate: React.FC = () => {
 
         <div className="flex flex-col justify-center items-center gap-4 md:gap-6">
           <Button type="submit" size={"lg"} className="self-stretch">
-            {button.title}
+            {isSubmitting ? <Spinner /> : button.title}
           </Button>
         </div>
       </form>

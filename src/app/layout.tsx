@@ -1,7 +1,9 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Inter, Work_Sans } from "next/font/google";
 
 import "./globals.css";
+import ProgressBar from "@/components/ProgressBar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +32,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${workSans.variable}`}>
         <div className="flex flex-col justify-between min-h-screen overflow-hidden">
+          <Suspense>
+            <ProgressBar />
+          </Suspense>
           {children}
         </div>
       </body>

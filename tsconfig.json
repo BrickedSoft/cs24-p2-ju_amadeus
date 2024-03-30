@@ -24,6 +24,7 @@
       "@components/*": ["./src/components/*"],
       "@icons": ["./src/components/Icons.tsx"],
       "@lib/*": ["./src/lib/*"],
+      "@context/*": ["./src/context/*"],
       "@allTypes": ["./src/types/"],
       "@ecoSync": ["./src/api/ecoSync.ts"]
     }

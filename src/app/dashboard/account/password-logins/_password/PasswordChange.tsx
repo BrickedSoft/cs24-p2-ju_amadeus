@@ -1,27 +1,26 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { login } from "@/assets/data/api/endpoints";
 import { routes } from "@/assets/data/routes";
-import Spinner from "@/components/ui/spinner";
+import SubmitButton from "@/components/ui/SubmitButton";
+import { Input } from "@/components/ui/input";
 import {
   button,
   errors as defaultErrors,
+  description,
   fields,
-  forgot,
   title,
-} from "@assets/data/auth/login";
-import { Button } from "@components/ui/button";
+} from "@assets/data/auth/change-password";
 import ecoSync from "@ecoSync";
 
 type FormInputsType = {
   [key: string]: string;
 };
 
-const Login: React.FC = () => {
+const PasswordChange: React.FC = () => {
   const router = useRouter();
   const {
     handleSubmit,
@@ -46,29 +45,30 @@ const Login: React.FC = () => {
       });
 
   return (
-    <div className="flex flex-col gap-6 md:gap-12">
-      <h1 className="heading-secondary text-center">{title}</h1>
+    <div className="bg-background flex flex-col gap-2 md:gap-4 px-6 py-4 rounded-md border-[1.45px] border-gray-300 shadow-sm mt-8">
+      <div>
+        <p className="text-lg font-medium">{title}</p>
+        <p className="my-3 text-sm">{description}</p>
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="min-w-[280px] md:min-w-[300px] lg:min-w-[420px] flex flex-col justify-center gap-4 md:gap-8"
       >
-        <div className="flex flex-col justify-center gap-3 md:gap-6">
+        <div className="grid grid-cols-2 justify-between items-center gap-2 md:gap-4">
           {fields.map((item) => (
             <div key={item.id} className="flex flex-col gap-2">
-              <label htmlFor={item.id} className="text-medium font-semibold">
-                {item.title}
-              </label>
-              <input
+              <Input
+                maxLength={32}
                 id={item.id}
                 type={item.type}
                 placeholder={item.placeholder}
                 {...register(`${item.id}`, {
                   required: item.errors.empty,
                 })}
-                className="px-4 py-2 md:py-3 text-medium border-2 border-gray-300 rounded-md"
+                className="max-w-[360px] border-gray-300 placeholder:text-gray-600"
               />
 
-              <p className="text-small font-medium text-error-foreground">
+              <p className="text-xs font-medium text-error-foreground">
                 {errors[item.id] ? (
                   (errors[item.id]?.message as string) || defaultErrors.default
                 ) : (
@@ -79,23 +79,13 @@ const Login: React.FC = () => {
           ))}
         </div>
 
-        <div className="flex flex-col justify-center items-center gap-4 md:gap-6">
-          <Button type="submit" size={"lg"} className="self-stretch">
-            {isSubmitting ? <Spinner /> : button.login.title}
-          </Button>
-          <div className="flex items-center justify-center gap-2 md:gap-3">
-            <p className="text-small font-medium">{forgot}</p>
-            <Link
-              href={button.reset.href}
-              className="anchor no-underline font-bold"
-            >
-              {button.reset.title}
-            </Link>
-          </div>
+        <div className="w-full flex justify-between">
+          <p className=" text-sm text-gray-600"> </p>
+          <SubmitButton label={button.title} disabled={false} />
         </div>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default PasswordChange;

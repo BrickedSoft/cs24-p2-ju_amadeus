@@ -1,11 +1,12 @@
+import prisma from "@/lib/db";
+import { generateRandomToken, hashPassword } from "@/lib/utils/encoding";
 import { User } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import prisma from "@/lib/db";
-import { generateRandomToken, hashPassword } from "@/lib/utils/encoding";
 
 const schema = z.object({
   email: z.string().email(),
+  resetToken: z.string(),
   password: z.string(),
 });
 
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Invalid request" }, { status: 400 });
   }
 
-  const { email, password } = parsed.data;
+  const { email, resetToken, password } = parsed.data;
 
   const user: User | null = await prisma.user.findUnique({
     where: {
@@ -26,6 +27,17 @@ export async function POST(request: NextRequest) {
 
   if (!user) {
     return NextResponse.json({ message: "Invalid email" }, { status: 400 });
+  } else if (user.resetToken != resetToken)
+    return NextResponse.json(
+      { message: "Invalid reset token" },
+      { status: 400 }
+    );
+
+  if (user.resetToken != resetToken) {
+    return NextResponse.json(
+      { message: "Invalid reset token" },
+      { status: 400 }
+    );
   }
 
   await prisma.user.update({

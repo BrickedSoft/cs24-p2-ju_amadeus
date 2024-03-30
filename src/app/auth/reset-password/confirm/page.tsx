@@ -31,11 +31,13 @@ const ResetPasswordInitiate: React.FC = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
+  console.log(auth);
+
   const onSubmit: SubmitHandler<FormInputsType> = (data) => {
     ecoSync
-      .post(confirmReset, { ...data })
+      .post(confirmReset, { ...data, ...auth })
       .then(function () {
-        router.replace(routes.confirm);
+        router.replace(routes.dashboard);
       })
       .catch(function (error) {
         // fields.map((item) =>

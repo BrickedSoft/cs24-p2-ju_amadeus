@@ -38,6 +38,7 @@ const ResetPasswordInitiate: React.FC = () => {
       .then(function () {
         setAuth({
           email: data.email,
+          resetToken: data.resetToken,
         });
         router.replace(routes.confirm);
       })

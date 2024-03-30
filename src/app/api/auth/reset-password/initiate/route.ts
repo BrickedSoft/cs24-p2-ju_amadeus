@@ -32,16 +32,7 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
 
-  const updatedUser = await prisma.user.update({
-    where: { id: user.id },
-    data: {
-      ...user,
-      resetToken: generateRandomToken(8),
-    },
-  });
+  //TODO: Write a code to generate new reset token after 10 failed attempts
 
-  return NextResponse.json(
-    { message: "Success", resetToken: updatedUser.resetToken },
-    { status: 200 }
-  );
+  return NextResponse.json({ message: "Success" }, { status: 200 });
 }

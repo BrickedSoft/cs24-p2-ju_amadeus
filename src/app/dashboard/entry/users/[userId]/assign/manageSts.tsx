@@ -10,6 +10,7 @@ import { STS } from '@prisma/client';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { RoleType } from '@/lib/constants/userContants';
 
 interface FormInfo {
   title: string;
@@ -94,38 +95,71 @@ const ManageSts: React.FC<{ params: { userId: string } }> = ({ params }) => {
   };
 
   return user && stsList ? (
-    <div className='bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8'>
-      <p className='text-lg font-medium'>{assignSts.title}</p>
-      <p className='mt-4 mb-6 text-sm'>{assignSts.description}</p>
-      <div className='flex justify-between'>
-        <ScrollArea className='h-72 w-5/12 rounded-md border'>
-          <div className='p-4'>
-            <div className='flex justify-between text-gray-600 mb-4'>
-              <h4 className='text-sm font-medium leading-none'>
-                Select STS to
-              </h4>
+    user.role == RoleType.STS_MANAGER && (
+      <div className='bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8'>
+        <p className='text-lg font-medium'>{assignSts.title}</p>
+        <p className='mt-4 mb-6 text-sm'>{assignSts.description}</p>
+        <div className='flex justify-between'>
+          <ScrollArea className='h-72 w-5/12 rounded-md border'>
+            <div className='p-4'>
+              <div className='flex justify-between text-gray-600 mb-4'>
+                <h4 className='text-sm font-medium leading-none'>
+                  Select STS to
+                </h4>
 
-              <h4 className=' text-sm font-medium leading-none'>Assign</h4>
+                <h4 className=' text-sm font-medium leading-none'>Assign</h4>
+              </div>
+              <Separator className='my-2' />
+
+              {stsList
+                .filter((sts) => {
+                  let ok = true;
+                  for (const mySts of user.STS)
+                    if (mySts.id == sts.id) {
+                      ok = false;
+                      break;
+                    }
+                  return ok;
+                })
+                .map((sts: STS) => (
+                  <div key={sts.id}>
+                    <p className='py-2 max-w-2/3 text-sm'>{sts.name}</p>
+
+                    <div
+                      key={sts.id}
+                      className='flex justify-between gap-x-2'>
+                      <Input
+                        type='text'
+                        defaultValue={sts.id}
+                        id='stsId'
+                        key='stsId'
+                        disabled
+                      />
+                      <AssignButton currSts={sts.id} />
+                    </div>
+                    <Separator className='my-2' />
+                  </div>
+                ))}
             </div>
-            <Separator className='my-2' />
+          </ScrollArea>
 
-            {stsList
-              .filter((sts) => {
-                let ok = true;
-                for (const mySts of user.STS)
-                  if (mySts.id == sts.id) {
-                    ok = false;
-                    break;
-                  }
-                return ok;
-              })
-              .map((sts: STS) => (
+          <ScrollArea className='h-72 w-5/12 rounded-md border'>
+            <div className='p-4'>
+              <div className='flex justify-between text-gray-600 mb-4'>
+                <h4 className='text-sm font-medium leading-none'>Remove</h4>
+                <h4 className='text-sm font-medium leading-none'>
+                  From this user management
+                </h4>
+              </div>
+              <Separator className='my-2' />
+              {user.STS.map((sts: STS) => (
                 <div key={sts.id}>
                   <p className='py-2 max-w-2/3 text-sm'>{sts.name}</p>
 
                   <div
                     key={sts.id}
                     className='flex justify-between gap-x-2'>
+                    <RemoveButton currSts={sts.id} />
                     <Input
                       type='text'
                       defaultValue={sts.id}
@@ -133,46 +167,15 @@ const ManageSts: React.FC<{ params: { userId: string } }> = ({ params }) => {
                       key='stsId'
                       disabled
                     />
-                    <AssignButton currSts={sts.id} />
                   </div>
                   <Separator className='my-2' />
                 </div>
               ))}
-          </div>
-        </ScrollArea>
-
-        <ScrollArea className='h-72 w-5/12 rounded-md border'>
-          <div className='p-4'>
-            <div className='flex justify-between text-gray-600 mb-4'>
-              <h4 className='text-sm font-medium leading-none'>Remove</h4>
-              <h4 className='text-sm font-medium leading-none'>
-                From this user management
-              </h4>
             </div>
-            <Separator className='my-2' />
-            {user.STS.map((sts: STS) => (
-              <div key={sts.id}>
-                <p className='py-2 max-w-2/3 text-sm'>{sts.name}</p>
-
-                <div
-                  key={sts.id}
-                  className='flex justify-between gap-x-2'>
-                  <RemoveButton currSts={sts.id} />
-                  <Input
-                    type='text'
-                    defaultValue={sts.id}
-                    id='stsId'
-                    key='stsId'
-                    disabled
-                  />
-                </div>
-                <Separator className='my-2' />
-              </div>
-            ))}
-          </div>
-        </ScrollArea>
+          </ScrollArea>
+        </div>
       </div>
-    </div>
+    )
   ) : (
     <CardLoading />
   );

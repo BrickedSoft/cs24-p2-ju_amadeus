@@ -53,6 +53,7 @@ model STS {
   latitude     Float?
   vehicleEntry VehicleEntry[]
   manager      User[]
+  vehicle      Vehicle[]
 }
 
 model LandFill {
@@ -65,11 +66,15 @@ model LandFill {
 }
 
 model Vehicle {
-  id           String         @id @default(cuid())
-  number       String         @unique
-  type         String
-  capacity     Float
-  vehicleEntry VehicleEntry[]
+  id               String         @id @default(cuid())
+  number           String         @unique
+  type             String
+  capacity         Float
+  fuelCostUnloaded Float
+  fuelCostLoaded   Float
+  vehicleEntry     VehicleEntry[]
+  STS              STS?            @relation(fields: [stsId], references: [id])
+  stsId            String?
 }
 
 model VehicleEntry {

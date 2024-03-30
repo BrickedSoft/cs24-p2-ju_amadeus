@@ -7,8 +7,8 @@ import { redirect } from "next/navigation"
 export const updateLandfill = async (landfillId: string, prevState: any, formData: FormData) => {
   const schema = z.object({
     name: z.string().optional(),
-    longitude: z.number().optional(),
-    latitude: z.number().optional(),
+    longitude: z.string().optional(),
+    latitude: z.string().optional(),
   })
 
   const parsed = schema.parse({
@@ -21,8 +21,8 @@ export const updateLandfill = async (landfillId: string, prevState: any, formDat
     where: { id: landfillId },
     data: {
       name: parsed.name,
-      longitude: parsed.longitude,
-      latitude: parsed.latitude,
+      longitude: parsed.longitude ? parseFloat(parsed.longitude) : undefined,
+      latitude: parsed.latitude ? parseFloat(parsed.latitude) : undefined,
     }
   })
   revalidatePath('/')

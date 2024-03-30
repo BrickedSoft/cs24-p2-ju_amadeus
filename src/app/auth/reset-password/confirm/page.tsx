@@ -9,9 +9,10 @@ import { confirmReset } from "@/assets/data/api/endpoints";
 import {
   button,
   errors as defaultErrors,
+  description,
   fields,
   title,
-} from "@/assets/data/auth/change-password";
+} from "@/assets/data/auth/reset-password/confirm";
 import { routes } from "@/assets/data/routes";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/ui/spinner";
@@ -52,6 +53,7 @@ const ResetPasswordInitiate: React.FC = () => {
   return (
     <div className="flex flex-col gap-6 md:gap-12">
       <h1 className="heading-secondary text-center">{title}</h1>
+      <p className="max-w-[410px] text-small text-center">{description}</p>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="min-w-[280px] md:min-w-[300px] lg:min-w-[420px] flex flex-col justify-center gap-4 md:gap-8"

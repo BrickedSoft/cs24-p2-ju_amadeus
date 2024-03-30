@@ -12,7 +12,7 @@ const initialState = {
 const formInfo: CardType = {
   title: "Email",
   description:
-    "Please enter the email address you want to use to log in with Vercel.",
+    "Please enter the email address you want to use to log in with EcoSync.",
   instruction: "We will email you to verify the change.",
   actionLabel: "Save",
 };

@@ -44,6 +44,48 @@ export const sideNavEntry = (roleType: RoleType) => {
       },
     ];
 
+  if (roleType == RoleType.STS_MANAGER)
+    return [
+      {
+        label: "Vehicle Entries",
+        href: `${currentPath}/entry/vehicle-entries`,
+      },
+      {
+        label: "Route optimization",
+        href: `${currentPath}/entry/route-optimization`,
+      },
+      {
+        label: "Fleet optimization",
+        href: `${currentPath}/entry/fleet-optimization`,
+      },
 
-  return sideNavValues
+    ];
+
+  if (roleType == RoleType.LANDFILL_MANAGER)
+    return [
+      {
+        label: "Vehicle Entries",
+        href: `${currentPath}/entry/vehicle-entries`,
+      },
+      {
+        label: "Generate Bill",
+        href: `${currentPath}/entry/generate-bill`,
+      },
+    ];
+
+
+  return [
+    { href: `/`, label: 'none'}
+  ]
+};
+
+export const roleFromString = (value: string | undefined) => {
+  if (!value) return RoleType.UNASSIGNED
+  if (value == RoleType.LANDFILL_MANAGER)
+    return RoleType.LANDFILL_MANAGER
+  if (value == RoleType.STS_MANAGER)
+    return RoleType.STS_MANAGER
+  if (value == RoleType.SYSTEM_ADMIN)
+    return RoleType.SYSTEM_ADMIN
+  return RoleType.UNASSIGNED
 }

@@ -1,6 +1,7 @@
-import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
+import { redirect, RedirectType } from "next/navigation";
 
+import { routes } from "@/assets/data/routes";
 import Navbar from "./_navbar/Navbar";
 
 export default function DashboardLayout({
@@ -10,7 +11,7 @@ export default function DashboardLayout({
 }>) {
   const cookieStore = cookies();
   if (!cookieStore.has("token")) {
-    notFound();
+    redirect(routes.login, RedirectType.replace);
   }
 
   return (

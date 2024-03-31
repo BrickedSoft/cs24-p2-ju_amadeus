@@ -1,12 +1,15 @@
-import { DataTable } from './_landfill/data-table';
-import { columns } from './_landfill/columns';
-import { cookies } from 'next/headers';
-import { api } from '@/assets/data/api/endpoints';
-import { LandFill } from '@prisma/client';
+import { cookies } from "next/headers";
+import { Suspense } from "react";
+
+import { api } from "@/assets/data/api/endpoints";
+import Loading from "@/components/Loading";
+import { LandFill } from "@prisma/client";
+import { columns } from "./_landfill/columns";
+import { DataTable } from "./_landfill/data-table";
 
 async function getData(cookieStore: any): Promise<LandFill[]> {
   let landfillList = await fetch(`${api}/landfill`, {
-    cache: 'no-store',
+    cache: "no-store",
     headers: {
       cookie: cookieStore,
     },
@@ -24,11 +27,10 @@ export default async function LandfillTable() {
   const data = await getData(cookieStore);
 
   return (
-    <div className='container h-full'>
-      <DataTable
-        columns={columns}
-        data={data}
-      />
+    <div className="container h-full">
+      <Suspense fallback={<Loading />}>
+        <DataTable columns={columns} data={data} />
+      </Suspense>
     </div>
   );
 }

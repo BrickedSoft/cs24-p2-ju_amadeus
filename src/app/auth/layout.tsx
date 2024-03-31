@@ -1,7 +1,8 @@
 import { cookies } from "next/headers";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { redirect, RedirectType } from "next/navigation";
 
+import { routes } from "@/assets/data/routes";
 import Logo from "@/components/Logo";
 import AuthImage from "./AuthImage";
 
@@ -12,7 +13,7 @@ type AuthProps = {
 const AuthLayout: React.FC<AuthProps> = ({ children }) => {
   const cookieStore = cookies();
   if (cookieStore.has("token")) {
-    notFound();
+    redirect(routes.dashboard, RedirectType.replace);
   }
 
   return (

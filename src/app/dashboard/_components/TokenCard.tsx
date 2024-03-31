@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { getCookie } from "cookies-next";
+import { useEffect, useState } from "react";
+import { useFormState } from "react-dom";
 
 import { CardType } from "@/assets/data/dashboard/account/general";
 import { Bulb, Close } from "@/components/Icons";
@@ -12,11 +14,26 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import SubmitButton from "@/components/ui/SubmitButton";
+import { regenerateResetTokenWithId } from "@/lib/db-utils/user/profile";
 
 const TokenCard: React.FC<{
   info: CardType;
 }> = ({ info }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const userId = getCookie("userId");
+  const [isOpen, setIsOpen] = useState(false);
+  const [state, formAction] = useFormState(
+    regenerateResetTokenWithId.bind(null, userId || ""),
+    { message: "" }
+  );
+  const token = info.actionLabel;
+
+  useEffect(() => {
+    if (!token) {
+      setIsOpen(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
@@ -31,16 +48,25 @@ const TokenCard: React.FC<{
             </div>
           </AlertDialogTitle>
           <AlertDialogDescription>
-            <div className="flex flex-col gap-1.5 md:gap-2">
+            <form action={formAction} className="flex flex-col gap-2 md:gap-5">
               <p>{info.description}</p>
-              <p className="my-3 text-lg font-semibold text-green-700">
-                {info.actionLabel}
-              </p>
+              <div className="flex items-center gap-4">
+                <p className="text-2xl font-semibold text-green-700">
+                  {info.actionLabel}
+                </p>
+                {!state.message && (
+                  <SubmitButton
+                    label={info.button as string}
+                    disabled={false}
+                    variant="secondary"
+                  />
+                )}
+              </div>
               <div className="flex items-center gap-1">
                 <Bulb className="h-4 w-4 stroke-blue-600" />
                 <p className="text-blue-600">{info.instruction}</p>
               </div>
-            </div>
+            </form>
           </AlertDialogDescription>
         </AlertDialogHeader>
       </AlertDialogContent>

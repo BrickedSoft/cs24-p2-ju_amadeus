@@ -33,6 +33,9 @@ export const addVehicleEntry = async (prevState: any, formData: FormData) => {
     include: { vehicle: true }
   });
 
+  if(!entry.vehicleId)
+    redirect("/dashboard/entry/vehicle-entries");
+
   if (parsed.landfillId)
     await prisma.vehicleEntry.update(
       {

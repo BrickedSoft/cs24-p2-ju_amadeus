@@ -38,12 +38,27 @@ const UserEntries = async () => {
     <div className="flex gap-4 justify-between items-center px-12 py-8 border border-gray-300 rounded-lg">
       {Object.values(userCount).map((item, index) => (
         <div key={index} className="flex flex-col gap-4">
-          <h2 className={`heading-tertiary text-primary text-[${colors[index]}]`}>
+          <h2
+            className={`heading-tertiary`}
+            style={{
+              color: colors[index],
+            }}
+          >
             {users[Object.keys(userCount)[index] as keyof typeof users]}
           </h2>
           <div className="flex gap-4 items-center">
-            <People className={`fill-primary fill-[${colors[index]}] w-8 h-8`} />
-            <p className={`text-3xl text-primary text-[${colors[index]}] font-semibold`}>
+            <People
+              className={`w-8 h-8`}
+              style={{
+                fill: colors[index],
+              }}
+            />
+            <p
+              className={`text-3xl font-semibold`}
+              style={{
+                color: colors[index],
+              }}
+            >
               {item}
             </p>
           </div>

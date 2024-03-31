@@ -1,10 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { login } from "@/assets/data/api/endpoints";
 import { routes } from "@/assets/data/routes";
+import { Visibility, VisibilityOff } from "@/components/Icons";
 import SubmitButton from "@/components/ui/SubmitButton";
 import { Input } from "@/components/ui/input";
 import {
@@ -40,9 +42,52 @@ const PasswordChange: React.FC = () => {
           setError(item.id, {
             type: "manual",
             message: item.errors.wrong,
-          }),
+          })
         );
       });
+
+  const InputField: React.FC<{ item: (typeof fields)[0] }> = ({ item }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <div className="flex flex-col gap-2">
+        <div className="relative w-auto">
+          <Input
+            maxLength={32}
+            id={item.id}
+            type={isOpen ? "text" : item.type}
+            placeholder={item.placeholder}
+            {...register(`${item.id}`, {
+              required: item.errors.empty,
+            })}
+            className="max-w-[360px] border-gray-300 placeholder:text-gray-600"
+          />
+          {item.type === "password" && (
+            <div
+              className="absolute top-2/4 right-8 -translate-y-2/4 cursor-pointer flex justify-center items-center mx-2 md:mx-4"
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+            >
+              {isOpen ? (
+                <Visibility className="w-6 h-6 text-gray-400" />
+              ) : (
+                <VisibilityOff className="w-6 h-6 text-gray-400" />
+              )}
+            </div>
+          )}
+        </div>
+
+        <p className="text-xs font-medium text-error-foreground">
+          {errors[item.id] ? (
+            (errors[item.id]?.message as string) || defaultErrors.default
+          ) : (
+            <span className="text-transparent select-none">-</span>
+          )}
+        </p>
+      </div>
+    );
+  };
 
   return (
     <div className="bg-background flex flex-col gap-2 md:gap-4 px-6 py-4 rounded-md border-[1.45px] border-gray-300 shadow-sm mt-8">
@@ -56,26 +101,7 @@ const PasswordChange: React.FC = () => {
       >
         <div className="grid grid-cols-2 justify-between items-center gap-2 md:gap-4">
           {fields.map((item) => (
-            <div key={item.id} className="flex flex-col gap-2">
-              <Input
-                maxLength={32}
-                id={item.id}
-                type={item.type}
-                placeholder={item.placeholder}
-                {...register(`${item.id}`, {
-                  required: item.errors.empty,
-                })}
-                className="max-w-[360px] border-gray-300 placeholder:text-gray-600"
-              />
-
-              <p className="text-xs font-medium text-error-foreground">
-                {errors[item.id] ? (
-                  (errors[item.id]?.message as string) || defaultErrors.default
-                ) : (
-                  <span className="text-transparent">-</span>
-                )}
-              </p>
-            </div>
+            <InputField key={item.id} item={item} />
           ))}
         </div>
 

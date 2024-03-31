@@ -40,8 +40,8 @@ model Permission {
 model LoginToken {
   id     String  @id @default(cuid())
   token  String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId String
+  user   User?    @relation(fields: [userId], references: [id])
+  userId String?
 }
 
 model STS {
@@ -83,8 +83,8 @@ model VehicleEntry {
   arrivalTime   DateTime
   departureTime DateTime
 
-  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
-  vehicleId String
+  vehicle   Vehicle? @relation(fields: [vehicleId], references: [id])
+  vehicleId String?
 
   STS   STS?    @relation(fields: [STSId], references: [id])
   STSId String?

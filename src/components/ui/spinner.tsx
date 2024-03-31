@@ -1,4 +1,4 @@
-type Size = "sm" | "md" | "lg";
+type Size = "sm" | "md" | "lg" | "xl";
 type PropsType = {
   size?: Size;
 };
@@ -11,6 +11,8 @@ const getSize = (size: Size) => {
       return "h-6 w-6";
     case "lg":
       return "h-8 w-8";
+    case "xl":
+      return "h-12 w-12";
     default:
       return "h-6 w-6";
   }

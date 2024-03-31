@@ -2,7 +2,8 @@ import { cookies } from "next/headers";
 import { Suspense } from "react";
 
 import { userDataEndpoint } from "@/assets/data/api/endpoints";
-import { resetTokenCardData } from "@/assets/data/dashboard/account/general";
+import { resetTokenGenerate } from "@/assets/data/dashboard/account/general";
+import Loading from "@/components/Loading";
 import TokenCard from "./TokenCard";
 
 const TokenAlert = async () => {
@@ -23,11 +24,11 @@ const TokenAlert = async () => {
   });
 
   return (
-    <Suspense>
+    <Suspense fallback={<Loading />}>
       <TokenCard
         info={{
-          ...resetTokenCardData,
-          actionLabel: userData.user[resetTokenCardData.actionLabel],
+          ...resetTokenGenerate,
+          actionLabel: userData.user[resetTokenGenerate.actionLabel],
         }}
       />
     </Suspense>

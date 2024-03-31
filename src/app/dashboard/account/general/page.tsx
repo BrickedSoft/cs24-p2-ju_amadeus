@@ -1,6 +1,9 @@
+import { cookies } from "next/headers";
+import { Suspense } from "react";
+
 import { userDataEndpoint } from "@/assets/data/api/endpoints";
 import { cardData } from "@/assets/data/dashboard/account/general";
-import { cookies } from "next/headers";
+import Loading from "@/components/Loading";
 import InfoCard from "../_account/InfoCard";
 import AccountEmail from "./_general/AccountEmail";
 import AccountName from "./_general/AccountName";
@@ -22,7 +25,7 @@ const Account: React.FC = async () => {
   });
 
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <AccountName name={userData.user.name} />
       {cardData.map((info) => (
         <InfoCard
@@ -31,7 +34,7 @@ const Account: React.FC = async () => {
         />
       ))}
       <AccountEmail email={userData.user.email} />
-    </>
+    </Suspense>
   );
 };
 

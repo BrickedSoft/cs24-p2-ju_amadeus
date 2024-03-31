@@ -1,8 +1,11 @@
-import { DataTable } from "./_users/data-table";
-import { columns } from "./_users/columns";
-import { User } from "@prisma/client";
 import { cookies } from "next/headers";
+import { Suspense } from "react";
+
 import { userDataEndpoint } from "@/assets/data/api/endpoints";
+import Loading from "@/components/Loading";
+import { User } from "@prisma/client";
+import { columns } from "./_users/columns";
+import { DataTable } from "./_users/data-table";
 
 async function getData(cookieStore: any): Promise<User[]> {
   let userList = await fetch(`${userDataEndpoint}`, {
@@ -25,7 +28,9 @@ export default async function Users() {
 
   return (
     <div className="container h-full">
-      <DataTable columns={columns} data={data} />
+      <Suspense fallback={<Loading />}>
+        <DataTable columns={columns} data={data} />
+      </Suspense>
     </div>
   );
 }

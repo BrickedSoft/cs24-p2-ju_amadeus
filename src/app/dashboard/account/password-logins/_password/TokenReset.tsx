@@ -2,7 +2,7 @@
 import { useFormState } from "react-dom";
 import { getCookie } from "cookies-next";
 import { CardType } from "@/assets/data/dashboard/account/general";
-import SubmitButton from "../../../../../components/ui/SubmitButton";
+import SubmitButton from "@components/ui/SubmitButton";
 import { Input } from "@/components/ui/input";
 import { regenerateResetTokenWithId } from "@/lib/db-utils/user/profile";
 
@@ -17,11 +17,11 @@ const formInfo: CardType = {
   instruction: "Make sure to write down this code",
 };
 
-const AccountReset: React.FC<{ resetToken: string }> = ({ resetToken }) => {
+const TokenReset: React.FC<{ resetToken: string }> = ({ resetToken }) => {
   const userId = getCookie("userId");
-  const [state, formAction] = useFormState(
+  const [, formAction] = useFormState(
     regenerateResetTokenWithId.bind(null, userId || ""),
-    initialState,
+    initialState
   );
   return (
     <form
@@ -48,4 +48,4 @@ const AccountReset: React.FC<{ resetToken: string }> = ({ resetToken }) => {
   );
 };
 
-export default AccountReset;
+export default TokenReset;

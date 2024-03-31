@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
         ...ele,
         stsName: ele.STS?.name,
         landfillName: ele.landFill?.name,
-        vehicleNumber: ele.vehicle.number
+        vehicleNumber: ele.vehicle?.number
       }))
     },
     { status: 200 },

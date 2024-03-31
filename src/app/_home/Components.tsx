@@ -9,7 +9,7 @@ const Components: React.FC = () => {
           {components.map((component, index) => (
             <div key={index} className="w-full flex flex-col">
               <div className="h-12 md:h-16 w-12 md:w-16 bg-primary-tints-200 rounded-full flex justify-center items-center mb-5 md:mb-8">
-                <component.icon className="h-6 md:h-8 w-6 md:w-8" />
+                <component.icon className="h-6 md:h-8 w-6 md:w-8 fill-primary" />
               </div>
               <div>
                 <h2 className="heading-tertiary mb-2 md:mb-4">

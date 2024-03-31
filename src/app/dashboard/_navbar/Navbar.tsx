@@ -3,7 +3,7 @@ import { routes } from "@/assets/data/routes";
 import Logo from "@/components/Logo";
 import { ExitIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
-import { navigateToLogin } from "./navigateToLogin";
+import { navigateToHome } from "./navigateToHome";
 import NavLinkComp from "./NavLinkComp";
 
 const Navbar: React.FC = () => {
@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
       </div>
       <form
         className="h-full self-end flex items-center"
-        action={navigateToLogin}
+        action={navigateToHome}
       >
         <button className="flex items-center hover:text-green-600 text-gray-600">
           <p className="text-sm mr-1 ">Logout</p>

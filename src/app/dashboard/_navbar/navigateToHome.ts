@@ -5,7 +5,7 @@ import { redirect, RedirectType } from "next/navigation";
 
 import { routes } from "@/assets/data/routes";
 
-export async function navigateToLogin(data: FormData) {
+export async function navigateToHome(data: FormData) {
   const userId = cookies().get("userId")?.value;
   const token = cookies().get("token")?.value;
 

@@ -1,5 +1,6 @@
 import { NavigationItems } from "@/types";
 import { Facebook, Instagram, LinkedIn, Twitter, YouTube } from "@icons";
+import { routes } from "./routes";
 
 export const copyright = `Copyright © ${new Date().getFullYear()} | EcoSync, All rights reserved.`;
 
@@ -13,65 +14,53 @@ export const socialLinks = [
 
 export const footerLinks: NavigationItems[] = [
   {
-    title: "Home",
+    title: "Main Navigation",
     items: [
       {
         title: "Home",
-        path: "/",
+        path: routes.home,
       },
       {
-        title: "About",
-        path: "/about",
+        title: "Profile",
+        path: routes.profile,
       },
       {
-        title: "Services",
-        path: "/services",
-      },
-      {
-        title: "Contact",
-        path: "/contact",
+        title: "Dashboard",
+        path: routes.dashboard,
       },
     ],
   },
   {
-    title: "Home",
+    title: "Information",
     items: [
       {
-        title: "Home",
-        path: "/",
+        title: "STS",
+        path: "#",
       },
       {
-        title: "About",
-        path: "/about",
+        title: "DNCC",
+        path: "#",
       },
       {
-        title: "Services",
-        path: "/services",
-      },
-      {
-        title: "Contact",
-        path: "/contact",
+        title: "Routes",
+        path: "#",
       },
     ],
   },
   {
-    title: "Home",
+    title: "Quick Links",
     items: [
       {
-        title: "Home",
-        path: "/",
+        title: "Login",
+        path: routes.login,
       },
       {
-        title: "About",
-        path: "/about",
+        title: "Reset Password",
+        path: routes.initiate,
       },
       {
-        title: "Services",
-        path: "/services",
-      },
-      {
-        title: "Contact",
-        path: "/contact",
+        title: "FAQ",
+        path: "#",
       },
     ],
   },
@@ -80,18 +69,18 @@ export const footerLinks: NavigationItems[] = [
 export const copyrightLinks = [
   {
     title: "Terms & Conditions",
-    path: "/terms-conditions",
+    path: "#",
   },
   {
     title: "Privacy Policy",
-    path: "/privacy-policy",
+    path: "#",
   },
   {
     title: "Cookie Policy",
-    path: "/cookie-policy",
+    path: "#",
   },
 ];
 
-export const address = `1234 Street Name, City Name, Country Name, 123456`;
-export const phone = `+123 456 7890`;
+export const address = `North Side of Dhaka, 1207`;
+export const phone = "+880 1777 777777";
 export const email = "dncc@mail.com";

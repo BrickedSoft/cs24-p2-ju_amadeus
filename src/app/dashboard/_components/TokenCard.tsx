@@ -40,11 +40,13 @@ const TokenCard: React.FC<{
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            <div className="flex justify-between items-center mb-1 md:mb-2">
+            <div className="flex justify-between items-start mb-1 md:mb-2">
               <h3 className="heading-tertiary">{info.title}</h3>
-              <AlertDialogCancel className="focus-visible:ring-0 focus-visible:ring-offset-0">
-                <Close className="h-4 md:h-5 w-5 md:w-5 hover:stroke-destructive transition-all duration-300 cursor-pointer" />
-              </AlertDialogCancel>
+              {state.message && (
+                <AlertDialogCancel className="h-auto p-0 focus-visible:ring-0 focus-visible:ring-offset-0">
+                  <Close className="h-4 md:h-5 w-5 md:w-5 hover:stroke-destructive transition-all duration-300 cursor-pointer" />
+                </AlertDialogCancel>
+              )}
             </div>
           </AlertDialogTitle>
           <AlertDialogDescription>

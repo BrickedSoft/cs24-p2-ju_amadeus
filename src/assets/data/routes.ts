@@ -74,7 +74,7 @@ export const routes = {
   changePassword: `${authPath}/${path.changePassword}`,
   profile: `${path.home}${path.profile}`,
   dashboard: dashboardPath,
-  overview: `${dashboardPath}/${path.overview}`,
+  overview: dashboardPath,
   entry: entryPath,
   account: accountPath,
   general: accountPath,

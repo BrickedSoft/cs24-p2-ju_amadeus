@@ -1,9 +1,9 @@
-import { cookies } from "next/headers";
 import { Suspense } from "react";
-
 import { Vehicle } from "@prisma/client";
-import { vehicleDataEndpoint } from "@/assets/data/api/endpoints";
-import Loading from "@/components/Loading";
+import { cookies } from "next/headers";
+
+import { vehicleDataEndpoint } from "@assets/data/api/endpoints";
+import Loading from "@components/Loading";
 import { columns } from "./_vehicles/columns";
 import { DataTable } from "./_vehicles/data-table";
 

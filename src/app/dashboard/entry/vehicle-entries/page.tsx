@@ -1,9 +1,9 @@
-import { cookies } from "next/headers";
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 
-import { api } from "@/assets/data/api/endpoints";
-import Loading from "@/components/Loading";
-import { CustomVehicleEntry } from "@/types/vehicleEnties";
+import { CustomVehicleEntry } from "@allTypes";
+import { api } from "@assets/data/api/endpoints";
+import Loading from "@components/Loading";
 import { columns } from "./_vehicle-entries/columns";
 import { DataTable } from "./_vehicle-entries/data-table";
 

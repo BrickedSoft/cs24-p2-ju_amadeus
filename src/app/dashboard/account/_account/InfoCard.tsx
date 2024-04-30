@@ -1,5 +1,6 @@
 "use client";
-import { CardType } from "@/assets/data/dashboard/account/general";
+
+import { CardType } from "@assets/data/dashboard/account/general";
 
 const InfoCard: React.FC<{
   info: CardType;

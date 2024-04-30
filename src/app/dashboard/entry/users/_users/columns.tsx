@@ -1,9 +1,12 @@
 "use client";
+
+import { User } from "@prisma/client";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
-import { User } from "@prisma/client";
 import { ArrowUpDown } from "lucide-react";
+import Link from "next/link";
+
+import { Button } from "@components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,8 +14,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import Link from "next/link";
+} from "@components/ui/dropdown-menu";
 
 const TableHeader: React.FC<{ column: any; name: string }> = ({
   column,

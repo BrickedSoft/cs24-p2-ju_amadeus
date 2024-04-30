@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -10,7 +11,10 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
+import Link from "next/link";
 
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/input";
 import {
   Table,
   TableBody,
@@ -18,11 +22,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import React from 'react';
-import { Input } from '@/components/ui/input';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+} from "@components/ui/table";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -33,10 +33,8 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const table = useReactTable({
     data,
     columns,
@@ -52,24 +50,24 @@ export function DataTable<TData, TValue>({
   });
   return (
     <div>
-      <div className='flex justify-between items-center'>
-        <div className='flex items-center py-4'>
+      <div className="flex justify-between items-center">
+        <div className="flex items-center py-4">
           <Input
-            placeholder='Search by name'
-            value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+            placeholder="Search by name"
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn('name')?.setFilterValue(event.target.value)
+              table.getColumn("name")?.setFilterValue(event.target.value)
             }
-            className='max-w-sm'
+            className="max-w-sm"
           />
         </div>
-        <Link href={'/dashboard/entry/sts/new'}>
-          <Button className='text-sm bg-gray-300 text-black hover:bg-black hover:text-white rounded-sm sm'>
+        <Link href={"/dashboard/entry/sts/new"}>
+          <Button className="text-sm bg-gray-300 text-black hover:bg-black hover:text-white rounded-sm sm">
             Create STS
           </Button>
         </Link>
       </div>
-      <div className='rounded-md border overflow-scroll h-[500px]'>
+      <div className="rounded-md border overflow-scroll h-[500px]">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -81,7 +79,7 @@ export function DataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </TableHead>
                   );
@@ -100,7 +98,7 @@ export function DataTable<TData, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext(),
+                        cell.getContext()
                       )}
                     </TableCell>
                   ))}

@@ -1,52 +1,44 @@
-'use client';
+"use client";
+
+import { useEffect, useState } from "react";
+import { LandFill } from "@prisma/client";
 import {
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon,
-} from '@radix-ui/react-icons';
-import { useEffect, useState } from 'react';
-import CardLoading from '@/components/ui/card-loading';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { LandFill } from '@prisma/client';
-import { Separator } from '@/components/ui/separator';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { RoleType } from '@/lib/constants/userContants';
+} from "@radix-ui/react-icons";
 
-interface FormInfo {
-  title: string;
-  description: string;
-}
-
-const assignLandfill: FormInfo = {
-  description:
-    'manage the Landfill sites management access for the current user.',
-  title: 'Landfill manager',
-};
+import { assignLandfillInfo } from "@assets/data/dashboard/entry/users";
+import { Button } from "@components/ui/button";
+import CardLoading from "@components/ui/card-loading";
+import { Input } from "@components/ui/input";
+import { ScrollArea } from "@components/ui/scroll-area";
+import { Separator } from "@components/ui/separator";
+import { RoleType } from "@lib/constants/userContants";
 
 const ManageLandfill: React.FC<{ params: { userId: string } }> = ({
   params,
 }) => {
   const [user, setUser] = useState<any>();
   const [landfillList, setLandfillList] = useState<LandFill[]>();
-  const [isLoading, setIsLoading] = useState('none');
+  const [isLoading, setIsLoading] = useState("none");
 
-  const [landfillId, setLandfillId] = useState('');
+  const [landfillId, setLandfillId] = useState("");
   useEffect(() => {
-    if (isLoading == 'assign') {
+    if (isLoading == "assign") {
       fetch(`/api/users/${params.userId}/assignLandfill/${landfillId}`).then(
-        () => setIsLoading('none')
+        () => setIsLoading("none")
       );
     }
 
-    if (isLoading == 'remove') {
+    if (isLoading == "remove") {
       fetch(`/api/users/${params.userId}/removeLandfill/${landfillId}`).then(
-        () => setIsLoading('none')
+        () => setIsLoading("none")
       );
     }
   }, [isLoading, params.userId, setIsLoading, landfillId]);
 
   useEffect(() => {
-    fetch('/api/landfill')
+    fetch("/api/landfill")
       .then((res) => res.json())
       .then((data) => {
         setLandfillList(data.landfills);
@@ -69,13 +61,14 @@ const ManageLandfill: React.FC<{ params: { userId: string } }> = ({
         onClick={(e) => {
           e.preventDefault();
           setLandfillId(currLandfill);
-          setIsLoading('assign');
+          setIsLoading("assign");
         }}
-        aria-disabled={isLoading != 'none'}
-        disabled={isLoading != 'none'}
+        aria-disabled={isLoading != "none"}
+        disabled={isLoading != "none"}
         className={
-          'text-sm font-medium  text-gray-500 text-left rounded-[8px] p-2 px-3 bg-gray-200 hover:text-white hover:bg-black'
-        }>
+          "text-sm font-medium  text-gray-500 text-left rounded-[8px] p-2 px-3 bg-gray-200 hover:text-white hover:bg-black"
+        }
+      >
         <DoubleArrowRightIcon />
       </Button>
     );
@@ -89,13 +82,14 @@ const ManageLandfill: React.FC<{ params: { userId: string } }> = ({
         onClick={(e) => {
           e.preventDefault();
           setLandfillId(currLandfill);
-          setIsLoading('remove');
+          setIsLoading("remove");
         }}
-        aria-disabled={isLoading != 'none'}
-        disabled={isLoading != 'none'}
+        aria-disabled={isLoading != "none"}
+        disabled={isLoading != "none"}
         className={
-          'text-sm font-medium  text-gray-500 text-left rounded-[8px] p-2 px-3 bg-gray-200 hover:text-white hover:bg-black'
-        }>
+          "text-sm font-medium  text-gray-500 text-left rounded-[8px] p-2 px-3 bg-gray-200 hover:text-white hover:bg-black"
+        }
+      >
         <DoubleArrowLeftIcon />
       </Button>
     );
@@ -103,20 +97,20 @@ const ManageLandfill: React.FC<{ params: { userId: string } }> = ({
 
   return user && landfillList ? (
     user.role == RoleType.LANDFILL_MANAGER && (
-      <div className='bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8'>
-        <p className='text-lg font-medium'>{assignLandfill.title}</p>
-        <p className='mt-4 mb-6 text-sm'>{assignLandfill.description}</p>
-        <div className='flex justify-between'>
-          <ScrollArea className='h-72 w-5/12 rounded-md border'>
-            <div className='p-4'>
-              <div className='flex justify-between text-gray-600 mb-4'>
-                <h4 className='text-sm font-medium leading-none'>
+      <div className="bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8">
+        <p className="text-lg font-medium">{assignLandfillInfo.title}</p>
+        <p className="mt-4 mb-6 text-sm">{assignLandfillInfo.description}</p>
+        <div className="flex justify-between">
+          <ScrollArea className="h-72 w-5/12 rounded-md border">
+            <div className="p-4">
+              <div className="flex justify-between text-gray-600 mb-4">
+                <h4 className="text-sm font-medium leading-none">
                   Select Landfill site to
                 </h4>
 
-                <h4 className=' text-sm font-medium leading-none'>Assign</h4>
+                <h4 className=" text-sm font-medium leading-none">Assign</h4>
               </div>
-              <Separator className='my-2' />
+              <Separator className="my-2" />
 
               {landfillList
                 .filter((landfill) => {
@@ -130,52 +124,54 @@ const ManageLandfill: React.FC<{ params: { userId: string } }> = ({
                 })
                 .map((landfill: LandFill) => (
                   <div key={landfill.id}>
-                    <p className='py-2 max-w-2/3 text-sm'>{landfill.name}</p>
+                    <p className="py-2 max-w-2/3 text-sm">{landfill.name}</p>
 
                     <div
                       key={landfill.id}
-                      className='flex justify-between gap-x-2'>
+                      className="flex justify-between gap-x-2"
+                    >
                       <Input
-                        type='text'
+                        type="text"
                         defaultValue={landfill.id}
-                        id='landfillId'
-                        key='landfillId'
+                        id="landfillId"
+                        key="landfillId"
                         disabled
                       />
                       <AssignButton currLandfill={landfill.id} />
                     </div>
-                    <Separator className='my-2' />
+                    <Separator className="my-2" />
                   </div>
                 ))}
             </div>
           </ScrollArea>
 
-          <ScrollArea className='h-72 w-5/12 rounded-md border'>
-            <div className='p-4'>
-              <div className='flex justify-between text-gray-600 mb-4'>
-                <h4 className='text-sm font-medium leading-none'>Remove</h4>
-                <h4 className='text-sm font-medium leading-none'>
+          <ScrollArea className="h-72 w-5/12 rounded-md border">
+            <div className="p-4">
+              <div className="flex justify-between text-gray-600 mb-4">
+                <h4 className="text-sm font-medium leading-none">Remove</h4>
+                <h4 className="text-sm font-medium leading-none">
                   From this user management
                 </h4>
               </div>
-              <Separator className='my-2' />
+              <Separator className="my-2" />
               {user.landfill.map((landfill: LandFill) => (
                 <div key={landfill.id}>
-                  <p className='py-2 max-w-2/3 text-sm'>{landfill.name}</p>
+                  <p className="py-2 max-w-2/3 text-sm">{landfill.name}</p>
 
                   <div
                     key={landfill.id}
-                    className='flex justify-between gap-x-2'>
+                    className="flex justify-between gap-x-2"
+                  >
                     <RemoveButton currLandfill={landfill.id} />
                     <Input
-                      type='text'
+                      type="text"
                       defaultValue={landfill.id}
-                      id='landfillId'
-                      key='landfillId'
+                      id="landfillId"
+                      key="landfillId"
                       disabled
                     />
                   </div>
-                  <Separator className='my-2' />
+                  <Separator className="my-2" />
                 </div>
               ))}
             </div>

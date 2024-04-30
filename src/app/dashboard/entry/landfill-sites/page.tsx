@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { Suspense } from "react";
 
-import { api } from "@/assets/data/api/endpoints";
-import Loading from "@/components/Loading";
+import { api } from "@assets/data/api/endpoints";
+import Loading from "@components/Loading";
 import { LandFill } from "@prisma/client";
 import { columns } from "./_landfill/columns";
 import { DataTable } from "./_landfill/data-table";

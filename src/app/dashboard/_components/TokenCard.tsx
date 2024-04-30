@@ -1,11 +1,11 @@
 "use client";
 
-import { getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
+import { getCookie } from "cookies-next";
 import { useFormState } from "react-dom";
 
-import { CardType } from "@/assets/data/dashboard/account/general";
-import { Bulb, Close } from "@/components/Icons";
+import { CardType } from "@assets/data/dashboard/account/general";
+import { Bulb, Close } from "@components/Icons";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -13,9 +13,9 @@ import {
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import SubmitButton from "@/components/ui/SubmitButton";
-import { regenerateResetTokenWithId } from "@/lib/db-utils/user/profile";
+} from "@components/ui/alert-dialog";
+import SubmitButton from "@components/ui/SubmitButton";
+import { regenerateResetTokenWithId } from "@lib/db-utils/user/profile";
 
 const TokenCard: React.FC<{
   info: CardType;

@@ -1,9 +1,9 @@
-import { cookies } from "next/headers";
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 
-import { userDataEndpoint } from "@/assets/data/api/endpoints";
-import { cardData } from "@/assets/data/dashboard/account/general";
-import Loading from "@/components/Loading";
+import { userDataEndpoint } from "@assets/data/api/endpoints";
+import { cardData } from "@assets/data/dashboard/account/general";
+import Loading from "@components/Loading";
 import InfoCard from "../_account/InfoCard";
 import AccountEmail from "./_general/AccountEmail";
 import AccountName from "./_general/AccountName";

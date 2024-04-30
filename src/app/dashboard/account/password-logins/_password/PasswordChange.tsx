@@ -1,14 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { login } from "@/assets/data/api/endpoints";
-import { routes } from "@/assets/data/routes";
-import { Visibility, VisibilityOff } from "@/components/Icons";
-import SubmitButton from "@/components/ui/SubmitButton";
-import { Input } from "@/components/ui/input";
+import { login } from "@assets/data/api/endpoints";
 import {
   button,
   errors as defaultErrors,
@@ -16,6 +12,10 @@ import {
   fields,
   title,
 } from "@assets/data/auth/change-password";
+import { routes } from "@assets/data/routes";
+import { Visibility, VisibilityOff } from "@components/Icons";
+import SubmitButton from "@components/ui/SubmitButton";
+import { Input } from "@components/ui/input";
 import ecoSync from "@ecoSync";
 
 type FormInputsType = {

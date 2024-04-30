@@ -1,7 +1,8 @@
 "use client";
-import { Input } from "@/components/ui/input";
-import SubmitButton from "../../../../components/ui/SubmitButton";
-import { CardType } from "@/assets/data/dashboard/account/general";
+
+import { CardType } from "@assets/data/dashboard/account/general";
+import { Input } from "@components/ui/input";
+import SubmitButton from "@components/ui/SubmitButton";
 
 const EditInfoCard: React.FC<{
   formAction: (payload: FormData) => void;

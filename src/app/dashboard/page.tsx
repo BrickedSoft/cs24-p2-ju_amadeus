@@ -1,11 +1,11 @@
+import { Suspense } from "react";
 import { cookies } from "next/headers";
 
-import { userDataEndpoint } from "@/assets/data/api/endpoints";
+import { userDataEndpoint } from "@assets/data/api/endpoints";
+import Loading from "@components/Loading";
 import TokenAlert from "./_components/TokenAlert";
 import TotalEntries from "./_overview/TotalEntries";
 import UserEntries from "./_overview/UserEntries";
-import { Suspense } from "react";
-import Loading from "@/components/Loading";
 
 const Dashboard: React.FC = async () => {
   const cookieStore = cookies();

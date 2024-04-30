@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { sideNavAccount } from "@/assets/data/dashboard/dashboard";
+import { sideNavAccount } from "@/assets/data/dashboard/nav";
 import SideNav from "../_sidenav/SideNav";
 import Loading from "@/components/Loading";
 

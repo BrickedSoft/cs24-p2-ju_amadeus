@@ -1,8 +1,8 @@
-import { cookies } from "next/headers";
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 
-import { userDataEndpoint } from "@/assets/data/api/endpoints";
-import Loading from "@/components/Loading";
+import { userDataEndpoint } from "@assets/data/api/endpoints";
+import Loading from "@components/Loading";
 import PasswordChange from "./_password/PasswordChange";
 import TokenReset from "./_password/TokenReset";
 

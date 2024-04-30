@@ -1,9 +1,9 @@
-import { cookies } from "next/headers";
 import { Suspense } from "react";
-
-import { userDataEndpoint } from "@/assets/data/api/endpoints";
-import Loading from "@/components/Loading";
 import { User } from "@prisma/client";
+import { cookies } from "next/headers";
+
+import { userDataEndpoint } from "@assets/data/api/endpoints";
+import Loading from "@components/Loading";
 import { columns } from "./_users/columns";
 import { DataTable } from "./_users/data-table";
 

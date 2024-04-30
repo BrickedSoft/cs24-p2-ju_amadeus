@@ -1,9 +1,11 @@
 "use client";
-import { NavLink } from "@/assets/data/dashboard/dashboard";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const SideNavLinkComp: React.FC<NavLink> = ({ label, href }) => {
+import { NavLink as NavLinkType } from "@allTypes";
+
+const SideNavLinkComp: React.FC<NavLinkType> = ({ title, href }) => {
   const currPath = usePathname();
   const active = currPath.includes(href) ? "text-gray-900" : "";
 
@@ -15,7 +17,7 @@ const SideNavLinkComp: React.FC<NavLink> = ({ label, href }) => {
           active
         }
       >
-        {label}
+        {title}
       </button>
     </Link>
   );

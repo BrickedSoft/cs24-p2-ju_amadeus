@@ -2,7 +2,8 @@ import { routes } from "../../routes";
 
 export const name = "reset-password";
 export const title = "Reset Password";
-export const description = "Enter your old and new password. The new password cannot be the same as the old password.";
+export const description =
+  "Enter your old and new password. The new password cannot be the same as the old password.";
 
 export const fields = [
   {
@@ -30,8 +31,11 @@ export const fields = [
 ];
 
 export const errors = {
+  400: "Password couldn't be changed",
+  500: "Server Error",
   empty: "This is required",
   default: "Something went wrong",
+  "no-match": "Passwords do not match",
 };
 
 export const button = { title: "Reset Password", href: routes.login };

@@ -1,14 +1,14 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
+import _ from "lodash";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { z, ZodRawShape } from "zod";
 
-import { login } from "@/assets/data/api/endpoints";
-import { routes } from "@/assets/data/routes";
-import { Visibility, VisibilityOff } from "@/components/Icons";
-import Spinner from "@/components/ui/spinner";
+import { login } from "@assets/data/api/endpoints";
 import {
   button,
   errors as defaultErrors,
@@ -16,7 +16,18 @@ import {
   forgot,
   title,
 } from "@assets/data/auth/login";
+import { routes } from "@assets/data/routes";
 import { Button } from "@components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@components/ui/form";
+import { Input } from "@components/ui/input";
+import Spinner from "@components/ui/spinner";
 import ecoSync from "@ecoSync";
 
 type FormInputsType = {
@@ -25,12 +36,26 @@ type FormInputsType = {
 
 const Login: React.FC = () => {
   const router = useRouter();
+
+  const formSchema = z.object(
+    _.reduce(
+      fields.map((item) => ({
+        [item.id]: z.string().min(1, {
+          message: defaultErrors.empty,
+        }),
+      })),
+      _.extend
+    ) as ZodRawShape
+  );
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+  });
   const {
     handleSubmit,
-    register,
     setError,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = form;
 
   const onSubmit: SubmitHandler<FormInputsType> = async (data) =>
     ecoSync
@@ -39,87 +64,77 @@ const Login: React.FC = () => {
         router.replace(routes.dashboard);
       })
       .catch(function (error) {
+        const errorCode = error.response.status as string;
         fields.map((item) =>
           setError(item.id, {
             type: "manual",
-            message: item.errors.wrong,
           })
         );
+        setError("default", {
+          type: "manual",
+          message:
+            defaultErrors?.[errorCode as keyof typeof defaultErrors] ||
+            defaultErrors.default,
+        });
       });
-
-  const InputField: React.FC<{ item: (typeof fields)[0] }> = ({ item }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    return (
-      <div className="flex flex-col gap-2">
-        <label htmlFor={item.id} className="text-medium font-semibold">
-          {item.title}
-        </label>
-        <div className="relative w-auto">
-          <input
-            id={item.id}
-            type={isOpen ? 'text' : item.type}
-            placeholder={item.placeholder}
-            {...register(`${item.id}`, {
-              required: item.errors.empty,
-            })}
-            className={`w-full m-0.5 ${item.type === "password" ? "pl-4 pr-16" : "px-4"} py-2 md:py-3 text-medium border-2 border-gray-300 rounded-md`}
-          />
-          {item.type === "password" && (
-            <div
-              className="absolute top-2/4 right-0 -translate-y-2/4 cursor-pointer flex justify-center items-center mx-2 md:mx-4"
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-            >
-              {isOpen ? (
-                <Visibility className="w-6 h-6 text-gray-400" />
-              ) : (
-                <VisibilityOff className="w-6 h-6 text-gray-400" />
-              )}
-            </div>
-          )}
-        </div>
-
-        <p className="text-small font-medium text-error-foreground select-none">
-          {errors[item.id] ? (
-            (errors[item.id]?.message as string) || defaultErrors.default
-          ) : (
-            <span className="text-transparent">-</span>
-          )}
-        </p>
-      </div>
-    );
-  };
 
   return (
     <div className="flex flex-col gap-6 md:gap-12">
       <h1 className="heading-secondary text-center">{title}</h1>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="min-w-[280px] md:min-w-[300px] lg:min-w-[420px] flex flex-col justify-center gap-4 md:gap-8"
-      >
-        <div className="flex flex-col justify-center gap-3 md:gap-6">
-          {fields.map((item) => (
-            <InputField key={item.id} item={item} />
-          ))}
-        </div>
+      <Form {...form}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="min-w-[280px] md:min-w-[300px] lg:min-w-[420px] flex flex-col justify-center gap-4 md:gap-8"
+        >
+          <p className="text-large text-destructive font-semibold text-center">
+            {errors?.default?.message as string}
+          </p>
+          <motion.div
+            className="flex flex-col justify-center gap-4 md:gap-8"
+            layout="position"
+          >
+            {fields.map((item) => (
+              <motion.div key={item.id} layout="preserve-aspect">
+                <FormField
+                  control={form.control}
+                  name={item.id}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{item.title}</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder={item.placeholder}
+                          type={item.type}
+                          {...field}
+                        />
+                      </FormControl>
 
-        <div className="flex flex-col justify-center items-center gap-4 md:gap-6">
-          <Button type="submit" size={"lg"} className="self-stretch">
-            {isSubmitting ? <Spinner /> : button.login.title}
-          </Button>
-          <div className="flex items-center justify-center gap-2 md:gap-3">
-            <p className="text-small font-medium">{forgot}</p>
-            <Link
-              href={button.reset.href}
-              className="anchor no-underline font-bold"
-            >
-              {button.reset.title}
-            </Link>
+                      <FormMessage
+                        className={`${errors?.[item.id]?.type === "manual" ? "hidden" : ""}`}
+                      />
+                    </FormItem>
+                  )}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <div className="flex flex-col justify-center items-center gap-4 md:gap-6">
+            <Button type="submit" size={"lg"} className="self-stretch">
+              {isSubmitting ? <Spinner /> : button.login.title}
+            </Button>
+            <div className="flex items-center justify-center gap-2 md:gap-3">
+              <p className="text-small font-medium">{forgot}</p>
+              <Link
+                href={button.reset.href}
+                className="anchor no-underline font-bold"
+              >
+                {button.reset.title}
+              </Link>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </Form>
     </div>
   );
 };

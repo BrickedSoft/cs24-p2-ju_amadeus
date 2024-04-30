@@ -35,6 +35,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/types/navigation.ts"
-  ],
+, "src/app/dashboard/_overview"  ],
   "exclude": ["node_modules"]
 }

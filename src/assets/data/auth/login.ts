@@ -28,8 +28,9 @@ export const fields = [
 
 export const forgot = "Forgot Password?";
 export const errors = {
+  400: "Invalid Email or Password",
+  500: "Server Error",
   empty: "This is required",
-  wrong: "Invalid Email or Password",
   default: "Something went wrong",
 };
 export const button = {

@@ -1,7 +1,5 @@
-import { buttons, hero } from "@/assets/data/home/hero";
+import { hero } from "@/assets/data/home/hero";
 import { Leaf } from "@/components/Icons";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import HeroImage from "../_home/HeroImage";
 
 const Hero: React.FC = () => {

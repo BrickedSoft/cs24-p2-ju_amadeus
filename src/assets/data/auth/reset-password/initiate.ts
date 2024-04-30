@@ -29,6 +29,8 @@ export const fields = [
 ];
 
 export const errors = {
+  400: "Invalid Email or Token",
+  500: "Server Error",
   empty: "This is required",
   wrong: "Invalid Email or Token",
   default: "Something went wrong",

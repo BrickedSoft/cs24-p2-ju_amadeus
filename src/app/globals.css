@@ -19,7 +19,7 @@
     --secondary-foreground: 0 0% 16%;
 
     --muted: 220 13.04% 90.98%;
-    --muted-foreground: 0 0% 0%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
     --accent: 150 40% 85%;
     --accent-foreground: 0 0% 16%;
@@ -106,7 +106,7 @@
 
   /* ---------------------------------- links --------------------------------- */
   .anchor {
-    @apply flex items-center gap-2 capitalize text-sm md:text-base font-medium text-primary hover:text-secondary w-max transition duration-300;
+    @apply flex items-center gap-2 capitalize text-sm md:text-base font-medium text-primary hover:text-primary/70 w-max transition duration-300;
   }
 
   .anchor-lg {

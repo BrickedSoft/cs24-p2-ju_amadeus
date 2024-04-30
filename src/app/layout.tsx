@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter, Work_Sans } from "next/font/google";
 
 import "./globals.css";
-import ProgressBar from "@/components/ProgressBar";
+import ProgressBar from "@components/ProgressBar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "EcoSync",
   description:
     "Revolutionizing Waste Management in Dhaka North City Corporation",
+  icons: {
+    icon: "/images/icon.png",
+  },
 };
 
 export default function RootLayout({

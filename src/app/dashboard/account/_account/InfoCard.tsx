@@ -1,9 +1,9 @@
 "use client";
 
-import { CardType } from "@assets/data/dashboard/account/general";
+import { Card } from "@allTypes";
 
 const InfoCard: React.FC<{
-  info: CardType;
+  info: Card;
 }> = ({ info }) => {
   return (
     <div className="bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8">

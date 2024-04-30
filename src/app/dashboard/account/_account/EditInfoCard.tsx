@@ -1,13 +1,13 @@
 "use client";
 
-import { CardType } from "@assets/data/dashboard/account/general";
+import { Card } from "@allTypes";
 import { Input } from "@components/ui/input";
 import SubmitButton from "@components/ui/SubmitButton";
 
 const EditInfoCard: React.FC<{
   formAction: (payload: FormData) => void;
   state: { message: string };
-  info: CardType;
+  info: Card;
   value: any;
   disabled: boolean;
   name: string;

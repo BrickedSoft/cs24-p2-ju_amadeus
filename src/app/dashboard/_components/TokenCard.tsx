@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
 import { useFormState } from "react-dom";
 
-import { CardType } from "@assets/data/dashboard/account/general";
+import { Card } from "@allTypes";
 import { Bulb, Close } from "@components/Icons";
 import {
   AlertDialog,
@@ -18,7 +18,7 @@ import SubmitButton from "@components/ui/SubmitButton";
 import { regenerateResetTokenWithId } from "@lib/db-utils/user/profile";
 
 const TokenCard: React.FC<{
-  info: CardType;
+  info: Card;
 }> = ({ info }) => {
   const userId = getCookie("userId");
   const [isOpen, setIsOpen] = useState(false);

@@ -29,6 +29,7 @@ import {
 import { Input } from "@components/ui/input";
 import Spinner from "@components/ui/spinner";
 import ecoSync from "@ecoSync";
+import AuthInput from "../AuthInput";
 
 type FormInputsType = {
   [key: string]: string;
@@ -86,38 +87,7 @@ const Login: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="min-w-[280px] md:min-w-[300px] lg:min-w-[420px] flex flex-col justify-center gap-4 md:gap-8"
         >
-          <p className="text-large text-destructive font-semibold text-center">
-            {errors?.default?.message as string}
-          </p>
-          <motion.div
-            className="flex flex-col justify-center gap-4 md:gap-8"
-            layout="position"
-          >
-            {fields.map((item) => (
-              <motion.div key={item.id} layout="preserve-aspect">
-                <FormField
-                  control={form.control}
-                  name={item.id}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{item.title}</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder={item.placeholder}
-                          type={item.type}
-                          {...field}
-                        />
-                      </FormControl>
-
-                      <FormMessage
-                        className={`${errors?.[item.id]?.type === "manual" ? "hidden" : ""}`}
-                      />
-                    </FormItem>
-                  )}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
+          <AuthInput form={form} errors={errors} fields={fields} />
 
           <div className="flex flex-col justify-center items-center gap-4 md:gap-6">
             <Button type="submit" size={"lg"} className="self-stretch">

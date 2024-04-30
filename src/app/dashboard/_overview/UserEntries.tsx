@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 
-import { userDataEndpoint } from "@/assets/data/api/endpoints";
-import { People } from "@/components/Icons";
+import { userDataEndpoint } from "@assets/data/api/endpoints";
+import { People } from "@components/Icons";
 
 const UserEntries = async () => {
   const cookieStore = cookies();

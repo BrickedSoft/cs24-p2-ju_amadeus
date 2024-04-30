@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
-import { CustomVehicleEntry } from '@/types/vehicle-enties';
+import { CustomVehicleEntry } from '@/types/vehicleEnties';
 
 const TableHeader: React.FC<{ column: any; name: string }> = ({
   column,

@@ -2,6 +2,8 @@ import { Bin, Pump, Storage, Truck } from "@/components/Icons";
 
 export const name = "Our Components";
 
+export const colors = ["048654", "ae3ec9", "339AF0", "FF922B"];
+
 export const components = [
   {
     icon: Storage,

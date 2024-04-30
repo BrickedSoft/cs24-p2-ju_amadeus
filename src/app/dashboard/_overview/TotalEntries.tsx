@@ -1,10 +1,11 @@
+import { cookies } from "next/headers";
+
 import {
   api,
   userDataEndpoint,
   vehicleDataEndpoint,
-} from "@/assets/data/api/endpoints";
-import { LandSite, People, Storage, Truck } from "@/components/Icons";
-import { cookies } from "next/headers";
+} from "@assets/data/api/endpoints";
+import { LandSite, People, Storage, Truck } from "@icons";
 
 const TotalEntries = async () => {
   const cookieStore = cookies();
@@ -73,12 +74,12 @@ const TotalEntries = async () => {
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <h2 className="heading-tertiary text-[#8A043C]">
+        <h2 className="heading-tertiary text-[#ae3ec9]">
           Total Landfill Sites
         </h2>
         <div className="flex gap-4 items-center">
-          <LandSite className="fill-[#8A043C] w-8 h-8" />
-          <p className="text-3xl text-[#8A043C] font-semibold">
+          <LandSite className="fill-[#ae3ec9] w-8 h-8" />
+          <p className="text-3xl text-[#ae3ec9] font-semibold">
             {landfillList.length}
           </p>
         </div>

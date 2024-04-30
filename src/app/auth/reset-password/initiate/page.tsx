@@ -1,10 +1,9 @@
 "use client";
 
+import { useContext } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
 import _ from "lodash";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z, ZodRawShape } from "zod";
 
@@ -18,18 +17,11 @@ import {
 } from "@assets/data/auth/reset-password/initiate";
 import { routes } from "@assets/data/routes";
 import { Button } from "@components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@components/ui/form";
-import { Input } from "@components/ui/input";
+import { Form } from "@components/ui/form";
 import Spinner from "@components/ui/spinner";
 import { AuthContext } from "@context/AuthContext";
 import ecoSync from "@ecoSync";
+import AuthInput from "../../AuthInput";
 
 type FormInputsType = {
   [key: string]: string;
@@ -94,43 +86,11 @@ const ResetPasswordInitiate: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="min-w-[280px] md:min-w-[300px] lg:min-w-[420px] flex flex-col justify-center gap-4 md:gap-8"
         >
-          <p className="text-large text-destructive font-semibold text-center">
-            {errors?.default?.message as string}
-          </p>
-          <motion.div
-            className="flex flex-col justify-center gap-4 md:gap-8"
-            layout="position"
-          >
-            {fields.map((item) => (
-              <motion.div key={item.id} layout="preserve-aspect">
-                <FormField
-                  control={form.control}
-                  name={item.id}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{item.title}</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder={item.placeholder}
-                          type={item.type}
-                          {...field}
-                        />
-                      </FormControl>
+          <AuthInput form={form} errors={errors} fields={fields} />
 
-                      <FormMessage
-                        className={`${errors?.[item.id]?.type === "manual" ? "hidden" : ""}`}
-                      />
-                    </FormItem>
-                  )}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-          <div className="flex flex-col justify-center items-center gap-4 md:gap-6">
-            <Button type="submit" size={"lg"} className="self-stretch">
-              {isSubmitting ? <Spinner /> : button.title}
-            </Button>
-          </div>
+          <Button type="submit" size={"lg"} className="self-stretch">
+            {isSubmitting ? <Spinner /> : button.title}
+          </Button>
         </form>
       </Form>
     </div>

@@ -1,10 +1,11 @@
+import { InputField } from "@allTypes";
 import { routes } from "../routes";
 
 export const name = "change-password";
 export const title = "Change Password";
 export const description = "Enter your old and new password";
 
-export const fields = [
+export const fields: InputField[] = [
   {
     id: "password",
     title: "Password",

@@ -1,5 +1,5 @@
-import ManageLandfill from "./manageLandfill";
-import ManageSts from "./manageSts";
+import ManageLandfill from "./ManageLandfill";
+import ManageSts from "./ManageSts";
 
 const Manager: React.FC<{ params: { userId: string } }> = ({ params }) => {
   return (

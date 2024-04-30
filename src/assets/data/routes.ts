@@ -77,7 +77,7 @@ export const routes = {
   overview: dashboardPath,
   entry: entryPath,
   account: accountPath,
-  general: accountPath,
+  general: `${accountPath}/${path.general}`,
   passwordLogins: `${accountPath}/${path.passwordLogins}`,
   users: `${entryPath}/${path.users}`,
   vehicles: `${entryPath}/${path.vehicles}`,

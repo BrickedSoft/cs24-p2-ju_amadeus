@@ -4,8 +4,8 @@ import { cookies } from "next/headers";
 
 import { vehicleDataEndpoint } from "@assets/data/api/endpoints";
 import Loading from "@components/Loading";
-import { columns } from "./_vehicles/columns";
-import { DataTable } from "./_vehicles/data-table";
+import { columns } from "./_vehicles/Columns";
+import { DataTable } from "./_vehicles/DataTable";
 
 async function getData(cookieStore: any): Promise<Vehicle[]> {
   let vehicleList = await fetch(`${vehicleDataEndpoint}`, {

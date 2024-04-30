@@ -4,8 +4,8 @@ import { cookies } from "next/headers";
 
 import { api } from "@assets/data/api/endpoints";
 import Loading from "@components/Loading";
-import { columns } from "./_sts/columns";
-import { DataTable } from "./_sts/data-table";
+import { columns } from "./_sts/Columns";
+import { DataTable } from "./_sts/DataTable";
 
 async function getData(cookieStore: any): Promise<STS[]> {
   let stsList = await fetch(`${api}/sts`, {

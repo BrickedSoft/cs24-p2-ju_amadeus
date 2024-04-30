@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@components/ui/select";
 import SubmitButton from "@components/ui/SubmitButton";
-import { updateVehicle } from "./updateVehicle";
+import { updateVehicle } from "./UpdateVehicle";
 
 const initialState = {
   message: "",

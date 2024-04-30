@@ -4,8 +4,8 @@ import { cookies } from "next/headers";
 
 import { userDataEndpoint } from "@assets/data/api/endpoints";
 import Loading from "@components/Loading";
-import { columns } from "./_users/columns";
-import { DataTable } from "./_users/data-table";
+import { columns } from "./_users/Columns";
+import { DataTable } from "./_users/DataTable";
 
 async function getData(cookieStore: any): Promise<User[]> {
   let userList = await fetch(`${userDataEndpoint}`, {

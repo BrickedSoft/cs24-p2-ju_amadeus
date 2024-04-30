@@ -14,7 +14,7 @@ const NavLink: React.FC<NavLinkData> = ({ title, href }) => {
     <Link
       href={href}
       key={href}
-      className={`text-medium font-medium backdrop-blur cursor-pointer hover:text-green-600 ${active ? "text-foreground border-b-green-400 border-b-2" : "text-gray-600"} tracking-colors duration-300`}
+      className={`text-medium font-medium backdrop-blur cursor-pointer hover:text-green-600 pb-0.5 ${active ? "text-foreground border-b-green-400 border-b-2" : "text-gray-600"} tracking-colors duration-300`}
     >
       {title}
     </Link>

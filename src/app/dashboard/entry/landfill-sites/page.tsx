@@ -4,8 +4,8 @@ import { Suspense } from "react";
 import { api } from "@assets/data/api/endpoints";
 import Loading from "@components/Loading";
 import { LandFill } from "@prisma/client";
-import { columns } from "./_landfill/columns";
-import { DataTable } from "./_landfill/data-table";
+import { columns } from "./_landfill/Columns";
+import { DataTable } from "./_landfill/DataTable";
 
 async function getData(cookieStore: any): Promise<LandFill[]> {
   let landfillList = await fetch(`${api}/landfill`, {

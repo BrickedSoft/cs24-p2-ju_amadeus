@@ -28,7 +28,7 @@ type FormInputsType = {
 
 const Login: React.FC = () => {
   const router = useRouter();
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState<boolean | undefined>(undefined);
 
   const formSchema = z.object(
     _.reduce(
@@ -37,8 +37,8 @@ const Login: React.FC = () => {
           message: defaultErrors.empty,
         }),
       })),
-      _.extend,
-    ) as ZodRawShape,
+      _.extend
+    ) as ZodRawShape
   );
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -67,7 +67,7 @@ const Login: React.FC = () => {
         fields.map((item) =>
           setError(item.id, {
             type: "manual",
-          }),
+          })
         );
         setError("default", {
           type: "manual",

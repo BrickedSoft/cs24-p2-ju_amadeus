@@ -26,7 +26,7 @@ type Props = {
     any,
     undefined
   >;
-  item: InputField | Card;
+  item: InputField;
   variant?: "md" | "lg";
   [key: string]: any;
 };

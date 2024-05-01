@@ -2,10 +2,8 @@ import { Card } from "@allTypes";
 import { routes } from "../../routes";
 
 export const regenerateTokenInfo: Card = {
-  id: "resetToken",
   actionLabel: "Regenerate",
   title: "Reset token",
-  type: "text",
   description: "This is your token to recover your account",
   instruction: "Make sure to write down this code",
   errors: {

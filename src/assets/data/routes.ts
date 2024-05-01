@@ -10,6 +10,8 @@ export const path = {
   changePassword: "change-password",
   profile: "profile",
   dashboard: "dashboard",
+  entry: "entry",
+  sts: "sts"
 };
 
 export const routes = {
@@ -22,4 +24,5 @@ export const routes = {
   changePassword: `/${path.auth}/${path.changePassword}`,
   profile: `/${path.profile}`,
   dashboard: `/${path.dashboard}`,
+  sts: `/${path.dashboard}/${path.entry}/${path.sts}`,
 };

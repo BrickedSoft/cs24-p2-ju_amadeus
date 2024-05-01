@@ -55,6 +55,10 @@ export const sideNavEntry = (roleType: RoleType) => {
         href: `${currentPath}/entry/route-optimization`,
       },
       {
+        label: "Saved routes",
+        href: `${currentPath}/entry/saved-routes`,
+      },
+      {
         label: "Fleet optimization",
         href: `${currentPath}/entry/fleet-optimization`,
       },

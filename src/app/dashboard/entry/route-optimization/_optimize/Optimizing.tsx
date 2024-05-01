@@ -1,4 +1,6 @@
 'use client';
+import ecoSync from '@/api/ecoSync';
+import { vehicleRouteEndpoint } from '@/assets/data/api/endpoints';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -24,13 +26,31 @@ const Optimizing: React.FC<{ stsList: STS[]; landfillList: LandFill[] }> = ({
   const [start, setStart] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [destination, setDestination] = useState();
+  const [geoJsonObj, setGeoJsonObj] =
+    useState<GeoJSON.FeatureCollection | null>(null);
+  const [currSTS, setCurrSTS] = useState<STS | undefined>();
+  const [currLandfill, serCurrLandfill] = useState<LandFill | undefined>();
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    ecoSync
+      .post(vehicleRouteEndpoint, {
+        ...geoJsonObj?.features[0].properties.summary,
+        stsId: currSTS?.id,
+        landfillId: currLandfill?.id,
+      })
+      .then(function () {
+        setIsSubmitting(false);
+      });
+  };
   return (
     <>
       <div className='bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mb-4'>
         <div className='flex justify-between'>
           <p className='text-lg font-medium'>Optimize route</p>
           <Button
-            type='submit'
+            onClick={handleSubmit}
+            disabled={!geoJsonObj}
             className='text-sm font-medium  text-gray-500 text-left rounded-[8px] p-2 px-3 bg-gray-200 hover:text-white hover:bg-black'>
             {isSubmitting ? (
               <UpdateIcon className='mx-4 h-4 w-4 animate-spin' />
@@ -46,6 +66,7 @@ const Optimizing: React.FC<{ stsList: STS[]; landfillList: LandFill[] }> = ({
             <Select
               onValueChange={(value) => {
                 const sts = stsList.findLast((item) => item.id == value);
+                setCurrSTS(sts);
                 if (sts?.latitude && sts?.longitude)
                   setStart({
                     lat: sts.latitude,
@@ -76,6 +97,7 @@ const Optimizing: React.FC<{ stsList: STS[]; landfillList: LandFill[] }> = ({
                 const landfill = landfillList.findLast(
                   (item) => item.id == value
                 );
+                serCurrLandfill(landfill);
                 if (landfill?.latitude && landfill?.longitude)
                   setDestination({
                     lat: landfill.latitude,
@@ -100,6 +122,8 @@ const Optimizing: React.FC<{ stsList: STS[]; landfillList: LandFill[] }> = ({
           </div>
         </div>
         <DirectionMap
+          geoJsonObj={geoJsonObj}
+          setGeoJsonObj={setGeoJsonObj}
           start={start}
           destination={destination}
         />

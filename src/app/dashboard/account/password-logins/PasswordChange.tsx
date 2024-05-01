@@ -12,7 +12,7 @@ const PasswordChange: React.FC = () => {
       <div className="mt-2 flex justify-between items-center">
         <p className="my-3 text-small">{data.instruction}</p>
         <Link href={data.href}>
-          <Button size={"sm"}>{data.actionLabel}</Button>
+          <Button size={"md"} className="rounded-[8px]">{data.actionLabel}</Button>
         </Link>
       </div>
     </div>

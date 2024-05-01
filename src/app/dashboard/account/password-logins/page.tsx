@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 
 import { userDataEndpoint } from "@assets/data/api/endpoints";
 import Loading from "@components/Loading";
-import PasswordChange from "./_password/PasswordChange";
-import TokenReset from "./_password/TokenReset";
+import PasswordChange from "./PasswordChange";
+import TokenReset from "./TokenReset";
 
 const Account: React.FC = async () => {
   const cookieStore = cookies();

@@ -58,7 +58,7 @@ const CustomInput: React.FC<Props> = ({
                   {...field}
                   variant={variant}
                   {...rest}
-                  className={`${variant === "md" ? "max-w-[360px]" : "max-w-full"}`}
+                  className={`${variant === "md" ? "max-w-[360px]" : "max-w-full"} pr-12 md:pr-16`}
                 />
                 {item.type === "password" && (
                   <div

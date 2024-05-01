@@ -3,17 +3,16 @@ import { MapContainer, Marker, Popup, TileLayer, GeoJSON } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import 'leaflet-defaulticon-compatibility';
-import { useEffect, useState } from 'react';
+import {useEffect } from 'react';
 
 type Coordinate = { lat: number; lng: number };
 
 const DirectionMap: React.FC<{
   start: Coordinate | undefined;
   destination: Coordinate | undefined;
-}> = ({ start, destination }) => {
-  const [geoJsonObj, setGeoJsonObj] =
-    useState<GeoJSON.FeatureCollection | null>(null);
-
+  setGeoJsonObj: any;
+  geoJsonObj: GeoJSON.FeatureCollection | null;
+}> = ({ start, destination, setGeoJsonObj, geoJsonObj }) => {
   useEffect(() => {
     const fetchDirection = async () => {
       if (start && destination) {
@@ -53,7 +52,10 @@ const DirectionMap: React.FC<{
               <Popup>Landfill</Popup>
             </Marker>
 
-            <GeoJSON key={geoJsonObj.metadata.timestamp} data={geoJsonObj} />
+            <GeoJSON
+              key={geoJsonObj.metadata.timestamp}
+              data={geoJsonObj}
+            />
           </MapContainer>
         </div>
         <div className='bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 mt-8'>

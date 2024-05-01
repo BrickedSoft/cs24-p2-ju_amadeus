@@ -28,7 +28,7 @@ const EditLandfill: React.FC<{ params: { landfillId: string } }> = ({
 
   const [state, formAction] = useFormState(
     updateLandfill.bind(null, params.landfillId),
-    initialState
+    initialState,
   );
   return landfill ? (
     <form

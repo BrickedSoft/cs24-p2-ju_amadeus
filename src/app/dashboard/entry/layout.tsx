@@ -16,7 +16,7 @@ const AccountLayout = ({
       <div className="flex">
         <SideNav
           sideNavValue={sideNavEntry(
-            roleFromString(cookies().get("role")?.value)
+            roleFromString(cookies().get("role")?.value),
           )}
         />
         <div className=" w-full flex flex-col items-center px-4">

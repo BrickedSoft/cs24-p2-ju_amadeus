@@ -31,7 +31,6 @@ export const emailInfo: Card = {
   actionLabel: "Save",
 };
 
-
 export const nameInfo: Card = {
   title: "Display name",
   description:

@@ -56,6 +56,7 @@ export const pathTitles = {
 
 const authPath = `${path.home}${path.auth}`;
 const resetPasswordPath = `${authPath}/${path.resetPassword}`;
+const changePasswordPath = `${authPath}/${path.changePassword}`;
 const dashboardPath = `${path.home}${path.dashboard}`;
 const accountPath = `${dashboardPath}/${path.account}`;
 const entryPath = `${dashboardPath}/${path.entry}`;
@@ -67,11 +68,12 @@ export const routes = {
   auth: authPath,
   login: `${authPath}/${path.login}`,
   resetPassword: resetPasswordPath,
-  initiate: `${resetPasswordPath}/${path.initiate}`,
-  confirm: `${resetPasswordPath}/${path.confirm}`,
+  initiateReset: `${resetPasswordPath}/${path.initiate}`,
+  confirmReset: `${resetPasswordPath}/${path.confirm}`,
+  initiateChange: `${changePasswordPath}/${path.initiate}`,
+  confirmChange: `${changePasswordPath}/${path.confirm}`,
   verify: `${resetPasswordPath}/${path.verify}`,
   logout: `${authPath}/${path.logout}`,
-  changePassword: `${authPath}/${path.changePassword}`,
   profile: `${path.home}${path.profile}`,
   dashboard: dashboardPath,
   overview: dashboardPath,
@@ -97,13 +99,17 @@ export const links = {
     title: pathTitles.resetPassword,
     href: routes.resetPassword,
   },
-  initiate: { title: pathTitles.initiate, href: routes.initiate },
-  confirm: { title: pathTitles.confirm, href: routes.confirm },
+  initiate: { title: pathTitles.initiate, href: routes.initiateReset },
+  confirm: { title: pathTitles.confirm, href: routes.confirmReset },
   verify: { title: pathTitles.verify, href: routes.verify },
   logout: { title: pathTitles.logout, href: routes.logout },
-  changePassword: {
+  initiateChange: {
     title: pathTitles.changePassword,
-    href: routes.changePassword,
+    href: routes.initiateChange,
+  },
+  confirmChange: {
+    title: pathTitles.changePassword,
+    href: routes.confirmChange,
   },
   profile: { title: pathTitles.profile, href: routes.profile },
   dashboard: { title: pathTitles.dashboard, href: routes.dashboard },

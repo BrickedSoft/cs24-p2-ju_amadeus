@@ -1,8 +1,9 @@
 "use client";
 
-import _ from "lodash";
-import { useRouter } from "next/navigation";
 import { useContext } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import _ from "lodash";
+import { notFound, useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z, ZodRawShape } from "zod";
 
@@ -15,12 +16,12 @@ import {
   title,
 } from "@assets/data/auth/reset-password/confirm";
 import { routes } from "@assets/data/routes";
+import CustomInput from "@/components/CustomInputRenderer";
 import { Button } from "@components/ui/button";
 import { Form } from "@components/ui/form";
 import Spinner from "@components/ui/spinner";
 import { AuthContext } from "@context/AuthContext";
 import ecoSync from "@ecoSync";
-import AuthInput from "../../AuthInput";
 
 type FormInputsType = {
   [key: string]: string;
@@ -37,11 +38,13 @@ const ResetPasswordInitiate: React.FC = () => {
           message: defaultErrors.empty,
         }),
       })),
-      _.extend
-    ) as ZodRawShape
+      _.extend,
+    ) as ZodRawShape,
   );
 
-  const form = useForm();
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+  });
   const {
     handleSubmit,
     setError,
@@ -53,7 +56,7 @@ const ResetPasswordInitiate: React.FC = () => {
       fields.map((item) =>
         setError(item.id, {
           type: "manual",
-        })
+        }),
       );
     const values = Object.values(data);
     if (!_.every(values, (item) => _.isEqual(item, values[0]))) {
@@ -81,7 +84,7 @@ const ResetPasswordInitiate: React.FC = () => {
         });
   };
 
-  // if (_.isEmpty(auth)) return notFound();
+  if (_.isEmpty(auth)) return notFound();
 
   return (
     <div className="flex flex-col gap-6 md:gap-12">
@@ -92,7 +95,12 @@ const ResetPasswordInitiate: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="min-w-[280px] md:min-w-[300px] lg:min-w-[420px] flex flex-col justify-center gap-4 md:gap-8"
         >
-          <AuthInput form={form} errors={errors} fields={fields} />
+          <CustomInput
+            form={form}
+            errors={errors}
+            fields={fields}
+            variant="lg"
+          />
 
           <Button type="submit" size={"lg"} className="self-stretch">
             {isSubmitting ? <Spinner /> : button.title}

@@ -18,6 +18,7 @@ const Navbar: React.FC = () => {
           <NavLink key={link.href} title={link.title} href={link.href} />
         ))}
       </div>
+
       <form
         className="h-full self-end flex items-center"
         action={navigateToHome}

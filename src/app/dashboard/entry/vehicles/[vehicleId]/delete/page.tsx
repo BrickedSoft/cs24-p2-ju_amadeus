@@ -15,7 +15,7 @@ const DeleteVehicle: React.FC<{ params: { vehicleId: string } }> = ({
 }) => {
   const [state, formAction] = useFormState(
     deleteVehicle.bind(null, params.vehicleId || ""),
-    initialState
+    initialState,
   );
 
   return (

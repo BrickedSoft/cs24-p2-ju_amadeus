@@ -17,7 +17,7 @@ const Dashboard: React.FC = async () => {
       headers: {
         cookie: cookieStore,
       },
-    }
+    },
   ).then(async (res) => {
     const data = await res.json();
     return data;

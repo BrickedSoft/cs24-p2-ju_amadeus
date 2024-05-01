@@ -19,33 +19,34 @@ export async function GET(request: NextRequest) {
         {
           STS: {
             manager: {
-              some: { id: auth.userId }
-            }
-          }
+              some: { id: auth.userId },
+            },
+          },
         },
         {
           landFill: {
             manager: {
-              some: { id: auth.userId }
-            }
-          }
-        }]
+              some: { id: auth.userId },
+            },
+          },
+        },
+      ],
     },
     include: {
       STS: true,
       landFill: true,
-      vehicle: true
-    }
+      vehicle: true,
+    },
   });
 
   return NextResponse.json(
     {
-      vehicleEntries: vehicleEntries.map(ele => ({
+      vehicleEntries: vehicleEntries.map((ele) => ({
         ...ele,
         stsName: ele.STS?.name,
         landfillName: ele.landFill?.name,
-        vehicleNumber: ele.vehicle?.number
-      }))
+        vehicleNumber: ele.vehicle?.number,
+      })),
     },
     { status: 200 },
   );

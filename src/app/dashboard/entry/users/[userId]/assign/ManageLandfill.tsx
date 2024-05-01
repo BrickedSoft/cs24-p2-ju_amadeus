@@ -26,13 +26,13 @@ const ManageLandfill: React.FC<{ params: { userId: string } }> = ({
   useEffect(() => {
     if (isLoading == "assign") {
       fetch(`/api/users/${params.userId}/assignLandfill/${landfillId}`).then(
-        () => setIsLoading("none")
+        () => setIsLoading("none"),
       );
     }
 
     if (isLoading == "remove") {
       fetch(`/api/users/${params.userId}/removeLandfill/${landfillId}`).then(
-        () => setIsLoading("none")
+        () => setIsLoading("none"),
       );
     }
   }, [isLoading, params.userId, setIsLoading, landfillId]);

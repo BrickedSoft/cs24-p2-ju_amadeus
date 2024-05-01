@@ -1,5 +1,5 @@
 const AuthImage = (
-  props: React.SVGProps<SVGSVGElement> & { title?: string }
+  props: React.SVGProps<SVGSVGElement> & { title?: string },
 ) => (
   <svg
     width="500"

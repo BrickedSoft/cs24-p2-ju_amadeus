@@ -13,7 +13,7 @@ const initialState = {
 const DeleteSts: React.FC<{ params: { stsId: string } }> = ({ params }) => {
   const [state, formAction] = useFormState(
     deleteSts.bind(null, params.stsId || ""),
-    initialState
+    initialState,
   );
 
   return (

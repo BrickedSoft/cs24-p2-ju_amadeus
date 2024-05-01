@@ -16,7 +16,7 @@ const Account: React.FC = async () => {
       headers: {
         cookie: cookieStore,
       },
-    }
+    },
   ).then(async (res) => {
     console.log(res);
     const data = await res.json();

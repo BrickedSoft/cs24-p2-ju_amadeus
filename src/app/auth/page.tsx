@@ -1,4 +1,4 @@
-import Login from "./login/page";
+import Login from "./(anonymous)/login/page";
 
 const Auth = () => <Login />;
 

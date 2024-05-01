@@ -26,7 +26,7 @@ const EditUser: React.FC<{ params: { stsId: string } }> = ({ params }) => {
 
   const [state, formAction] = useFormState(
     updateSts.bind(null, params.stsId),
-    initialState
+    initialState,
   );
   return sts ? (
     <form

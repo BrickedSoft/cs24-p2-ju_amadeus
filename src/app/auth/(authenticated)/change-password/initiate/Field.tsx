@@ -1,9 +1,8 @@
 "use client";
 
+import { useContext } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
 import _ from "lodash";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z, ZodRawShape } from "zod";
@@ -12,31 +11,31 @@ import { login } from "@assets/data/api/endpoints";
 import {
   button,
   errors as defaultErrors,
+  description,
   fields,
-  forgot,
   title,
-} from "@assets/data/auth/login";
+} from "@assets/data/auth/change-password/initiate";
 import { routes } from "@assets/data/routes";
+import CustomInputRenderer from "@components/CustomInputRenderer";
 import { Button } from "@components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@components/ui/form";
-import { Input } from "@components/ui/input";
+import { Form } from "@components/ui/form";
 import Spinner from "@components/ui/spinner";
+import { AuthContext } from "@context/AuthContext";
 import ecoSync from "@ecoSync";
-import AuthInput from "../AuthInput";
 
 type FormInputsType = {
   [key: string]: string;
 };
 
-const Login: React.FC = () => {
+type Props = {
+  email: Promise<string>;
+};
+
+const Field: React.FC<Props> = ({ email }) => {
+  console.log(email);
+
   const router = useRouter();
+  const { setAuth } = useContext(AuthContext);
 
   const formSchema = z.object(
     _.reduce(
@@ -45,8 +44,8 @@ const Login: React.FC = () => {
           message: defaultErrors.empty,
         }),
       })),
-      _.extend
-    ) as ZodRawShape
+      _.extend,
+    ) as ZodRawShape,
   );
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -58,18 +57,25 @@ const Login: React.FC = () => {
     formState: { errors, isSubmitting },
   } = form;
 
-  const onSubmit: SubmitHandler<FormInputsType> = async (data) =>
+  const onSubmit: SubmitHandler<FormInputsType> = (data) => {
     ecoSync
       .post(login, { ...data })
       .then(function () {
-        router.replace(routes.dashboard);
+        // setAuth({
+        //   email: "email",
+        //   resetToken: undefined,
+        //   password: data.password,
+        // });
+        router.replace(routes.confirmChange);
       })
       .catch(function (error) {
+        console.log(error);
         const errorCode = error.response.status as string;
+
         fields.map((item) =>
           setError(item.id, {
             type: "manual",
-          })
+          }),
         );
         setError("default", {
           type: "manual",
@@ -78,35 +84,31 @@ const Login: React.FC = () => {
             defaultErrors.default,
         });
       });
+  };
 
   return (
     <div className="flex flex-col gap-6 md:gap-12">
       <h1 className="heading-secondary text-center">{title}</h1>
+      <p className="max-w-[410px] text-small text-center">{description}</p>
       <Form {...form}>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="min-w-[280px] md:min-w-[300px] lg:min-w-[420px] flex flex-col justify-center gap-4 md:gap-8"
         >
-          <AuthInput form={form} errors={errors} fields={fields} />
+          <CustomInputRenderer
+            form={form}
+            errors={errors}
+            fields={fields}
+            variant="lg"
+          />
 
-          <div className="flex flex-col justify-center items-center gap-4 md:gap-6">
-            <Button type="submit" size={"lg"} className="self-stretch">
-              {isSubmitting ? <Spinner /> : button.login.title}
-            </Button>
-            <div className="flex items-center justify-center gap-2 md:gap-3">
-              <p className="text-small font-medium">{forgot}</p>
-              <Link
-                href={button.reset.href}
-                className="anchor no-underline font-bold"
-              >
-                {button.reset.title}
-              </Link>
-            </div>
-          </div>
+          <Button type="submit" size={"lg"} className="self-stretch">
+            {isSubmitting ? <Spinner /> : button.title}
+          </Button>
         </form>
       </Form>
     </div>
   );
 };
 
-export default Login;
+export default Field;

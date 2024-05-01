@@ -7,7 +7,7 @@ import { roleFromString } from "@assets/data/dashboard/overview";
 const Entry: React.FC = () => {
   redirect(
     sideNavEntry(roleFromString(cookies().get("role")?.value))[0].href,
-    RedirectType.replace
+    RedirectType.replace,
   );
 };
 

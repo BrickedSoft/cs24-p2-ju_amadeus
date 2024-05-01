@@ -6,8 +6,8 @@ type ResetPasswordProps = {
   children: React.ReactNode;
 };
 
-const ResetPassword: React.FC<ResetPasswordProps> = ({ children }) => (
+const ResetPasswordLayout: React.FC<ResetPasswordProps> = ({ children }) => (
   <AuthProvider>{children}</AuthProvider>
 );
 
-export default ResetPassword;
+export default ResetPasswordLayout;

@@ -6,7 +6,6 @@ import { Input } from "@components/ui/input";
 import SubmitButton from "@components/ui/SubmitButton";
 import { deleteLandfill } from "@/lib/entry/landfill-sites/deleteLandfill";
 
-
 const initialState = {
   message: "",
 };
@@ -16,7 +15,7 @@ const DeleteLandfill: React.FC<{ params: { landfillId: string } }> = ({
 }) => {
   const [state, formAction] = useFormState(
     deleteLandfill.bind(null, params.landfillId || ""),
-    initialState
+    initialState,
   );
 
   return (

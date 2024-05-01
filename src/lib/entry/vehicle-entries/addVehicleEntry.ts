@@ -22,7 +22,6 @@ export const addVehicleEntry = async (prevState: any, formData: FormData) => {
     landfillId: formData.get("landfillId") || undefined,
   });
 
-
   const entry: VehicleEntry = await prisma.vehicleEntry.create({
     data: {
       vehicle: { connect: { id: parsed.vehicleId } },
@@ -30,41 +29,36 @@ export const addVehicleEntry = async (prevState: any, formData: FormData) => {
       arrivalTime: parsed.arrivalTime,
       departureTime: parsed.departureTime,
     },
-    include: { vehicle: true }
+    include: { vehicle: true },
   });
 
-  if(!entry.vehicleId)
-    redirect("/dashboard/entry/vehicle-entries");
+  if (!entry.vehicleId) redirect("/dashboard/entry/vehicle-entries");
 
   if (parsed.landfillId)
-    await prisma.vehicleEntry.update(
-      {
-        where: { id: entry.id },
-        data: {
-          landFill: { connect: { id: parsed.landfillId } }
-        }
-      })
-
+    await prisma.vehicleEntry.update({
+      where: { id: entry.id },
+      data: {
+        landFill: { connect: { id: parsed.landfillId } },
+      },
+    });
 
   if (!parsed.landfillId) {
     const vehicle = await prisma.vehicle.findFirst({
       where: {
-        id: entry.vehicleId
-      }
-    })
+        id: entry.vehicleId,
+      },
+    });
     if (vehicle?.stsId)
-      await prisma.vehicleEntry.update(
-        {
-          where: { id: entry.id },
-          data: {
-            STS: {
-              connect: {
-                id: vehicle.stsId
-              }
-            }
-          }
-        })
-
+      await prisma.vehicleEntry.update({
+        where: { id: entry.id },
+        data: {
+          STS: {
+            connect: {
+              id: vehicle.stsId,
+            },
+          },
+        },
+      });
   }
 
   revalidatePath("/");

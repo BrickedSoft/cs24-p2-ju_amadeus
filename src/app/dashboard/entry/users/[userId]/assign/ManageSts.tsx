@@ -24,13 +24,13 @@ const ManageSts: React.FC<{ params: { userId: string } }> = ({ params }) => {
   useEffect(() => {
     if (isLoading == "assign") {
       fetch(`/api/users/${params.userId}/assignStsInfo/${stsId}`).then(() =>
-        setIsLoading("none")
+        setIsLoading("none"),
       );
     }
 
     if (isLoading == "remove") {
       fetch(`/api/users/${params.userId}/removeSts/${stsId}`).then(() =>
-        setIsLoading("none")
+        setIsLoading("none"),
       );
     }
   }, [isLoading, params.userId, setIsLoading, stsId]);

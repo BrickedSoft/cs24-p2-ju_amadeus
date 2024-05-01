@@ -10,8 +10,7 @@ export const addVehicle = async (prevState: any, formData: FormData) => {
     type: z.string().min(1),
     capacity: z.string().min(1),
     fuelCostUnloaded: z.string().min(1),
-    fuelCostLoaded: z.string().min(1)
-
+    fuelCostLoaded: z.string().min(1),
   });
 
   const parsed = schema.parse({
@@ -19,7 +18,7 @@ export const addVehicle = async (prevState: any, formData: FormData) => {
     type: formData.get("type") || undefined,
     capacity: formData.get("capacity") || undefined,
     fuelCostUnloaded: formData.get("fuelCostUnloaded") || undefined,
-    fuelCostLoaded: formData.get("fuelCostLoaded") || undefined
+    fuelCostLoaded: formData.get("fuelCostLoaded") || undefined,
   });
 
   const exists = await prisma.vehicle.findUnique({
@@ -32,7 +31,7 @@ export const addVehicle = async (prevState: any, formData: FormData) => {
       type: parsed.type,
       capacity: parseFloat(parsed.capacity),
       fuelCostUnloaded: parseFloat(parsed.fuelCostUnloaded),
-      fuelCostLoaded: parseFloat(parsed.fuelCostLoaded)
+      fuelCostLoaded: parseFloat(parsed.fuelCostLoaded),
     },
   });
   revalidatePath("/");

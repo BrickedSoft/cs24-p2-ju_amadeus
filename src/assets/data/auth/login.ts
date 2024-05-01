@@ -35,5 +35,5 @@ export const errors = {
 };
 export const button = {
   login: { title: "Login", href: routes.login },
-  reset: { title: "Reset", href: routes.initiate },
+  reset: { title: "Reset", href: routes.initiateReset },
 };

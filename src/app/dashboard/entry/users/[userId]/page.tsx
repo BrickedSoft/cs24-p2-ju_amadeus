@@ -42,7 +42,7 @@ const EditUser: React.FC<{ params: { userId: string } }> = ({ params }) => {
 
   const [state, formAction] = useFormState(
     updateUser.bind(null, params.userId),
-    initialState
+    initialState,
   );
   return user ? (
     <form

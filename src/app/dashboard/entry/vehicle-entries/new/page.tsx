@@ -98,7 +98,10 @@ const NewVehicleEntry: React.FC<{}> = ({}) => {
       )}
       <div className="w-full mt-4 flex justify-between">
         <div></div>
-        <SubmitButton label={newVehicleEntryInfo.actionLabel} disabled={false} />
+        <SubmitButton
+          label={newVehicleEntryInfo.actionLabel}
+          disabled={false}
+        />
       </div>
       <p className="text-sm text-green-600">{state.message}</p>
     </form>

@@ -4,7 +4,7 @@ import { Card } from "@allTypes";
 import { Input } from "@components/ui/input";
 import SubmitButton from "@components/ui/SubmitButton";
 
-const EditInfoCard: React.FC<{
+const InputCard: React.FC<{
   formAction: (payload: FormData) => void;
   state: { message: string };
   info: Card;
@@ -37,4 +37,4 @@ const EditInfoCard: React.FC<{
   );
 };
 
-export default EditInfoCard;
+export default InputCard;

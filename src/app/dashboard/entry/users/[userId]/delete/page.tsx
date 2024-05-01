@@ -13,7 +13,7 @@ const initialState = {
 const DeleteUser: React.FC<{ params: { userId: string } }> = ({ params }) => {
   const [state, formAction] = useFormState(
     deleteUser.bind(null, params.userId || ""),
-    initialState
+    initialState,
   );
 
   return (

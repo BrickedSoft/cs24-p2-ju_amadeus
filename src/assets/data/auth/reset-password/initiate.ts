@@ -35,4 +35,4 @@ export const errors = {
   wrong: "Invalid Email or Token",
   default: "Something went wrong",
 };
-export const button = { title: "Next", href: routes.confirm };
+export const button = { title: "Next", href: routes.confirmReset };

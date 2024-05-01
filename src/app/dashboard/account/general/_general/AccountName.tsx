@@ -5,7 +5,7 @@ import { getCookie } from "cookies-next";
 
 import { nameInfo } from "@assets/data/dashboard/account/general";
 import { updateUserWithId } from "@lib/db-utils/user/profile";
-import EditInfoCard from "../../_account/EditInfoCard";
+import InputCard from "../../_components/InputCard";
 
 const initialState = {
   message: "",
@@ -15,10 +15,10 @@ const AccountName: React.FC<{ name: string }> = ({ name }) => {
   const userId = getCookie("userId");
   const [state, formAction] = useFormState(
     updateUserWithId.bind(null, userId || ""),
-    initialState
+    initialState,
   );
   return (
-    <EditInfoCard
+    <InputCard
       formAction={formAction}
       state={state}
       info={nameInfo}

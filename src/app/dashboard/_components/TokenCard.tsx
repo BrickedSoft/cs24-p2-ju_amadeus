@@ -24,7 +24,7 @@ const TokenCard: React.FC<{
   const [isOpen, setIsOpen] = useState(false);
   const [state, formAction] = useFormState(
     regenerateResetTokenWithId.bind(null, userId || ""),
-    { message: "" }
+    { message: "" },
   );
   const token = info.actionLabel;
 

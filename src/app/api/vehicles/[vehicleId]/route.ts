@@ -20,9 +20,10 @@ export async function GET(
     );
 
   const vehicle = await prisma.vehicle.findUnique({
-    where: { id: queryUserId }, include: {
-      STS: true
-    }
+    where: { id: queryUserId },
+    include: {
+      STS: true,
+    },
   });
 
   if (!vehicle)
@@ -36,7 +37,7 @@ export async function GET(
   return NextResponse.json(
     {
       message: "success",
-      vehicle
+      vehicle,
     },
     { status: 200 },
   );

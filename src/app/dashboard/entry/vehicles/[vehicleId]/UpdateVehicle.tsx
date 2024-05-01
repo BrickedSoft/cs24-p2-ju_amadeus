@@ -1,15 +1,15 @@
-'use server';
+"use server";
 
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import { z } from 'zod';
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { z } from "zod";
 
-import prisma from '@lib/db';
+import prisma from "@lib/db";
 
 export const updateVehicle = async (
   vehicleId: string,
   prevState: any,
-  formData: FormData
+  formData: FormData,
 ) => {
   const schema = z.object({
     number: z.string().optional(),
@@ -21,18 +21,18 @@ export const updateVehicle = async (
   });
 
   const parsed = schema.parse({
-    number: formData.get('number') || undefined,
-    type: formData.get('type') || undefined,
-    capacity: formData.get('capacity') || undefined,
-    fuelCostUnloaded: formData.get('fuelCostUnloaded') || undefined,
-    fuelCostLoaded: formData.get('fuelCostLoaded') || undefined,
-    stsId: formData.get('stsId') || undefined,
+    number: formData.get("number") || undefined,
+    type: formData.get("type") || undefined,
+    capacity: formData.get("capacity") || undefined,
+    fuelCostUnloaded: formData.get("fuelCostUnloaded") || undefined,
+    fuelCostLoaded: formData.get("fuelCostLoaded") || undefined,
+    stsId: formData.get("stsId") || undefined,
   });
 
   const exists = await prisma.vehicle.findUnique({
     where: { number: vehicleId },
   });
-  if (exists) return { message: 'Vehicle with the number already exists.' };
+  if (exists) return { message: "Vehicle with the number already exists." };
   const vehicle = await prisma.vehicle.update({
     where: { id: vehicleId },
     data: {
@@ -62,6 +62,6 @@ export const updateVehicle = async (
       data: { STS: { connect: { id: parsed.stsId } } },
     });
   }
-  revalidatePath('/');
-  redirect('/dashboard/entry/vehicles');
+  revalidatePath("/");
+  redirect("/dashboard/entry/vehicles");
 };

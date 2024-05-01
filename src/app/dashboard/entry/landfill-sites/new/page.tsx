@@ -23,7 +23,6 @@ type FormInfo = {
   formValues: FormValues[];
 };
 
-
 const NewLandfill: React.FC<{}> = ({}) => {
   const [state, formAction] = useFormState(createLandfill, initialState);
   return (
@@ -50,7 +49,10 @@ const NewLandfill: React.FC<{}> = ({}) => {
 
       <div className="w-full mt-4 flex justify-between">
         <div></div>
-        <SubmitButton label={newLandfillSiteInfo.actionLabel} disabled={false} />
+        <SubmitButton
+          label={newLandfillSiteInfo.actionLabel}
+          disabled={false}
+        />
       </div>
       <p className="text-sm text-green-600">{state.message}</p>
     </form>

@@ -7,14 +7,24 @@ import { STS } from "@prisma/client";
 
 export async function GET(request: NextRequest) {
   const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN)
+  const authSTS = await validateTokenUser(request, RoleType.STS_MANAGER)
 
-  if (!authAdmin)
+  if (!authAdmin && !authSTS)
     return NextResponse.json({
       message: "Insuficient permission"
     },
       { status: 400 })
 
-  const stsList = await prisma.sTS.findMany()
+  let stsList = await prisma.sTS.findMany()
+
+  if (authSTS)
+    stsList = await prisma.sTS.findMany({
+      where: {
+        manager: {
+          some: { id: authSTS.userId }
+        }
+      }
+    })
 
   return NextResponse.json({
     sts: stsList

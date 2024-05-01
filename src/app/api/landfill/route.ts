@@ -12,11 +12,6 @@ export async function GET(request: NextRequest) {
     },
       { status: 400 })
 
-  if (auth.role == RoleType.SYSTEM_ADMIN)
-    return NextResponse.json({
-      landfills: await prisma.landFill.findMany()
-    },
-      { status: 200 });
 
   if (auth.role == RoleType.LANDFILL_MANAGER)
     return NextResponse.json({
@@ -29,7 +24,7 @@ export async function GET(request: NextRequest) {
       { status: 200 });
 
   return NextResponse.json({
-    landfills: undefined
+    landfills: await prisma.landFill.findMany()
   },
     { status: 200 });
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import _ from "lodash";
 import Link from "next/link";
@@ -16,11 +17,10 @@ import {
   title,
 } from "@assets/data/auth/login";
 import { routes } from "@assets/data/routes";
-import { Button } from "@components/ui/button";
-import { Form } from "@components/ui/form";
-import Spinner from "@components/ui/spinner";
-import ecoSync from "@ecoSync";
 import CustomInputRenderer from "@components/CustomInputRenderer";
+import { Form } from "@components/ui/form";
+import ecoSync from "@ecoSync";
+import AuthButton from "../../AuthButton";
 
 type FormInputsType = {
   [key: string]: string;
@@ -28,6 +28,7 @@ type FormInputsType = {
 
 const Login: React.FC = () => {
   const router = useRouter();
+  const [success, setSuccess] = useState(false);
 
   const formSchema = z.object(
     _.reduce(
@@ -50,13 +51,19 @@ const Login: React.FC = () => {
   } = form;
 
   const onSubmit: SubmitHandler<FormInputsType> = async (data) => {
+    setSuccess(undefined);
     ecoSync
       .post(login, { ...data })
       .then(function () {
-        router.replace(routes.dashboard);
+        setSuccess(true);
+
+        setTimeout(() => {
+          router.replace(routes.dashboard);
+        }, 1000);
       })
       .catch(function (error) {
         const errorCode = error.response.status as string;
+        setSuccess(false);
         fields.map((item) =>
           setError(item.id, {
             type: "manual",
@@ -87,9 +94,11 @@ const Login: React.FC = () => {
           />
 
           <div className="flex flex-col justify-center items-center gap-4 md:gap-6">
-            <Button type="submit" size={"lg"} className="self-stretch">
-              {isSubmitting ? <Spinner /> : button.login.title}
-            </Button>
+            <AuthButton
+              isSubmitting={isSubmitting}
+              success={success}
+              title={button.login.title}
+            />
             <div className="flex items-center justify-center gap-2 md:gap-3">
               <p className="text-small font-medium">{forgot}</p>
               <Link

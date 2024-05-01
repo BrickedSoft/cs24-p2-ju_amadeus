@@ -1,12 +1,13 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import _ from "lodash";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z, ZodRawShape } from "zod";
 
+import AuthButton from "@/app/auth/AuthButton";
 import { login, userDataEndpoint } from "@assets/data/api/endpoints";
 import {
   button,
@@ -17,9 +18,7 @@ import {
 } from "@assets/data/auth/change-password/initiate";
 import { routes } from "@assets/data/routes";
 import CustomInputRenderer from "@components/CustomInputRenderer";
-import { Button } from "@components/ui/button";
 import { Form } from "@components/ui/form";
-import Spinner from "@components/ui/spinner";
 import { AuthContext } from "@context/AuthContext";
 import ecoSync from "@ecoSync";
 import { getCookie, getCookies } from "cookies-next";
@@ -30,8 +29,8 @@ type FormInputsType = {
 
 const ChangePasswordInitiate: React.FC = () => {
   const router = useRouter();
-
   const { setAuth } = useContext(AuthContext);
+  const [success, setSuccess] = useState<boolean | undefined>(false);
 
   const formSchema = z.object(
     _.reduce(
@@ -67,8 +66,8 @@ const ChangePasswordInitiate: React.FC = () => {
   };
 
   const onSubmit: SubmitHandler<FormInputsType> = async (data) => {
+    setSuccess(undefined);
     const email = await fetchUser().then((res) => res.user.email);
-
     ecoSync
       .post(login, { ...data, email })
       .then(function () {
@@ -77,11 +76,14 @@ const ChangePasswordInitiate: React.FC = () => {
           email,
           password: data.password,
         }));
-        router.push(routes.confirmChange);
+        setSuccess(true);
+        setTimeout(() => {
+          router.push(routes.confirmChange);
+        }, 1000);
       })
       .catch(function (error) {
-        console.log(error);
         const errorCode = error?.response?.status as string;
+        setSuccess(false);
         fields.map((item) =>
           setError(item.id, {
             type: "manual",
@@ -112,9 +114,11 @@ const ChangePasswordInitiate: React.FC = () => {
             variant="lg"
           />
 
-          <Button type="submit" size={"lg"} className="self-stretch">
-            {isSubmitting ? <Spinner /> : button.title}
-          </Button>
+          <AuthButton
+            isSubmitting={isSubmitting}
+            success={success}
+            title={button.title}
+          />
         </form>
       </Form>
     </div>

@@ -1,12 +1,14 @@
 "use client";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import _ from "lodash";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z, ZodRawShape } from "zod";
 
+import AuthButton from "@/app/auth/AuthButton";
+import CustomInput from "@/components/CustomInputRenderer";
 import { initiateReset } from "@assets/data/api/endpoints";
 import {
   button,
@@ -16,10 +18,7 @@ import {
   title,
 } from "@assets/data/auth/reset-password/initiate";
 import { routes } from "@assets/data/routes";
-import CustomInput from "@/components/CustomInputRenderer";
-import { Button } from "@components/ui/button";
 import { Form } from "@components/ui/form";
-import Spinner from "@components/ui/spinner";
 import { AuthContext } from "@context/AuthContext";
 import ecoSync from "@ecoSync";
 
@@ -30,6 +29,7 @@ type FormInputsType = {
 const ResetPasswordInitiate: React.FC = () => {
   const router = useRouter();
   const { setAuth } = useContext(AuthContext);
+  const [success, setSuccess] = useState<boolean | undefined>(false);
 
   const formSchema = z.object(
     _.reduce(
@@ -52,6 +52,7 @@ const ResetPasswordInitiate: React.FC = () => {
   } = form;
 
   const onSubmit: SubmitHandler<FormInputsType> = (data) => {
+    setSuccess(undefined);
     ecoSync
       .post(initiateReset, { ...data })
       .then(function () {
@@ -60,10 +61,14 @@ const ResetPasswordInitiate: React.FC = () => {
           resetToken: data.resetToken,
           password: undefined,
         });
-        router.replace(routes.confirmReset);
+        setSuccess(true);
+        setTimeout(() => {
+          router.replace(routes.confirmReset);
+        }, 1000);
       })
       .catch(function (error) {
         const errorCode = error.response.status as string;
+        setSuccess(false);
         fields.map((item) =>
           setError(item.id, {
             type: "manual",
@@ -94,9 +99,11 @@ const ResetPasswordInitiate: React.FC = () => {
             variant="lg"
           />
 
-          <Button type="submit" size={"lg"} className="self-stretch">
-            {isSubmitting ? <Spinner /> : button.title}
-          </Button>
+          <AuthButton
+            isSubmitting={isSubmitting}
+            success={success}
+            title={button.title}
+          />
         </form>
       </Form>
     </div>

@@ -1,10 +1,10 @@
-import { cookies } from "next/headers";
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 
-import { userDataEndpoint } from "@/assets/data/api/endpoints";
-import Loading from "@/components/Loading";
-import PasswordChange from "./_password/PasswordChange";
-import TokenReset from "./_password/TokenReset";
+import { userDataEndpoint } from "@assets/data/api/endpoints";
+import Loading from "@components/Loading";
+import PasswordChange from "./PasswordChange";
+import TokenReset from "./TokenReset";
 
 const Account: React.FC = async () => {
   const cookieStore = cookies();
@@ -16,7 +16,7 @@ const Account: React.FC = async () => {
       headers: {
         cookie: cookieStore,
       },
-    }
+    },
   ).then(async (res) => {
     console.log(res);
     const data = await res.json();

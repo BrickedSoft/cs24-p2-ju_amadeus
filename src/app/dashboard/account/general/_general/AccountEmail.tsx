@@ -1,20 +1,14 @@
 "use client";
+
 import { useFormState } from "react-dom";
-import { updateUserWithId } from "@/lib/db-utils/user/profile";
 import { getCookie } from "cookies-next";
-import { CardType } from "@/assets/data/dashboard/account/general";
-import EditInfoCard from "../../_account/EditInfoCard";
+
+import { emailInfo } from "@assets/data/dashboard/account/general";
+import { updateUserWithId } from "@lib/db-utils/user/profile";
+import InputCard from "../../_components/InputCard";
 
 const initialState = {
   message: "",
-};
-
-const formInfo: CardType = {
-  title: "Email",
-  description:
-    "Please enter the email address you want to use to log in with EcoSync.",
-  instruction: "We will email you to verify the change.",
-  actionLabel: "Save",
 };
 
 const AccountEmail: React.FC<{ email: string }> = ({ email }) => {
@@ -24,10 +18,10 @@ const AccountEmail: React.FC<{ email: string }> = ({ email }) => {
     initialState,
   );
   return (
-    <EditInfoCard
+    <InputCard
       formAction={formAction}
       state={state}
-      info={formInfo}
+      info={emailInfo}
       value={email}
       name="email"
       disabled={true}

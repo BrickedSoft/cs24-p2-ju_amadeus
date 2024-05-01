@@ -1,37 +1,14 @@
 "use client";
+
 import { useFormState } from "react-dom";
-import { Input } from "@/components/ui/input";
-import SubmitButton from "@/components/ui/SubmitButton";
-import { addVehicle } from "./addVehicle";
+
+import { newVehicleInfo } from "@assets/data/dashboard/entry/vehicles";
+import { Input } from "@components/ui/input";
+import SubmitButton from "@components/ui/SubmitButton";
+import { addVehicle } from "@lib/entry/vehicles/addVehicle";
 
 const initialState = {
   message: "",
-};
-interface FormValues {
-  name: string;
-  label: string;
-}
-interface FormInfo {
-  actionLabel: string;
-  title: string;
-  description: string;
-  formValues: FormValues[];
-}
-
-const data: FormInfo = {
-  actionLabel: "Add",
-  description: "Enter vehicle informations",
-  title: "Vehicle details",
-  formValues: [
-    {
-      name: "number",
-      label: "Number",
-    },
-    { name: 'type', label: 'Type' },
-    { name: 'capacity', label: 'Capacity' },
-    { name: 'fuelCostUnloaded', label: 'Fuel cost per kilometer - Unloaded' },
-    { name: 'fuelCostLoaded', label: 'Fuel cost per kilometer - Fully loaded' },
-  ],
 };
 
 const NewVehicle: React.FC<{}> = ({}) => {
@@ -41,9 +18,9 @@ const NewVehicle: React.FC<{}> = ({}) => {
       action={formAction}
       className="bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8"
     >
-      <p className="text-lg font-medium">{data.title}</p>
-      <p className="my-3 text-sm">{data.description}</p>
-      {data.formValues.map((ele) => (
+      <p className="text-lg font-medium">{newVehicleInfo.title}</p>
+      <p className="my-3 text-sm">{newVehicleInfo.description}</p>
+      {newVehicleInfo.formValues.map((ele) => (
         <div key={ele.name}>
           <p className="mt-4 mb-1 text-sm">{ele.label}</p>
           <Input
@@ -60,7 +37,7 @@ const NewVehicle: React.FC<{}> = ({}) => {
 
       <div className="w-full mt-4 flex justify-between">
         <div></div>
-        <SubmitButton label={data.actionLabel} disabled={false} />
+        <SubmitButton label={newVehicleInfo.actionLabel} disabled={false} />
       </div>
       <p className="text-sm text-green-600">{state.message}</p>
     </form>

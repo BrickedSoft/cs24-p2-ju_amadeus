@@ -1,45 +1,24 @@
 "use client";
-import { useFormState } from "react-dom";
+
+import { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
+import { useFormState } from "react-dom";
+
+import { newUserInfo } from "@assets/data/dashboard/entry/users";
+import { Input } from "@components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import SubmitButton from "@/components/ui/SubmitButton";
-import { useEffect, useState } from "react";
-import { RoleType } from "@/lib/constants/userContants";
-import { createUser } from "./createUser";
+} from "@components/ui/select";
+import SubmitButton from "@components/ui/SubmitButton";
+import { RoleType } from "@lib/constants/userContants";
+import { createUser } from "@lib/entry/users/createUser";
 
 const initialState = {
   message: "",
-};
-interface FormValues {
-  name: string;
-  label: string;
-}
-interface FormInfo {
-  actionLabel: string;
-  title: string;
-  description: string;
-  formValues: FormValues[];
-}
-
-const data: FormInfo = {
-  actionLabel: "Submit",
-  description: "Enter user informations",
-  title: "User details",
-  formValues: [
-    {
-      name: "name",
-      label: "Name",
-    },
-    { name: "email", label: "Email" },
-    { name: "password", label: "Password" },
-  ],
 };
 
 const NewUser: React.FC<{}> = ({}) => {
@@ -47,8 +26,8 @@ const NewUser: React.FC<{}> = ({}) => {
   useEffect(() => {
     fetch("/api/users/roles")
       .then((res) => res.json())
-      .then((data) => {
-        setRoleList(data.roles.map((ele: { name: any }) => ele.name));
+      .then((newUserInfo) => {
+        setRoleList(newUserInfo.roles.map((ele: { name: any }) => ele.name));
       });
   }, []);
   const userId = getCookie("userId");
@@ -58,9 +37,9 @@ const NewUser: React.FC<{}> = ({}) => {
       action={formAction}
       className="bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8"
     >
-      <p className="text-lg font-medium">{data.title}</p>
-      <p className="my-3 text-sm">{data.description}</p>
-      {data.formValues.map((ele) => (
+      <p className="text-lg font-medium">{newUserInfo.title}</p>
+      <p className="my-3 text-sm">{newUserInfo.description}</p>
+      {newUserInfo.formValues.map((ele) => (
         <div key={ele.name}>
           <p className="mt-4 mb-1 text-sm">{ele.label}</p>
           <Input
@@ -90,7 +69,7 @@ const NewUser: React.FC<{}> = ({}) => {
 
       <div className="w-full mt-4 flex justify-between">
         <div></div>
-        <SubmitButton label={data.actionLabel} disabled={false} />
+        <SubmitButton label={newUserInfo.actionLabel} disabled={false} />
       </div>
       <p className="text-sm text-green-600">{state.message}</p>
     </form>

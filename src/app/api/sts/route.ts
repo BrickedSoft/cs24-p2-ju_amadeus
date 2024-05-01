@@ -6,32 +6,35 @@ import { z } from "zod";
 import { STS } from "@prisma/client";
 
 export async function GET(request: NextRequest) {
-  const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN)
-  const authSTS = await validateTokenUser(request, RoleType.STS_MANAGER)
+  const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN);
+  const authSTS = await validateTokenUser(request, RoleType.STS_MANAGER);
 
   if (!authAdmin && !authSTS)
-    return NextResponse.json({
-      message: "Insuficient permission"
-    },
-      { status: 400 })
+    return NextResponse.json(
+      {
+        message: "Insuficient permission",
+      },
+      { status: 400 }
+    );
 
-  let stsList = await prisma.sTS.findMany()
+  let stsList = await prisma.sTS.findMany();
 
   if (authSTS)
     stsList = await prisma.sTS.findMany({
       where: {
         manager: {
-          some: { id: authSTS.userId }
-        }
-      }
-    })
+          some: { id: authSTS.userId },
+        },
+      },
+    });
 
-  return NextResponse.json({
-    sts: stsList
-  },
-    { status: 200 });
+  return NextResponse.json(
+    {
+      sts: stsList,
+    },
+    { status: 200 }
+  );
 }
-
 
 const schema = z.object({
   name: z.string().min(1),
@@ -39,11 +42,10 @@ const schema = z.object({
   capacity: z.string(),
   longitude: z.number(),
   latitude: z.number(),
-})
-
+});
 
 export async function POST(request: NextRequest) {
-  console.log(request)
+  console.log(request);
   const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN);
 
   const parsed = schema.safeParse(await request.json());
@@ -53,7 +55,7 @@ export async function POST(request: NextRequest) {
       {
         message: "Invalid data",
       },
-      { status: 400 },
+      { status: 400 }
     );
 
   if (!authAdmin)
@@ -61,7 +63,7 @@ export async function POST(request: NextRequest) {
       {
         message: "Insuficient permission",
       },
-      { status: 400 },
+      { status: 400 }
     );
 
   const { name, wardNumber, capacity, longitude, latitude } = parsed.data;
@@ -73,18 +75,14 @@ export async function POST(request: NextRequest) {
       wardNumber: wardNumber,
       capacity: parseFloat(capacity),
       longitude: longitude,
-      latitude: latitude
-    }
-  })
-
+      latitude: latitude,
+    },
+  });
 
   return NextResponse.json(
     {
-      sts: sts
+      sts: sts,
     },
-    { status: 200 },
+    { status: 200 }
   );
 }
-
-
-

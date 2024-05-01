@@ -1,24 +1,26 @@
-'use client';
-import { Input } from '@/components/ui/input';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
-import ecoSync from '@/api/ecoSync';
-import { stsDataEndpoint } from '@/assets/data/api/endpoints';
-import { useRouter } from 'next/navigation';
-import { routes } from '@/assets/data/routes';
-import { Button } from '@/components/ui/button';
-import { UpdateIcon } from '@radix-ui/react-icons';
+"use client";
+
+import { useState } from "react";
+import { UpdateIcon } from "@radix-ui/react-icons";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
+import { stsDataEndpoint } from "@assets/data/api/endpoints";
 import {
+  errors as defaultErrors,
   description,
-  title,
   fields,
   submitButton,
-  errors as defaultErrors,
-} from '@assets/data/dashboard/entry/new-sts';
+  title,
+} from "@assets/data/dashboard/entry/new-sts";
+import { routes } from "@assets/data/routes";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/input";
+import ecoSync from "@ecoSync";
 
 const DraggableMarker = dynamic(
-  () => import('@/components/map/DraggableMarker'),
+  () => import("@components/map/DraggableMarker"),
   {
     loading: () => <p>loading...</p>,
     ssr: false,
@@ -53,7 +55,7 @@ const NewSts: React.FC<{}> = ({}) => {
       .catch(function (error) {
         fields.map((item) =>
           setError(item.id, {
-            type: 'manual',
+            type: "manual",
             message: item.errors.wrong,
           })
         );
@@ -61,46 +63,45 @@ const NewSts: React.FC<{}> = ({}) => {
 
   return (
     <form
-      className='bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8'
-      onSubmit={handleSubmit(onSubmit)}>
-      <p className='text-lg font-medium'>{title}</p>
-      <p className='my-3 text-sm'>{description}</p>
+      className="bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <p className="text-lg font-medium">{title}</p>
+      <p className="my-3 text-sm">{description}</p>
       {fields.map((item) => (
         <div key={item.id}>
-          <p className='mt-4 mb-1 text-sm'>{item.title}</p>
+          <p className="mt-4 mb-1 text-sm">{item.title}</p>
           <Input
             id={item.id}
             placeholder={item.placeholder}
             {...register(`${item.id}`, {
               required: item.errors.empty,
             })}
-            type='text'
+            type="text"
             required
             maxLength={32}
-            className='max-w-[560px] border-gray-300 placeholder:text-gray-600 h-10'
+            className="max-w-[560px] border-gray-300 placeholder:text-gray-600 h-10"
           />
-          <p className='text-small font-medium text-error-foreground select-none'>
+          <p className="text-small font-medium text-error-foreground select-none">
             {errors[item.id] ? (
               (errors[item.id]?.message as string) || defaultErrors.default
             ) : (
-              <span className='text-transparent'>-</span>
+              <span className="text-transparent">-</span>
             )}
           </p>
         </div>
       ))}
 
-      <p className='mt-6 mb-1 text-sm'>Pick your STS location</p>
-      <DraggableMarker
-        position={position}
-        setPosition={setPosition}
-      />
+      <p className="mt-6 mb-1 text-sm">Pick your STS location</p>
+      <DraggableMarker position={position} setPosition={setPosition} />
 
-      <div className='w-full mt-6 flex justify-between'>
+      <div className="w-full mt-6 flex justify-between">
         <Button
-          type='submit'
-          className='text-sm font-medium  text-gray-500 text-left rounded-[8px] p-2 px-3 bg-gray-200 hover:text-white hover:bg-black'>
+          type="submit"
+          className="text-sm font-medium  text-gray-500 text-left rounded-[8px] p-2 px-3 bg-gray-200 hover:text-white hover:bg-black"
+        >
           {isSubmitting ? (
-            <UpdateIcon className='mx-4 h-4 w-4 animate-spin' />
+            <UpdateIcon className="mx-4 h-4 w-4 animate-spin" />
           ) : (
             submitButton
           )}

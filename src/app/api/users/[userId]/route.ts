@@ -20,11 +20,12 @@ export async function GET(
     );
 
   const user = await prisma.user.findUnique({
-    where: { id: queryUserId }, include: {
+    where: { id: queryUserId },
+    include: {
       STS: true,
       landfill: true,
-      role: true
-    }
+      role: true,
+    },
   });
 
   if (!user)
@@ -45,7 +46,7 @@ export async function GET(
         resetToken: user.resetToken,
         role: user.role.name,
         STS: user.STS,
-        landfill: user.landfill
+        landfill: user.landfill,
       },
     },
     { status: 200 },

@@ -28,11 +28,12 @@ export const fields = [
 
 export const forgot = "Forgot Password?";
 export const errors = {
+  400: "Invalid Email or Password",
+  500: "Server Error",
   empty: "This is required",
-  wrong: "Invalid Email or Password",
   default: "Something went wrong",
 };
 export const button = {
   login: { title: "Login", href: routes.login },
-  reset: { title: "Reset", href: routes.initiate },
+  reset: { title: "Reset", href: routes.initiateReset },
 };

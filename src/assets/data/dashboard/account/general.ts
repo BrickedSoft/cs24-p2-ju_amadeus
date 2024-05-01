@@ -1,12 +1,6 @@
-export interface CardType {
-  title: string;
-  description: string;
-  instruction: string;
-  actionLabel: string;
-  button?: string;
-}
+import { Card } from "@allTypes";
 
-export const cardData: CardType[] = [
+export const cardData: Card[] = [
   {
     title: "Role",
     description: "This is your assigned role by the System Admin",
@@ -27,4 +21,20 @@ export const resetTokenGenerate = {
   instruction: "Make sure to write down this code",
   actionLabel: "resetToken",
   button: "Generate",
+};
+
+export const emailInfo: Card = {
+  title: "Email",
+  description:
+    "Please enter the email address you want to use to log in with EcoSync.",
+  instruction: "We will email you to verify the change.",
+  actionLabel: "Save",
+};
+
+export const nameInfo: Card = {
+  title: "Display name",
+  description:
+    "Please enter your full name, or a display name you are comfortable with.",
+  instruction: "Please use 32 characters at maximum.",
+  actionLabel: "Save",
 };

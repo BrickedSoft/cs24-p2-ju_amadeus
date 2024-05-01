@@ -1,7 +1,5 @@
-import { buttons, hero } from "@/assets/data/home/hero";
-import { Leaf } from "@/components/Icons";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { hero } from "@assets/data/home/hero";
+import { Leaf } from "@components/Icons";
 import HeroImage from "../_home/HeroImage";
 
 const Hero: React.FC = () => {
@@ -16,7 +14,7 @@ const Hero: React.FC = () => {
           <h3 className="heading-tertiary text-center md:text-start mb-4 md:mb-6">
             {hero.description[0]}
           </h3>
-          <p className="text-medium text-center md:text-start leading-7 text-gray-500 font-medium">
+          <p className="text-medium text-center md:text-start leading-7 text-gray-500">
             {hero.description[1]}
           </p>
         </div>

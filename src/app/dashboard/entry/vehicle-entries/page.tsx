@@ -1,11 +1,11 @@
-import { cookies } from "next/headers";
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 
-import { api } from "@/assets/data/api/endpoints";
-import Loading from "@/components/Loading";
-import { CustomVehicleEntry } from "@/types/vehicle-enties";
-import { columns } from "./_vehicle-entries/columns";
-import { DataTable } from "./_vehicle-entries/data-table";
+import { CustomVehicleEntry } from "@allTypes";
+import { api } from "@assets/data/api/endpoints";
+import Loading from "@components/Loading";
+import { columns } from "./_vehicle-entries/Columns";
+import { DataTable } from "./_vehicle-entries/DataTable";
 
 async function getData(cookieStore: any): Promise<CustomVehicleEntry[]> {
   let vehicleEntryList = await fetch(`${api}/vehicle-entries`, {

@@ -1,9 +1,10 @@
-'use client';
-import { MapContainer, Marker, Popup, TileLayer, GeoJSON } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
-import 'leaflet-defaulticon-compatibility';
-import {useEffect } from 'react';
+"use client";
+
+import { useEffect } from "react";
+import { MapContainer, Marker, Popup, TileLayer, GeoJSON } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+import "leaflet-defaulticon-compatibility";
 
 type Coordinate = { lat: number; lng: number };
 
@@ -25,24 +26,25 @@ const DirectionMap: React.FC<{
           setGeoJsonObj(data);
           console.log(data);
         } else {
-          console.log('Error: Missing route geometry in response');
+          console.log("Error: Missing route geometry in response");
         }
       }
     };
     fetchDirection();
-  }, [destination, start]);
+  }, [destination, setGeoJsonObj, start]);
 
   return (
     start &&
     destination &&
     geoJsonObj && (
       <>
-        <div className='mt-4'>
+        <div className="mt-4">
           <MapContainer
             center={start}
             zoom={12}
-            style={{ height: '450px', width: '100%', zIndex: '0' }}>
-            <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
+            style={{ height: "450px", width: "100%", zIndex: "0" }}
+          >
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
             <Marker position={start}>
               <Popup>STS</Popup>
@@ -52,21 +54,16 @@ const DirectionMap: React.FC<{
               <Popup>Landfill</Popup>
             </Marker>
 
-            <GeoJSON
-              key={geoJsonObj.metadata.timestamp}
-              data={geoJsonObj}
-            />
+            <GeoJSON key={geoJsonObj.metadata.timestamp} data={geoJsonObj} />
           </MapContainer>
         </div>
-        <div className='bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 mt-8'>
+        <div className="bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 mt-8">
           {geoJsonObj?.features.map((feature) => (
-            <div key={feature.properties.id}>
-              {feature.properties.segments.map((segment) => (
+            <div key={feature?.properties?.id}>
+              {feature?.properties?.segments?.map((segment) => (
                 <div key={segment.id}>
                   {segment.steps.map((step) => (
-                    <div
-                      key={step.id}
-                      className='bg-green m-4'>
+                    <div key={step.id} className="bg-green m-4">
                       <p>{step.instruction}</p>
                       <div>
                         <p>distance: {step.distance}</p>

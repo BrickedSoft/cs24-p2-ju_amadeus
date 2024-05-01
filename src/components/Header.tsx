@@ -1,9 +1,9 @@
+import { Suspense } from "react";
 import { cookies } from "next/headers";
 import Link from "next/link";
-import { Suspense } from "react";
 
-import { button } from "@/assets/data/header";
-import { routes } from "@/assets/data/routes";
+import { button } from "@assets/data/header";
+import { routes } from "@assets/data/routes";
 import Logo from "@components/Logo";
 import { Button } from "@components/ui/button";
 import Refresh from "./Refresh";
@@ -24,7 +24,7 @@ const Header: React.FC = () => {
           cookieStore.has("token") ? button.dashboard.href : button.login.href
         }
       >
-        <Button size="lg">
+        <Button className="!text-white text-small">
           {cookieStore.has("token")
             ? button.dashboard.title
             : button.login.title}

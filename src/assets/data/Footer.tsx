@@ -56,7 +56,7 @@ export const footerLinks: NavigationItems[] = [
       },
       {
         title: "Reset Password",
-        path: routes.initiate,
+        path: routes.initiateReset,
       },
       {
         title: "FAQ",

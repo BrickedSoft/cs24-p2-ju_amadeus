@@ -1,11 +1,11 @@
+import { Suspense } from "react";
 import { cookies } from "next/headers";
 
-import { userDataEndpoint } from "@/assets/data/api/endpoints";
+import { userDataEndpoint } from "@assets/data/api/endpoints";
+import Loading from "@components/Loading";
 import TokenAlert from "./_components/TokenAlert";
-import TotalEntries from "./_overview.tsx/TotalEntries";
-import UserEntries from "./_overview.tsx/UserEntries";
-import { Suspense } from "react";
-import Loading from "@/components/Loading";
+import TotalEntries from "./_overview/TotalEntries";
+import UserEntries from "./_overview/UserEntries";
 
 const Dashboard: React.FC = async () => {
   const cookieStore = cookies();
@@ -17,7 +17,7 @@ const Dashboard: React.FC = async () => {
       headers: {
         cookie: cookieStore,
       },
-    }
+    },
   ).then(async (res) => {
     const data = await res.json();
     return data;

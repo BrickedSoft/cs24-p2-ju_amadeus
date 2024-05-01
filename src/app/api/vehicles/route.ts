@@ -3,7 +3,6 @@ import prisma from "@/lib/db";
 import { validateTokenUser } from "@/lib/db-utils/auth";
 import { RoleType } from "@/lib/constants/userContants";
 
-
 export async function GET(request: NextRequest) {
   const auth = await validateTokenUser(request);
 
@@ -23,21 +22,18 @@ export async function GET(request: NextRequest) {
           where: {
             STS: {
               manager: {
-                some: { id: auth.userId }
-              }
-            }
-          }
-        })
-        ,
+                some: { id: auth.userId },
+              },
+            },
+          },
+        }),
       },
       { status: 200 },
     );
 
-
   return NextResponse.json(
     {
-      vehicles: await prisma.vehicle.findMany()
-      ,
+      vehicles: await prisma.vehicle.findMany(),
     },
     { status: 200 },
   );

@@ -29,8 +29,10 @@ export const fields = [
 ];
 
 export const errors = {
+  400: "Invalid Email or Token",
+  500: "Server Error",
   empty: "This is required",
   wrong: "Invalid Email or Token",
   default: "Something went wrong",
 };
-export const button = { title: "Next", href: routes.confirm };
+export const button = { title: "Next", href: routes.confirmReset };

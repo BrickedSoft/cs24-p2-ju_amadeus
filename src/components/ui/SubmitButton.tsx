@@ -4,7 +4,7 @@ import { UpdateIcon } from "@radix-ui/react-icons";
 
 const SubmitButton: React.FC<{
   label: string;
-  disabled: boolean;
+  disabled?: boolean;
   variant?: "default" | "secondary";
 }> = ({ label, disabled, variant = "default" }) => {
   const { pending } = useFormStatus();
@@ -12,7 +12,7 @@ const SubmitButton: React.FC<{
   const style = {
     secondary: "",
     default:
-      "text-sm font-medium  text-gray-500 text-left rounded-[8px] p-2 px-3 bg-gray-200 hover:text-white hover:bg-black",
+      "text-sm font-medium text-gray-500 text-left rounded-[8px] p-2 px-3 bg-gray-200 hover:text-white hover:bg-black",
   };
 
   return (

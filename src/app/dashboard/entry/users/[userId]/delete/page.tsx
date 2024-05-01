@@ -1,9 +1,10 @@
 "use client";
-import { Input } from "@/components/ui/input";
-import { deleteUser } from "./deleteUser";
 
-import SubmitButton from "@/components/ui/SubmitButton";
 import { useFormState } from "react-dom";
+
+import { Input } from "@components/ui/input";
+import SubmitButton from "@components/ui/SubmitButton";
+import { deleteUser } from "@lib/entry/users/deleteUser";
 
 const initialState = {
   message: "",

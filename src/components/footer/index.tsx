@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 import { address, email, footerLinks, phone } from "@/assets/data/Footer";
+import { NavigationItems } from "@allTypes";
 import Logo from "@components/Logo";
 import FooterCopyright from "./FooterCopyright";
 import FooterSocialLinks from "./FooterSocialLinks";
-import { NavigationItems } from "@/types";
 
 type NavLinkPropsType = {
   title: string;

@@ -2,6 +2,7 @@ import { Dispatch } from "react";
 
 export type Auth = {
   email: string | undefined;
+  password: string | undefined;
   resetToken: string | undefined;
 };
 

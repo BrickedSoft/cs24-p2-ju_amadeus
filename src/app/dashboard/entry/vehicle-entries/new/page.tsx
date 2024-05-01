@@ -1,45 +1,26 @@
-'use client';
-import { useFormState } from 'react-dom';
-import { Input } from '@/components/ui/input';
-import SubmitButton from '@/components/ui/SubmitButton';
-import { addVehicleEntry } from './addVehicleEntry';
+"use client";
+
+import { useEffect, useState } from "react";
+import { LandFill, Vehicle } from "@prisma/client";
+import { getCookie } from "cookies-next";
+import { useFormState } from "react-dom";
+
+import { newVehicleEntryInfo } from "@assets/data/dashboard/entry/vehicle-entries";
+import CardLoading from "@components/ui/card-loading";
+import { Input } from "@components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useEffect, useState } from 'react';
-import { LandFill, Vehicle } from '@prisma/client';
-import CardLoading from '@/components/ui/card-loading';
-import { getCookie } from 'cookies-next';
-import { RoleType } from '@/lib/constants/userContants';
+} from "@components/ui/select";
+import SubmitButton from "@components/ui/SubmitButton";
+import { RoleType } from "@lib/constants/userContants";
+import { addVehicleEntry } from "@lib/entry/vehicle-entries/addVehicleEntry";
 
 const initialState = {
-  message: '',
-};
-interface FormValues {
-  name: string;
-  label: string;
-  type: string;
-}
-interface FormInfo {
-  actionLabel: string;
-  title: string;
-  description: string;
-  formValues: FormValues[];
-}
-
-const data: FormInfo = {
-  actionLabel: 'Add',
-  description: 'Enter vehicle entry informations',
-  title: 'Vehicle entry details',
-  formValues: [
-    { name: 'wasteVolume', label: 'Waste volume (tons)', type: 'number' },
-    { name: 'arrivalTime', label: 'Arrival Time', type: 'datetime-local' },
-    { name: 'departureTime', label: 'Departure Time', type: 'datetime-local' },
-  ],
+  message: "",
 };
 
 const NewVehicleEntry: React.FC<{}> = ({}) => {
@@ -48,33 +29,34 @@ const NewVehicleEntry: React.FC<{}> = ({}) => {
   const [landfillList, setLandfillList] = useState<LandFill[]>();
 
   useEffect(() => {
-    fetch('/api/vehicles')
+    fetch("/api/vehicles")
       .then((res) => res.json())
-      .then((data) => {
-        setVehicleList(data.vehicles);
+      .then((newVehicleInfo) => {
+        setVehicleList(newVehicleInfo.vehicles);
       });
   }, []);
 
   useEffect(() => {
-    const role = getCookie('role');
+    const role = getCookie("role");
     if (role && role == RoleType.LANDFILL_MANAGER)
-      fetch('/api/landfill')
+      fetch("/api/landfill")
         .then((res) => res.json())
-        .then((data) => {
-          setLandfillList(data.landfills);
+        .then((newVehicleInfo) => {
+          setLandfillList(newVehicleInfo.landfills);
         });
   }, []);
 
   return vehicleList ? (
     <form
       action={formAction}
-      className='bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8'>
-      <p className='text-lg font-medium'>{data.title}</p>
-      <p className='mt-2 mb-6 text-sm'>{data.description}</p>
+      className="bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8"
+    >
+      <p className="text-lg font-medium">{newVehicleEntryInfo.title}</p>
+      <p className="mt-2 mb-6 text-sm">{newVehicleEntryInfo.description}</p>
 
-      {data.formValues.map((ele) => (
+      {newVehicleEntryInfo.formValues.map((ele) => (
         <div key={ele.name}>
-          <p className='mb-2 text-sm'>{ele.label}</p>
+          <p className="mb-2 text-sm">{ele.label}</p>
           <Input
             contentEditable={false}
             name={ele.name}
@@ -82,56 +64,46 @@ const NewVehicleEntry: React.FC<{}> = ({}) => {
             type={ele.type}
             required
             maxLength={32}
-            className='max-w-[560px] border-gray-300 placeholder:text-gray-600 h-10 mb-4'
+            className="max-w-[560px] border-gray-300 placeholder:text-gray-600 h-10 mb-4"
           />
         </div>
       ))}
-      <div className='my-6' />
-      <Select
-        key='vehicleId'
-        name='vehicleId'
-        required>
-        <SelectTrigger className='w-[240px]'>
-          <SelectValue placeholder='Select Vehicle' />
+      <div className="my-6" />
+      <Select key="vehicleId" name="vehicleId" required>
+        <SelectTrigger className="w-[240px]">
+          <SelectValue placeholder="Select Vehicle" />
         </SelectTrigger>
         <SelectContent>
           {vehicleList.map((vehicle) => (
-            <SelectItem
-              key={vehicle.id}
-              value={vehicle.id}>
+            <SelectItem key={vehicle.id} value={vehicle.id}>
               {vehicle.number}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
-      <div className='my-6' />
+      <div className="my-6" />
       {landfillList && (
-        <Select
-          key='landfillId'
-          name='landfillId'
-          required>
-          <SelectTrigger className='w-[240px]'>
-            <SelectValue placeholder='Select Landfill site' />
+        <Select key="landfillId" name="landfillId" required>
+          <SelectTrigger className="w-[240px]">
+            <SelectValue placeholder="Select Landfill site" />
           </SelectTrigger>
           <SelectContent>
             {landfillList.map((landfill) => (
-              <SelectItem
-                key={landfill.id}
-                value={landfill.id}>
+              <SelectItem key={landfill.id} value={landfill.id}>
                 {landfill.name}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       )}
-      <div className='w-full mt-4 flex justify-between'>
+      <div className="w-full mt-4 flex justify-between">
         <div></div>
         <SubmitButton
-          label={data.actionLabel}
+          label={newVehicleEntryInfo.actionLabel}
           disabled={false}
         />
       </div>
-      <p className='text-sm text-green-600'>{state.message}</p>
+      <p className="text-sm text-green-600">{state.message}</p>
     </form>
   ) : (
     <CardLoading />

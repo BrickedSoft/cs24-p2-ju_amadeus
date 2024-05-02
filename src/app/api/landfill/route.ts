@@ -29,13 +29,6 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json(
     {
-      landfills: undefined,
-    },
-    { status: 200 }
-  );
-
-  return NextResponse.json(
-    {
       landfills: await prisma.landFill.findMany(),
     },
     { status: 200 }

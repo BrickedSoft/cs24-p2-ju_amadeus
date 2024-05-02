@@ -7,6 +7,7 @@ import _ from "lodash";
 import { Step as StepType } from "@allTypes";
 import { instructionIcon } from "@assets/data/dashboard/entry/map";
 import { Clock, Distance } from "@icons";
+import { secondsFormatter } from "@/utils/secondsFormatter";
 
 type Props = {
   step: StepType;
@@ -29,6 +30,8 @@ const Step: React.FC<Props> = ({ step, last, destination }) => {
       }, 150);
   });
 
+  const { hours, minutes, seconds } = secondsFormatter(step.duration);
+
   return (
     <motion.div
       ref={ref}
@@ -48,7 +51,7 @@ const Step: React.FC<Props> = ({ step, last, destination }) => {
               cx={75}
               cy={50}
               r={10}
-              className="group-odd:fill-red-500 group-even:fill-green-500 group-[:nth-of-type(3n)]:fill-yellow-500"
+              className="group-even:fill-red-500 group-odd:fill-primary group-[:nth-of-type(3n)]:fill-yellow-500"
               variants={
                 firstRender
                   ? timelineCircleVariantsOnce
@@ -104,7 +107,7 @@ const Step: React.FC<Props> = ({ step, last, destination }) => {
                 <Clock className="h-4 w-4" />
                 <div className="flex gap-1">
                   <span className="font-medium capitalize">Duration:</span>
-                  <span>{`${step.duration / 60 > 1 ? `${Math.floor(step.duration / 60)} hr` : ""} ${step.duration % 60 > 1 ? `${Math.floor(step.duration % 60)} min` : ""}`}</span>
+                  <span>{`${hours > 0 ? `${hours} hr` : ""} ${minutes > 0 ? `${seconds > 0 ? ">" : ""} ${minutes} min` : ""} ${hours < 1 && minutes < 1 ? `${seconds} s` : ""}`}</span>
                 </div>
               </div>
             </>

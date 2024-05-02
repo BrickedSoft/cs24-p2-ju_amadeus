@@ -29,6 +29,7 @@ type Props = {
   item: InputField;
   variant?: "md" | "lg";
   [key: string]: any;
+  width?: number;
 };
 
 const CustomInput: React.FC<Props> = ({
@@ -36,6 +37,7 @@ const CustomInput: React.FC<Props> = ({
   form,
   item,
   variant = "md",
+  width,
   ...rest
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,7 +60,7 @@ const CustomInput: React.FC<Props> = ({
                   {...field}
                   variant={variant}
                   {...rest}
-                  className={`${variant === "md" ? "max-w-[360px]" : "max-w-full"} pr-12 md:pr-16`}
+                  className={`${width ? `w-[${width * 4}px]` : variant === "md" ? "max-w-[360px]" : "max-w-full"} ${item.type === "password" ? "pr-12 md:pr-16" : ""}`}
                 />
                 {item.type === "password" && (
                   <div

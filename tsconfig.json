@@ -26,6 +26,7 @@
       "@lib/*": ["./src/lib/*"],
       "@utils/*": ["./src/utils/*"],
       "@context/*": ["./src/context/*"],
+      "@constants/*": ["./src/constants/*"],
       "@allTypes": ["./src/types/"],
       "@ecoSync": ["./src/api/ecoSync.ts"]
     }

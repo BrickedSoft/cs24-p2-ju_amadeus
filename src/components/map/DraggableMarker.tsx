@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import 'leaflet-defaulticon-compatibility';
 import { Dispatch, SetStateAction, useMemo, useRef } from 'react';
+import { Coordinate } from '@/types/map';
 
 const center = {
   lat: 23.8,
@@ -21,12 +22,9 @@ const DraggableMarker = ({
   position,
   setPosition,
 }: {
-  position: { lat: number; lng: number };
+  position: Coordinate;
   setPosition: Dispatch<
-    SetStateAction<{
-      lat: number;
-      lng: number;
-    }>
+    SetStateAction<Coordinate>
   >;
 }) => {
   const markerRef = useRef(null);
@@ -61,10 +59,7 @@ const DraggableMarker = ({
         {lnglatData.map((ele) => (
           <div key={ele.name}>
             <p className='mt-4 mb-1 text-sm'>{`${ele.label}: ${position[
-              ele.name as keyof {
-                lat: number;
-                lng: number;
-              }
+              ele.name as keyof Coordinate
             ].toFixed(2)}`}</p>
           </div>
         ))}

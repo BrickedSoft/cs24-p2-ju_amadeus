@@ -145,8 +145,8 @@ export const Close = (props: React.SVGProps<SVGSVGElement>) => (
     <path
       d="M12.8536 2.85355C13.0488 2.65829 13.0488 2.34171 12.8536 2.14645C12.6583 1.95118 12.3417 1.95118 12.1464 2.14645L7.5 6.79289L2.85355 2.14645C2.65829 1.95118 2.34171 1.95118 2.14645 2.14645C1.95118 2.34171 1.95118 2.65829 2.14645 2.85355L6.79289 7.5L2.14645 12.1464C1.95118 12.3417 1.95118 12.6583 2.14645 12.8536C2.34171 13.0488 2.65829 13.0488 2.85355 12.8536L7.5 8.20711L12.1464 12.8536C12.3417 13.0488 12.6583 13.0488 12.8536 12.8536C13.0488 12.6583 13.0488 12.3417 12.8536 12.1464L8.20711 7.5L12.8536 2.85355Z"
       fill="currentColor"
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
     ></path>
   </svg>
 );
@@ -250,5 +250,213 @@ export const CheckCircle = (props: React.SVGProps<SVGSVGElement>) => (
   >
     <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0" />
     <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z" />
+  </svg>
+);
+
+export const ArrowFrom = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="M440-727 256-544l-56-56 280-280 280 280-56 57-184-184v287h-80v-287Zm0 487v-120h80v120h-80Zm0 160v-80h80v80h-80Z" />
+  </svg>
+);
+
+export const ArrowStraight = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="M440-120v-567l-64 63-56-56 160-160 160 160-56 56-64-63v567h-80Z" />
+  </svg>
+);
+
+export const ArrowLeft = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="M360-240 120-480l240-240 56 56-144 144h568v80H272l144 144-56 56Z" />
+  </svg>
+);
+
+export const ArrowTurnLeft = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="M600-160v-360H272l64 64-56 56-160-160 160-160 56 56-64 64h328q33 0 56.5 23.5T680-520v360h-80Z" />
+  </svg>
+);
+
+export const ArrowSlightLeft = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="M520-160v-304L320-664v90h-80v-226h226v80h-90l201 201q11 11 17 25.5t6 30.5v303h-80Z" />
+  </svg>
+);
+
+export const ArrowSharpLeft = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M18 21V15C18 14.45 17.8042 13.9792 17.4125 13.5875C17.0208 13.1958 16.55 13 16 13H8V6.8L9.6 8.4L11 7L7 3L3 7L4.4 8.4L6 6.8V13C6 13.55 6.19583 14.0208 6.5875 14.4125C6.97917 14.8042 7.45 15 8 15H16V21H18Z"
+      fill="#048A52"
+    />
+  </svg>
+);
+
+export const ArrowRight = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z" />
+  </svg>
+);
+
+export const ArrowTurnRight = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="M200-160v-480h447L503-783l57-57 240 240-241 241-56-57 144-144H280v400h-80Z" />
+  </svg>
+);
+
+export const ArrowSlightRight = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="M360-160v-303q0-16 6-30.5t17-25.5l201-201h-90v-80h226v226h-80v-90L440-464v304h-80Z" />
+  </svg>
+);
+
+export const ArrowSharpRight = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="M240-120v-240q0-33 23.5-56.5T320-440h320v-248l-64 64-56-56 160-160 160 160-56 56-64-64v248q0 33-23.5 56.5T640-360H320v240h-80Z" />
+  </svg>
+);
+
+export const UTurn = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="M240-120v-480q0-100 70-170t170-70q100 0 170 70t70 170v168l64-64 56 56-160 160-160-160 56-56 64 64v-168q0-66-47-113t-113-47q-66 0-113 47t-47 113v480h-80Z" />
+  </svg>
+);
+
+export const Destination = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="m438-426 198-198-57-57-141 141-56-56-57 57 113 113Zm42 240q122-112 181-203.5T720-552q0-109-69.5-178.5T480-800q-101 0-170.5 69.5T240-552q0 71 59 162.5T480-186Zm0 106Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z" />
+  </svg>
+);
+
+export const RoundAbout = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    width="25"
+    height="25"
+    viewBox="0 0 25 25"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    strokeWidth={15}
+    {...props}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M15 20C20.5229 20 25 15.5228 25 10C25 4.47717 20.5229 0 15 0C9.47714 0 5 4.47717 5 10C5 15.5228 9.47714 20 15 20ZM14.75 18.75C19.5825 18.75 23.5 14.8325 23.5 10C23.5 5.16748 19.5825 1.25 14.75 1.25C9.91751 1.25 6 5.16748 6 10C6 14.8325 9.91751 18.75 14.75 18.75Z"
+      fill="#8BDDBB"
+    />
+    <path
+      d="M13.5 24.5L15 24.5L14.9999 18.7327C11.5 19 7.99999 15.5 7.99999 15.5C6.45335 13.9534 6.50247 12.1873 6.49999 9.99998V2.81029L9.71936 6.03061C9.8601 6.17134 10.051 6.2504 10.25 6.2504C10.449 6.2504 10.6399 6.17134 10.7806 6.03061C10.9213 5.88987 11.0004 5.699 11.0004 5.49998C11.0004 5.30096 10.9213 5.11009 10.7806 4.96935L6.28061 0.469355C6.21096 0.399622 6.12824 0.344303 6.0372 0.30656C5.94615 0.268816 5.84855 0.24939 5.74999 0.24939C5.65143 0.24939 5.55383 0.268816 5.46278 0.30656C5.37174 0.344303 5.28902 0.399622 5.21936 0.469355L0.719365 4.96935C0.578634 5.11009 0.499573 5.30096 0.499573 5.49998C0.499573 5.699 0.578634 5.88987 0.719365 6.03061C0.860095 6.17134 1.05097 6.2504 1.24999 6.2504C1.44901 6.2504 1.63988 6.17134 1.78061 6.03061L4.99999 2.81029V9.99998C4.99999 11.5 4.99999 14.5 6.99999 16.5C8.49999 18 11.25 20 13.5 20L13.5 24.5Z"
+      fill="#048A52"
+    />
+  </svg>
+);
+
+export const Distance = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="M480-80q-106 0-173-33.5T240-200q0-35 29-61t80-41l23 76q-17 5-31 12.5T322-200q13 16 60 28t98 12q51 0 98.5-12t60.5-28q-5-6-19-13.5T589-226l23-76q51 15 79.5 41t28.5 61q0 53-67 86.5T480-80Zm0-267q18-33 38-60.5t39-52.5q37-48 59-86.5t22-95.5q0-66-46-112t-112-46q-66 0-112 46t-46 112q0 57 22 95.5t59 86.5q19 25 39 52.5t38 60.5Zm0 147q-11 0-20-6.5T447-224q-23-71-58-119t-68-92q-32-44-55.5-91T242-642q0-100 69-169t169-69q100 0 169 69t69 169q0 69-23 116t-56 91q-32 44-67.5 92T513-224q-4 11-13 17.5t-20 6.5Zm0-357q35 0 60-25t25-60q0-35-25-60t-60-25q-35 0-60 25t-25 60q0 35 25 60t60 25Zm0-85Z" />
+  </svg>
+);
+
+export const Clock = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="24px"
+    viewBox="0 -960 960 960"
+    width="24px"
+    fill="#048A52"
+    {...props}
+  >
+    <path d="M360-840v-80h240v80H360Zm80 440h80v-240h-80v240Zm40 320q-74 0-139.5-28.5T226-186q-49-49-77.5-114.5T120-440q0-74 28.5-139.5T226-694q49-49 114.5-77.5T480-800q62 0 119 20t107 58l56-56 56 56-56 56q38 50 58 107t20 119q0 74-28.5 139.5T734-186q-49 49-114.5 77.5T480-80Zm0-80q116 0 198-82t82-198q0-116-82-198t-198-82q-116 0-198 82t-82 198q0 116 82 198t198 82Zm0-280Z" />
   </svg>
 );

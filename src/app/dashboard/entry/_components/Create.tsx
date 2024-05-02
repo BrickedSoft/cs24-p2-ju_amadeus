@@ -36,7 +36,7 @@ type Props = {
   buttons: {
     [key: string]: string;
   };
-  mapFieldTitle: sting;
+  mapFieldTitle: string;
 };
 
 const NewSts: React.FC<Props> = ({

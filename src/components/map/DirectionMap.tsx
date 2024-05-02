@@ -42,24 +42,31 @@ const DirectionMap: React.FC<Props> = ({
   });
 
   useEffect(() => {
-    const fetchDirection = async () => {
-      if (start && destination) {
-        //TODO: API Key exposed here
-        const response = await fetch(
-          `https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf624859738a47d29f41438c5e81d6af957204&start=${start?.cord?.lng},${start?.cord?.lat}&end=${destination?.cord?.lng},${destination?.cord?.lat}`
-        );
-        const data = await response.json();
+    if (
+      start.cord?.lat &&
+      start.cord?.lng &&
+      destination.cord?.lat &&
+      destination.cord?.lng
+    ) {
+      (async () => {
+        if (start && destination) {
+          //TODO: API Key exposed here
+          const response = await fetch(
+            `https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf624859738a47d29f41438c5e81d6af957204&start=${start?.cord?.lng},${start?.cord?.lat}&end=${destination?.cord?.lng},${destination?.cord?.lat}`
+          );
+          const data = await response.json();
 
-        if (data.features) {
-          setGeoJsonObj(data);
-          console.log(data);
-        } else {
-          console.log("Error: Missing route geometry in response");
+          if (data.features) {
+            setGeoJsonObj(data);
+            console.log(data);
+          } else {
+            console.log("Error: Missing route geometry in response");
+          }
         }
-      }
-    };
-    fetchDirection();
-  }, [destination, setGeoJsonObj, start]);
+      })();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [destination.cord, start.cord]);
 
   const totalUnits = _.chain(geoJsonObj?.features)
     .map((item) => item?.properties?.segments)

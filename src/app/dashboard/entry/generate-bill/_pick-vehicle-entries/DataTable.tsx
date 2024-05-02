@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -10,11 +10,8 @@ import {
   getSortedRowModel,
   SortingState,
   useReactTable,
-} from "@tanstack/react-table";
-import Link from "next/link";
-
-import { Button } from "@components/ui/button";
-import { Input } from "@components/ui/input";
+} from '@tanstack/react-table';
+import { Input } from '@components/ui/input';
 import {
   Table,
   TableBody,
@@ -22,17 +19,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@components/ui/table";
-import { ScrollArea } from "@/components/ui/scroll-area";
+} from '@components/ui/table';
+import { CustomVehicleEntry } from '@allTypes';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  setVehicleEntry: Dispatch<SetStateAction<CustomVehicleEntry | undefined>>;
 };
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  setVehicleEntry,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -51,25 +51,27 @@ export function DataTable<TData, TValue>({
   });
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <div className="flex items-center py-4">
+      <div className='flex justify-between items-center'>
+        <div className='flex justify-between py-4 w-full items-center'>
+          <p className='text-sm font-medium'>Select a vehicle entry to generate bill:</p>
           <Input
-            placeholder="Search by ID"
-            value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("id")?.setFilterValue(event.target.value)
+            placeholder='Search by vehicle number'
+            value={
+              (table.getColumn('vehicleNumber')?.getFilterValue() as string) ??
+              ''
             }
-            className="max-w-sm"
+            onChange={(event) =>
+              table
+                .getColumn('vehicleNumber')
+                ?.setFilterValue(event.target.value)
+            }
+            className='max-w-sm'
           />
         </div>
-        <Link href={"/dashboard/entry/vehicle-entries/new"}>
-          <Button className="text-sm bg-gray-300 text-black hover:bg-black hover:text-white rounded-sm sm">
-            Add vehicle entry
-          </Button>
-        </Link>
       </div>
-      <ScrollArea className="h-[560px] border rounded-md ">
+      <ScrollArea className='h-[360px] rounded-md border'>
         <Table>
+          {/* TODO: sticky not sticking */}
           <TableHeader className='sticky top-0 bg-secondary'>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -80,7 +82,7 @@ export function DataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </TableHead>
                   );
@@ -92,14 +94,18 @@ export function DataTable<TData, TValue>({
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
+                  onClick={() => {
+                    // TODO: fix typing here
+                    //@ts-ignore
+                    setVehicleEntry(row.original);
+                  }}
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                  data-state={row.getIsSelected() && 'selected'}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext(),
+                        cell.getContext()
                       )}
                     </TableCell>
                   ))}
@@ -109,8 +115,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                  className='h-24 text-center'>
                   No results.
                 </TableCell>
               </TableRow>

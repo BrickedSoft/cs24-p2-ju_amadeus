@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { validateTokenUser } from "@/lib/db-utils/auth";
-import { RoleType } from "@/lib/constants/userContants";
 import { z } from "zod";
-import { STS, VehicleRoute } from "@prisma/client";
+import { VehicleRoute } from "@prisma/client";
 
 export async function GET(request: NextRequest) {
   const auth = await validateTokenUser(request)
@@ -14,7 +13,7 @@ export async function GET(request: NextRequest) {
     },
       { status: 400 })
 
-  let vehicleRouteList = await prisma.vehicleRoute.findMany()
+  const vehicleRouteList = await prisma.vehicleRoute.findMany()
 
 
   return NextResponse.json({

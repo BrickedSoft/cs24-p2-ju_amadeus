@@ -28,7 +28,7 @@ type FormInputsType = {
 
 const Login: React.FC = () => {
   const router = useRouter();
-  const [success, setSuccess] = useState<boolean | undefined>(undefined);
+  const [success, setSuccess] = useState<boolean | undefined>(false);
 
   const formSchema = z.object(
     _.reduce(

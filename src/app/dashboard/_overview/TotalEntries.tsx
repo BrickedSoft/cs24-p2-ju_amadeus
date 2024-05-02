@@ -60,7 +60,7 @@ const TotalEntries = async () => {
         <div className="flex gap-4 items-center">
           <People className="fill-primary w-8 h-8" />
           <p className="text-3xl text-primary font-semibold">
-            {userList.users.length}
+            {userList.users?.length}
           </p>
         </div>
       </div>
@@ -69,7 +69,7 @@ const TotalEntries = async () => {
         <div className="flex gap-4 items-center">
           <Storage className="fill-[#339AF0] w-8 h-8" />
           <p className="text-3xl text-[#339AF0] font-semibold">
-            {stsList.length}
+            {stsList?.length}
           </p>
         </div>
       </div>
@@ -80,7 +80,7 @@ const TotalEntries = async () => {
         <div className="flex gap-4 items-center">
           <LandSite className="fill-[#ae3ec9] w-8 h-8" />
           <p className="text-3xl text-[#ae3ec9] font-semibold">
-            {landfillList.length}
+            {landfillList?.length}
           </p>
         </div>
       </div>
@@ -89,7 +89,7 @@ const TotalEntries = async () => {
         <div className="flex gap-4 items-center">
           <Truck className="fill-[#FF922B] w-8 h-8" />
           <p className="text-3xl text-[#FF922B] font-semibold">
-            {vehicleList.length}
+            {vehicleList?.length}
           </p>
         </div>
       </div>

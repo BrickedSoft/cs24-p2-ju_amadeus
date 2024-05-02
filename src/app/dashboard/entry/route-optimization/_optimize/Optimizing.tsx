@@ -114,7 +114,7 @@ const Optimizing: React.FC<{ stsList: STS[]; landfillList: LandFill[] }> = ({
                 <SelectValue placeholder="Select Landfill" />
               </SelectTrigger>
               <SelectContent>
-                {landfillList.map((landfill) => (
+                {landfillList?.map((landfill) => (
                   <SelectItem key={landfill.id} value={landfill.id}>
                     {landfill.name}
                   </SelectItem>

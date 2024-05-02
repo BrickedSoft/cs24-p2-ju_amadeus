@@ -19,6 +19,7 @@ type Props = {
   >;
   fields: InputField[];
   variant?: "md" | "lg";
+  width?: number;
 };
 
 const CustomInputRenderer: React.FC<Props> = ({
@@ -26,6 +27,8 @@ const CustomInputRenderer: React.FC<Props> = ({
   form,
   fields,
   variant = "md",
+  width = undefined,
+  ...rest
 }) => (
   <>
     <p className="text-large text-destructive font-semibold text-center">
@@ -42,6 +45,8 @@ const CustomInputRenderer: React.FC<Props> = ({
           form={form}
           item={item}
           variant={variant}
+          width={width}
+          {...rest}
         />
       ))}
     </motion.div>

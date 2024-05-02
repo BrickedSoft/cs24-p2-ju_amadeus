@@ -21,7 +21,7 @@ const inputVariants = cva(
     defaultVariants: {
       variant: "md",
     },
-  },
+  }
 );
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -34,7 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {...props}
       />
     );
-  },
+  }
 );
 Input.displayName = "Input";
 

@@ -23,7 +23,7 @@ const ManageSts: React.FC<{ params: { userId: string } }> = ({ params }) => {
   const [stsId, setStsId] = useState("");
   useEffect(() => {
     if (isLoading == "assign") {
-      fetch(`/api/users/${params.userId}/assignStsInfo/${stsId}`).then(() =>
+      fetch(`/api/users/${params.userId}/assignSts/${stsId}`).then(() =>
         setIsLoading("none"),
       );
     }

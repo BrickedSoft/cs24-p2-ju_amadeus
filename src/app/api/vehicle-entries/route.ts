@@ -35,15 +35,18 @@ export async function GET(request: NextRequest) {
     include: {
       STS: true,
       landFill: true,
-      vehicle: true,
+      vehicle: {
+        include: {
+          STS: true
+        }
+      },
     },
   });
-
   return NextResponse.json(
     {
       vehicleEntries: vehicleEntries.map((ele) => ({
         ...ele,
-        stsName: ele.STS?.name,
+        stsName: ele.vehicle?.STS?.name,
         landfillName: ele.landFill?.name,
         vehicleNumber: ele.vehicle?.number,
       })),

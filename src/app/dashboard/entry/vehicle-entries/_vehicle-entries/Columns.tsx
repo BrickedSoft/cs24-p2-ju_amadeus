@@ -32,21 +32,12 @@ const TableHeader: React.FC<{ column: any; name: string }> = ({
 
 export const columns: ColumnDef<CustomVehicleEntry>[] = [
   {
-    accessorKey: "id",
-    header: ({ column }) => <TableHeader column={column} name="ID" />,
-    cell: (row) => <p>{row.row.original.id.slice(-4)}</p>,
-  },
-  {
-    accessorKey: "wasteVolume",
-    header: ({ column }) => <TableHeader column={column} name="Waste Volume" />,
-  },
-  {
     accessorKey: "vehicleNumber",
     header: ({ column }) => <TableHeader column={column} name="Vehicle" />,
   },
   {
-    accessorKey: "stsName",
-    header: ({ column }) => <TableHeader column={column} name="STS" />,
+    accessorKey: "wasteVolume",
+    header: ({ column }) => <TableHeader column={column} name="Waste Volume" />,
   },
   {
     accessorKey: "landfillName",
@@ -55,10 +46,16 @@ export const columns: ColumnDef<CustomVehicleEntry>[] = [
   {
     accessorKey: "arrivalTime",
     header: ({ column }) => <TableHeader column={column} name="Arrival" />,
+    cell: (row) => (
+      <p>{new Date(row.row.original.arrivalTime).toLocaleString()}</p>
+    ),
   },
   {
     accessorKey: "departureTime",
     header: ({ column }) => <TableHeader column={column} name="Departure" />,
+    cell: (row) => (
+      <p>{new Date(row.row.original.departureTime).toLocaleString()}</p>
+    ),
   },
   {
     id: "actions",

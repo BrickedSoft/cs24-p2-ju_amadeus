@@ -1,24 +1,51 @@
-'use client';
+"use client";
 
-import { Key, useEffect } from 'react';
-import { MapContainer, Marker, Popup, TileLayer, GeoJSON } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
-import 'leaflet-defaulticon-compatibility';
-import { Coordinate, OpenrouteserviceFeatureCollection } from '@/types/map';
+import { Key, useEffect, useRef, useState } from "react";
+import { motion, useScroll } from "framer-motion";
+import { LatLngExpression } from "leaflet";
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+import "leaflet/dist/leaflet.css";
+import { GeoJSON, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
-const DirectionMap: React.FC<{
-  start: Coordinate | undefined;
-  destination: Coordinate | undefined;
+import {
+  Coordinate,
+  OpenrouteserviceFeatureCollection,
+  Step as StepType,
+} from "@allTypes";
+import { springSingleBounce } from "@constants/animation";
+import Step from "./Step";
+import _ from "lodash";
+
+type Props = {
+  start: { name: string | undefined; cord: Coordinate | undefined };
+  destination: { name: string | undefined; cord: Coordinate | undefined };
   setGeoJsonObj: any;
   geoJsonObj: OpenrouteserviceFeatureCollection | null;
-}> = ({ start, destination, setGeoJsonObj, geoJsonObj }) => {
+};
+
+const DirectionMap: React.FC<Props> = ({
+  start,
+  destination,
+  setGeoJsonObj,
+  geoJsonObj,
+}) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["0 0.75", "1 0.75"],
+  });
+  const [timelineScrollPosition, setTimelineScrollPosition] = useState(0);
+  scrollYProgress.on("change", (latest) => {
+    setTimelineScrollPosition(latest);
+  });
+
   useEffect(() => {
     const fetchDirection = async () => {
       if (start && destination) {
         //TODO: API Key exposed here
         const response = await fetch(
-          `https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf62481abc2ac3be5b4b23a4de857c38183326&start=${start.lng},${start.lat}&end=${destination.lng},${destination.lat}`
+          `https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf62481abc2ac3be5b4b23a4de857c38183326&start=${start?.cord?.lng},${start?.cord?.lat}&end=${destination?.cord?.lng},${destination?.cord?.lat}`
         );
         const data = await response.json();
 
@@ -26,56 +53,73 @@ const DirectionMap: React.FC<{
           setGeoJsonObj(data);
           console.log(data);
         } else {
-          console.log('Error: Missing route geometry in response');
+          console.log("Error: Missing route geometry in response");
         }
       }
     };
     fetchDirection();
   }, [destination, setGeoJsonObj, start]);
 
+  // let totalDistance = _.chain(geoJsonObj?.features)
+  //   .map((item) => item?.properties?.segments)
+  //   .value();
+
+  // console.log(totalDistance);
+
   return (
     start &&
     destination &&
     geoJsonObj && (
       <>
-        <div className='mt-4'>
+        <div className="mt-4">
           <MapContainer
-            center={start}
+            center={start.cord}
             zoom={12}
-            style={{ height: '450px', width: '100%', zIndex: '0' }}>
-            <TileLayer url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
+            style={{ height: "450px", width: "100%", zIndex: "0" }}
+          >
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-            <Marker position={start}>
+            <Marker position={start?.cord as LatLngExpression}>
               <Popup>STS</Popup>
             </Marker>
 
-            <Marker position={destination}>
+            <Marker position={destination?.cord as LatLngExpression}>
               <Popup>Landfill</Popup>
             </Marker>
 
-            <GeoJSON
-              key={geoJsonObj.metadata.timestamp}
-              data={geoJsonObj}
-            />
+            <GeoJSON key={geoJsonObj.metadata.timestamp} data={geoJsonObj} />
           </MapContainer>
         </div>
-        <div className='bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 mt-8'>
+        <div className="bg-background px-6 py-4 rounded-md border-[1.45px] border-gray-300 mt-8">
           {geoJsonObj?.features.map((feature) => (
             <div key={feature?.properties?.id}>
               {feature?.properties?.segments?.map(
-                (segment: { id: Key | null | undefined; steps: any[] }) => (
+                (segment: {
+                  id: Key | null | undefined;
+                  steps: StepType[];
+                }) => (
                   <div key={segment.id}>
-                    {segment.steps.map((step) => (
-                      <div
-                        key={step.id}
-                        className='bg-green m-4'>
-                        <p>{step.instruction}</p>
-                        <div>
-                          <p>distance: {step.distance}</p>
-                          <p>duration: {step.duration}</p>
-                        </div>
-                      </div>
-                    ))}
+                    <motion.div
+                      ref={ref}
+                      variants={fadeInVariants}
+                      className="relative divide-y-[0.25px] divide-primary/20"
+                    >
+                      {segment.steps.map((step, index, steps) => (
+                        <Step
+                          key={index}
+                          step={step}
+                          destination={destination?.name as string}
+                          last={index === steps.length - 1}
+                        />
+                      ))}
+
+                      <motion.div
+                        className="absolute w-auto top-12 left-[38px] -translate-x-2/4 border-l-2 border-dotted border-l-light-gray-aa z-30"
+                        style={{
+                          height: `${timelineScrollPosition * 100}%`,
+                        }}
+                      ></motion.div>
+                    </motion.div>
                   </div>
                 )
               )}
@@ -88,3 +132,17 @@ const DirectionMap: React.FC<{
 };
 
 export default DirectionMap;
+
+const fadeInVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      ...springSingleBounce,
+    },
+  },
+};

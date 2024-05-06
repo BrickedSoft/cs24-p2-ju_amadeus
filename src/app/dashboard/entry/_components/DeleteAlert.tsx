@@ -1,8 +1,9 @@
 "use client";
 
 import { Dispatch, SetStateAction } from "react";
+import { LandFill, STS, User, Vehicle, VehicleEntry } from "@prisma/client";
+import { useFormState } from "react-dom";
 
-import { deleteUser } from "@lib/entry/users/deleteUser";
 import {
   actionLabel,
   buttons,
@@ -20,8 +21,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@components/ui/alert-dialog";
-import { LandFill, STS, User, Vehicle } from "@prisma/client";
-import { useFormState } from "react-dom";
+import { deleteUser } from "@lib/entry/users/deleteUser";
 
 const initialState = {
   message: "",
@@ -30,7 +30,7 @@ const initialState = {
 type Props = {
   setOpen?: Dispatch<SetStateAction<boolean>>;
   type: string;
-  data: User | Vehicle | STS | LandFill;
+  data: User | Vehicle | STS | LandFill | VehicleEntry;
 };
 
 const DeleteAlert: React.FC<Props> = ({ setOpen, data, type }) => {
@@ -55,7 +55,12 @@ const DeleteAlert: React.FC<Props> = ({ setOpen, data, type }) => {
               { title: "Name", value: data.name },
               { title: "Ward No", value: data.wardNumber },
             ]
-          : [{ title: "Name", value: data.name }];
+          : "name" in data
+            ? [{ title: "Name", value: data.name }]
+            : [
+                { title: "Entry Id", value: data.id },
+                { title: "Vehicle Id", value: data.vehicleId },
+              ];
 
   return (
     <AlertDialog>

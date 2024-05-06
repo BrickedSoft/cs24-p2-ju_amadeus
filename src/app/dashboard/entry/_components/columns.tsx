@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { LandFill, STS, User, Vehicle } from "@prisma/client";
+import { LandFill, STS, User, Vehicle, VehicleEntry } from "@prisma/client";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
@@ -29,16 +29,19 @@ export const columns = ({
   type,
   columnData,
   columnDropdownItems,
-}: ColumnProps): ColumnDef<User | Vehicle | STS | LandFill>[] => {
+}: ColumnProps): ColumnDef<
+  User | Vehicle | STS | LandFill | VehicleEntry
+>[] => {
   //@ts-ignore
-  const columns: ColumnDef<User | Vehicle | STS | LandFill>[] = columnData.map(
-    (item) => ({
+  const columns: ColumnDef<User | Vehicle | STS | LandFill | VehicleEntry>[] =
+    columnData.map((item) => ({
       accessorKey: item.accessorKey,
-      header: ({ column }: { column: User | Vehicle | STS | LandFill }) => (
-        <TableHeader column={column} name={item.name} />
-      ),
-    })
-  );
+      header: ({
+        column,
+      }: {
+        column: User | Vehicle | STS | LandFill | VehicleEntry;
+      }) => <TableHeader column={column} name={item.name} />,
+    }));
 
   return [
     ...columns,

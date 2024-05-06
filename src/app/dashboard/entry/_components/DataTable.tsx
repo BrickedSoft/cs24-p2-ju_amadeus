@@ -13,6 +13,12 @@ import {
 } from "@tanstack/react-table";
 import Link from "next/link";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@components/ui/tooltip";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import {
@@ -79,7 +85,7 @@ export function DataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </TableHead>
                   );
@@ -96,10 +102,22 @@ export function DataTable<TData, TValue>({
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="px-8">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger className="overflow-hidden text-ellipsis max-w-[20ch] text-nowrap">
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>{" "}
                     </TableCell>
                   ))}
                 </TableRow>

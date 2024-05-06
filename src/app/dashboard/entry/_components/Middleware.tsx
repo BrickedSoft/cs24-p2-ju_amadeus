@@ -11,6 +11,12 @@ type Props = {
   type: string;
   columnData: Column[];
   columnDropdownItems: LinkType[];
+  deleteMethod: (
+    id: string,
+    prevState: any,
+    formData: FormData
+  ) => Promise<never>;
+  pathToCreate: LinkType;
 };
 
 const Middleware: React.FC<Props> = ({
@@ -18,14 +24,18 @@ const Middleware: React.FC<Props> = ({
   type,
   columnData,
   columnDropdownItems,
+  deleteMethod,
+  pathToCreate,
 }) => {
   return (
     <DataTable
       data={data}
+      pathToCreate={pathToCreate}
       columns={columns({
         type,
         columnData,
         columnDropdownItems,
+        deleteMethod,
       })}
     />
   );

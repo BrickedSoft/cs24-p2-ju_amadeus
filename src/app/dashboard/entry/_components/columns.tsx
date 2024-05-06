@@ -23,12 +23,18 @@ type ColumnProps = {
   type: string;
   columnData: Column[];
   columnDropdownItems: LinkType[];
+  deleteMethod: (
+    id: string,
+    prevState: any,
+    formData: FormData
+  ) => Promise<never>;
 };
 
 export const columns = ({
   type,
   columnData,
   columnDropdownItems,
+  deleteMethod,
 }: ColumnProps): ColumnDef<
   User | Vehicle | STS | LandFill | VehicleEntry
 >[] => {
@@ -70,6 +76,7 @@ export const columns = ({
                       setOpen={setOpen}
                       type={type}
                       data={data}
+                      deleteMethod={deleteMethod}
                     />
                   ) : (
                     <Link key={index} href={item.href.replace("$id$", data.id)}>

@@ -5,11 +5,13 @@ import { api } from "@assets/data/api/endpoints";
 import {
   columnData,
   columnDropdownItems,
+  pathToCreate,
   type,
 } from "@assets/data/dashboard/entry/landfill-sites";
 import Loading from "@components/Loading";
 import { LandFill } from "@prisma/client";
 import Middleware from "../_components/Middleware";
+import { deleteLandfill } from "@lib/entry/landfill-sites/deleteLandfill";
 
 async function getData(cookieStore: any): Promise<LandFill[]> {
   let landfillList = await fetch(`${api}/landfill`, {
@@ -33,11 +35,13 @@ export default async function LandfillTable() {
   return (
     <div className="container h-full">
       <Suspense fallback={<Loading />}>
-      <Middleware
+        <Middleware
           data={data}
           type={type}
           columnData={columnData}
           columnDropdownItems={columnDropdownItems}
+          deleteMethod={deleteLandfill}
+          pathToCreate={pathToCreate}
         />
       </Suspense>
     </div>

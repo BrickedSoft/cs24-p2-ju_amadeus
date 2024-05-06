@@ -103,3 +103,8 @@ export const columnDropdownItems = [
     href: `${routes.sts}/$id$/delete`,
   },
 ];
+
+export const pathToCreate = {
+  title: "Add STS",
+  href: routes.stsNew,
+};

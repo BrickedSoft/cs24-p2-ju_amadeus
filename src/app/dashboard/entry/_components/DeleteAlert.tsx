@@ -21,7 +21,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@components/ui/alert-dialog";
-import { deleteUser } from "@lib/entry/users/deleteUser";
 
 const initialState = {
   message: "",
@@ -31,11 +30,21 @@ type Props = {
   setOpen?: Dispatch<SetStateAction<boolean>>;
   type: string;
   data: User | Vehicle | STS | LandFill | VehicleEntry;
+  deleteMethod: (
+    id: string,
+    prevState: any,
+    formData: FormData
+  ) => Promise<never>;
 };
 
-const DeleteAlert: React.FC<Props> = ({ setOpen, data, type }) => {
+const DeleteAlert: React.FC<Props> = ({
+  setOpen,
+  data,
+  type,
+  deleteMethod,
+}) => {
   const [state, formAction] = useFormState(
-    deleteUser.bind(null, data.id || ""),
+    deleteMethod.bind(null, data.id || ""),
     initialState
   );
 

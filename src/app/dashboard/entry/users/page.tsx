@@ -6,9 +6,11 @@ import { userDataEndpoint } from "@assets/data/api/endpoints";
 import {
   columnData,
   columnDropdownItems,
+  pathToCreate,
   type,
 } from "@assets/data/dashboard/entry/users";
 import Loading from "@components/Loading";
+import { deleteUser } from "@lib/entry/users/deleteUser";
 import Middleware from "../_components/Middleware";
 
 async function getData(cookieStore: any): Promise<User[]> {
@@ -38,6 +40,8 @@ const Users = async () => {
           type={type}
           columnData={columnData}
           columnDropdownItems={columnDropdownItems}
+          deleteMethod={deleteUser}
+          pathToCreate={pathToCreate}
         />
       </Suspense>
     </div>

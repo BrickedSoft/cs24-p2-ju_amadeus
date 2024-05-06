@@ -8,11 +8,13 @@ import { api } from "@assets/data/api/endpoints";
 import {
   columnData,
   columnDropdownItems,
+  pathToCreate,
   type,
 } from "@assets/data/dashboard/entry/vehicle-entries";
 import Loading from "@components/Loading";
 import { dateFormatter } from "@utils/dateFormatter";
 import Middleware from "../_components/Middleware";
+import { deleteVehicleEntry } from "@lib/entry/vehicle-entries/deleteVehicleEntry";
 
 async function getData(cookieStore: any): Promise<CustomVehicleEntry[]> {
   let vehicleEntryList = await fetch(`${api}/vehicle-entries`, {
@@ -49,6 +51,8 @@ export default async function VehicleEntries() {
           type={type}
           columnData={columnData}
           columnDropdownItems={columnDropdownItems}
+          deleteMethod={deleteVehicleEntry}
+          pathToCreate={pathToCreate}
         />
       </Suspense>
     </div>

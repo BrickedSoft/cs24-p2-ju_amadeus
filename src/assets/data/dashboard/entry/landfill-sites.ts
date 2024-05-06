@@ -79,3 +79,8 @@ export const columnDropdownItems = [
     href: `${routes.landfillSites}/$id$/delete`,
   },
 ];
+
+export const pathToCreate = {
+  title: "Add landfill",
+  href: routes.landfillSitesNew,
+};

@@ -5,11 +5,13 @@ import { cookies } from "next/headers";
 import {
   columnData,
   columnDropdownItems,
+  pathToCreate,
   type,
 } from "@/assets/data/dashboard/entry/sts";
 import { api } from "@assets/data/api/endpoints";
 import Loading from "@components/Loading";
 import Middleware from "../_components/Middleware";
+import { deleteSts } from "@lib/entry/sts/deleteSts";
 
 async function getData(cookieStore: any): Promise<STS[]> {
   let stsList = await fetch(`${api}/sts`, {
@@ -38,6 +40,8 @@ export default async function STSTable() {
           type={type}
           columnData={columnData}
           columnDropdownItems={columnDropdownItems}
+          deleteMethod={deleteSts}
+          pathToCreate={pathToCreate}
         />
       </Suspense>
     </div>

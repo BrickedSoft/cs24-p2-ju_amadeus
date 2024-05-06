@@ -61,3 +61,8 @@ export const columnDropdownItems = [
     href: `${routes.users}/$id$/assign`,
   },
 ];
+
+export const pathToCreate = {
+  title: "Create user",
+  href: routes.usersNew,
+};

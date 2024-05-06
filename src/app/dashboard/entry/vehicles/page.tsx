@@ -2,13 +2,15 @@ import { Suspense } from "react";
 import { Vehicle } from "@prisma/client";
 import { cookies } from "next/headers";
 
+import { vehicleDataEndpoint } from "@assets/data/api/endpoints";
 import {
   columnData,
   columnDropdownItems,
-  type,
+  pathToCreate,
+  type
 } from "@assets/data/dashboard/entry/vehicles";
-import { vehicleDataEndpoint } from "@assets/data/api/endpoints";
 import Loading from "@components/Loading";
+import { deleteVehicle } from "@lib/entry/vehicles/deleteVehicle";
 import Middleware from "../_components/Middleware";
 
 async function getData(cookieStore: any): Promise<Vehicle[]> {
@@ -38,6 +40,8 @@ export default async function Vehicles() {
           type={type}
           columnData={columnData}
           columnDropdownItems={columnDropdownItems}
+          deleteMethod={deleteVehicle}
+          pathToCreate={pathToCreate}
         />
       </Suspense>
     </div>

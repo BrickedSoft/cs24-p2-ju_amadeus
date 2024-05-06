@@ -23,6 +23,7 @@ export const path = {
   routeOptimization: "route-optimization",
   fleetOptimization: "fleet-optimization",
   generateBill: "generate-bill",
+  new: "new",
 };
 
 export const pathTitles = {
@@ -82,10 +83,15 @@ export const routes = {
   general: `${accountPath}/${path.general}`,
   passwordLogins: `${accountPath}/${path.passwordLogins}`,
   users: `${entryPath}/${path.users}`,
+  usersNew: `${entryPath}/${path.users}/${path.new}`,
   vehicles: `${entryPath}/${path.vehicles}`,
+  vehiclesNew: `${entryPath}/${path.vehicles}/${path.new}`,
   sts: `${entryPath}/${path.sts}`,
+  stsNew: `${entryPath}/${path.sts}/${path.new}`,
   landfillSites: `${entryPath}/${path.landfillSites}`,
+  landfillSitesNew: `${entryPath}/${path.landfillSites}/${path.new}`,
   vehicleEntries: `${entryPath}/${path.vehicleEntries}`,
+  vehicleEntriesNew: `${entryPath}/${path.vehicleEntries}/${path.new}`,
   routeOptimization: `${entryPath}/${path.routeOptimization}`,
   fleetOptimization: `${entryPath}/${path.fleetOptimization}`,
   generateBill: `${entryPath}/${path.generateBill}`,

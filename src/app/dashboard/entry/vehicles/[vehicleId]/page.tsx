@@ -45,7 +45,7 @@ const EditVehicle: React.FC<{ params: { vehicleId: string } }> = ({
 
   const [state, formAction] = useFormState(
     updateVehicle.bind(null, params.vehicleId),
-    initialState,
+    initialState
   );
   return vehicle && stsList ? (
     <form

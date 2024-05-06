@@ -51,3 +51,8 @@ export const columnDropdownItems = [
     href: `${routes.vehicles}/$id$/delete`,
   },
 ];
+
+export const pathToCreate = {
+  title: "Add vehicle",
+  href: routes.vehiclesNew,
+};

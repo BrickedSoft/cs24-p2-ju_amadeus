@@ -13,6 +13,7 @@ import {
 } from "@tanstack/react-table";
 import Link from "next/link";
 
+import { Link as LinkType } from "@allTypes";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import {
@@ -23,15 +24,23 @@ import {
   TableHeader,
   TableRow,
 } from "@components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@components/ui/tooltip";
 
 type Props<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  pathToCreate: LinkType;
 };
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  pathToCreate,
 }: Props<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -61,9 +70,9 @@ export function DataTable<TData, TValue>({
             className="max-w-sm"
           />
         </div>
-        <Link href={"/dashboard/entry/users/new"}>
+        <Link href={pathToCreate.href}>
           <Button className="text-sm bg-gray-300 text-black hover:bg-black hover:text-white rounded-sm sm">
-            Create user
+            {pathToCreate.title}
           </Button>
         </Link>
       </div>
@@ -79,7 +88,7 @@ export function DataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext(),
+                            header.getContext()
                           )}
                     </TableHead>
                   );
@@ -96,10 +105,22 @@ export function DataTable<TData, TValue>({
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="px-8">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger className="overflow-hidden text-ellipsis max-w-[20ch] text-nowrap">
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
                     </TableCell>
                   ))}
                 </TableRow>
@@ -108,7 +129,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-96 text-center"
                 >
                   No results.
                 </TableCell>

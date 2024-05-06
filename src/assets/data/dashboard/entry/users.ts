@@ -1,4 +1,5 @@
-import { FormInfo, FormInfoExtended } from "@allTypes";
+import { Column, FormInfo, FormInfoExtended, InputField } from "@allTypes";
+import { routes } from "@assets/data/routes";
 
 export const assignLandfillInfo: FormInfo = {
   description:
@@ -37,3 +38,26 @@ export const updateUserInfo: FormInfoExtended = {
     { name: "email", label: "Email" },
   ],
 };
+
+export const type = "user";
+
+export const columnData: Column[] = [
+  { accessorKey: "name", name: "Name" },
+  { accessorKey: "email", name: "Email" },
+  { accessorKey: "role", name: "Role" },
+];
+
+export const columnDropdownItems = [
+  {
+    title: "Update",
+    href: `${routes.users}/$id$`,
+  },
+  {
+    title: "Delete",
+    href: `${routes.users}/$id$/delete`,
+  },
+  {
+    title: "Management",
+    href: `${routes.users}/$id$/assign`,
+  },
+];

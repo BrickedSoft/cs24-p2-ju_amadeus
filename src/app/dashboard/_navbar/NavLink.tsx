@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { NavLink as NavLinkData } from "@allTypes";
+import { Link as NavLinkData } from "@allTypes";
 
 const NavLink: React.FC<NavLinkData> = ({ title, href }) => {
   const currPath = usePathname();

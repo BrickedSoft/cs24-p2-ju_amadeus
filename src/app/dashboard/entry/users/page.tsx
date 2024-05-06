@@ -3,9 +3,13 @@ import { User } from "@prisma/client";
 import { cookies } from "next/headers";
 
 import { userDataEndpoint } from "@assets/data/api/endpoints";
+import {
+  columnData,
+  columnDropdownItems,
+  type,
+} from "@assets/data/dashboard/entry/users";
 import Loading from "@components/Loading";
-import { columns } from "./_users/Columns";
-import { DataTable } from "./_users/DataTable";
+import Middleware from "../_components/Middleware";
 
 async function getData(cookieStore: any): Promise<User[]> {
   let userList = await fetch(`${userDataEndpoint}`, {
@@ -21,7 +25,7 @@ async function getData(cookieStore: any): Promise<User[]> {
   return userList;
 }
 
-export default async function Users() {
+const Users = async () => {
   const cookieStore = cookies();
 
   const data = await getData(cookieStore);
@@ -29,8 +33,15 @@ export default async function Users() {
   return (
     <div className="container h-full">
       <Suspense fallback={<Loading />}>
-        <DataTable columns={columns} data={data} />
+        <Middleware
+          data={data}
+          type={type}
+          columnData={columnData}
+          columnDropdownItems={columnDropdownItems}
+        />
       </Suspense>
     </div>
   );
-}
+};
+
+export default Users;

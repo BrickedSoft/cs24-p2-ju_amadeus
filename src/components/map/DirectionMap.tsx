@@ -16,6 +16,7 @@ import {
 import { springSingleBounce } from "@constants/animation";
 import Step from "./Step";
 import _ from "lodash";
+import { Clock, Distance } from "../Icons";
 
 type Props = {
   start: { name: string | undefined; cord: Coordinate | undefined };
@@ -41,30 +42,36 @@ const DirectionMap: React.FC<Props> = ({
   });
 
   useEffect(() => {
-    const fetchDirection = async () => {
-      if (start && destination) {
-        //TODO: API Key exposed here
-        const response = await fetch(
-          `https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf62481abc2ac3be5b4b23a4de857c38183326&start=${start?.cord?.lng},${start?.cord?.lat}&end=${destination?.cord?.lng},${destination?.cord?.lat}`
-        );
-        const data = await response.json();
+    if (
+      start.cord?.lat &&
+      start.cord?.lng &&
+      destination.cord?.lat &&
+      destination.cord?.lng
+    ) {
+      (async () => {
+        if (start && destination) {
+          //TODO: API Key exposed here
+          const response = await fetch(
+            `https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf624859738a47d29f41438c5e81d6af957204&start=${start?.cord?.lng},${start?.cord?.lat}&end=${destination?.cord?.lng},${destination?.cord?.lat}`
+          );
+          const data = await response.json();
 
-        if (data.features) {
-          setGeoJsonObj(data);
-          console.log(data);
-        } else {
-          console.log("Error: Missing route geometry in response");
+          if (data.features) {
+            setGeoJsonObj(data);
+            console.log(data);
+          } else {
+            console.log("Error: Missing route geometry in response");
+          }
         }
-      }
-    };
-    fetchDirection();
-  }, [destination, setGeoJsonObj, start]);
+      })();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [destination.cord, start.cord]);
 
-  // let totalDistance = _.chain(geoJsonObj?.features)
-  //   .map((item) => item?.properties?.segments)
-  //   .value();
-
-  // console.log(totalDistance);
+  const totalUnits = _.chain(geoJsonObj?.features)
+    .map((item) => item?.properties?.segments)
+    .flatten()
+    .value()[0];
 
   return (
     start &&
@@ -90,19 +97,43 @@ const DirectionMap: React.FC<Props> = ({
             <GeoJSON key={geoJsonObj.metadata.timestamp} data={geoJsonObj} />
           </MapContainer>
         </div>
-        <div className="bg-background px-6 py-4 rounded-md border-[1.45px] border-gray-300 mt-8">
-          {geoJsonObj?.features.map((feature) => (
-            <div key={feature?.properties?.id}>
-              {feature?.properties?.segments?.map(
-                (segment: {
-                  id: Key | null | undefined;
-                  steps: StepType[];
-                }) => (
-                  <div key={segment.id}>
+
+        <div className="rounded-md border-[1.45px] border-gray-300 mt-8 overflow-hidden">
+          <div className="bg-primary py-8 flex flex-col gap-2 justify-center items-center heading-tertiary !text-white font-semibold">
+            <div className="flex gap-2.5 items-center">
+              <Distance className="h-7 w-7 fill-white" />
+              <div className="flex gap-2">
+                <span className="capitalize">Total Distance:</span>
+                <span className="font-medium">
+                  {totalUnits.distance > 1000
+                    ? `${(totalUnits.distance / 1000).toFixed(2)} km`
+                    : `${totalUnits.distance} m`}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex gap-2.5 items-center pb-1.5">
+              <Clock className="h-7 w-7 fill-white" />
+              <div className="flex gap-2">
+                <span className="capitalize">Approx. Duration:</span>
+                <span className="font-medium">{`${totalUnits.duration / 3600 > 1 ? `${Math.floor(totalUnits.duration / 60)} hr` : ""} ${((totalUnits.duration - Math.floor(totalUnits.duration / 3600)) * 3600) / 60 > 1 ? `${Math.floor((totalUnits.duration - Math.floor(totalUnits.duration / 3600) * 3600) / 60)} min` : ""}`}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-background px-6 py-4">
+            {geoJsonObj?.features.map((feature) => (
+              <div key={feature?.properties?.id}>
+                {feature?.properties?.segments?.map(
+                  (segment: {
+                    id: Key | null | undefined;
+                    steps: StepType[];
+                  }) => (
                     <motion.div
+                      key={segment.id}
                       ref={ref}
                       variants={fadeInVariants}
-                      className="relative divide-y-[0.25px] divide-primary/20"
+                      className="relative divide-y-[0.25px] divide-primary/20 mt-6"
                     >
                       {segment.steps.map((step, index, steps) => (
                         <Step
@@ -120,11 +151,11 @@ const DirectionMap: React.FC<Props> = ({
                         }}
                       ></motion.div>
                     </motion.div>
-                  </div>
-                )
-              )}
-            </div>
-          ))}
+                  )
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </>
     )

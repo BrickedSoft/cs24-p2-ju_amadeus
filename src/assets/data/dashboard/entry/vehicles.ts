@@ -1,4 +1,5 @@
-import { FormInfoExtended } from "@allTypes";
+import { Column, FormInfoExtended, InputField } from "@allTypes";
+import { routes } from "@assets/data/routes";
 
 export const newVehicleInfo: FormInfoExtended = {
   actionLabel: "Add",
@@ -31,3 +32,22 @@ export const vehicleInfo: FormInfoExtended = {
     { name: "fuelCostLoaded", label: "Fuel cost per kilometer - Fully loaded" },
   ],
 };
+
+export const type = "vehicle";
+
+export const columnData: Column[] = [
+  { accessorKey: "number", name: "Number" },
+  { accessorKey: "type", name: "Type" },
+  { accessorKey: "capacity", name: "Capacity" },
+];
+
+export const columnDropdownItems = [
+  {
+    title: "Update",
+    href: `${routes.vehicles}/$id$`,
+  },
+  {
+    title: "Delete",
+    href: `${routes.vehicles}/$id$/delete`,
+  },
+];

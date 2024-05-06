@@ -2,10 +2,14 @@ import { Suspense } from "react";
 import { Vehicle } from "@prisma/client";
 import { cookies } from "next/headers";
 
+import {
+  columnData,
+  columnDropdownItems,
+  type,
+} from "@assets/data/dashboard/entry/vehicles";
 import { vehicleDataEndpoint } from "@assets/data/api/endpoints";
 import Loading from "@components/Loading";
-import { columns } from "./_vehicles/Columns";
-import { DataTable } from "./_vehicles/DataTable";
+import Middleware from "../_components/Middleware";
 
 async function getData(cookieStore: any): Promise<Vehicle[]> {
   let vehicleList = await fetch(`${vehicleDataEndpoint}`, {
@@ -29,7 +33,12 @@ export default async function Vehicles() {
   return (
     <div className="container h-full">
       <Suspense fallback={<Loading />}>
-        <DataTable columns={columns} data={data} />
+        <Middleware
+          data={data}
+          type={type}
+          columnData={columnData}
+          columnDropdownItems={columnDropdownItems}
+        />
       </Suspense>
     </div>
   );

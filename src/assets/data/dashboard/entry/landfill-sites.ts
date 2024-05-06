@@ -1,4 +1,5 @@
-import { FormInfoExtended } from "@allTypes";
+import { Column, FormInfoExtended } from "@allTypes";
+import { routes } from "@assets/data/routes";
 
 export const landfillSiteInfo: FormInfoExtended = {
   actionLabel: "Submit",
@@ -47,7 +48,7 @@ export const fields: InputField[] = [
   },
 ];
 
-export const mapFieldTitle='Pick your Landfill Site location'
+export const mapFieldTitle = "Pick your Landfill Site location";
 
 export const errors = {
   empty: "This is required",
@@ -59,3 +60,22 @@ export const buttons = {
   submit: "Submit",
   reset: "Reset",
 };
+
+export const type = "landfill site";
+
+export const columnData: Column[] = [
+  { accessorKey: "name", name: "Name" },
+  { accessorKey: "longitude", name: "Longitude" },
+  { accessorKey: "latitude", name: "Latitude" },
+];
+
+export const columnDropdownItems = [
+  {
+    title: "Update",
+    href: `${routes.landfillSites}/$id$`,
+  },
+  {
+    title: "Delete",
+    href: `${routes.landfillSites}/$id$/delete`,
+  },
+];

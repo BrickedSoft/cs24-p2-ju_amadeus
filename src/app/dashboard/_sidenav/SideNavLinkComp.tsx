@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { NavLink as NavLinkType } from "@allTypes";
+import { Link as NavLinkType } from "@allTypes";
 
 const SideNavLinkComp: React.FC<NavLinkType> = ({ title, href }) => {
   const currPath = usePathname();

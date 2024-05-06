@@ -24,7 +24,7 @@ const TokenCard: React.FC<{
   const [isOpen, setIsOpen] = useState(false);
   const [state, formAction] = useFormState(
     regenerateResetTokenWithId.bind(null, userId || ""),
-    { message: "" },
+    { message: "" }
   );
   const token = info.actionLabel;
 
@@ -41,7 +41,7 @@ const TokenCard: React.FC<{
         <AlertDialogHeader>
           <AlertDialogTitle>
             <div className="flex justify-between items-start mb-1 md:mb-2">
-              <h3 className="heading-tertiary">{info.title}</h3>
+              <p>{info.title}</p>
               {state.message && (
                 <AlertDialogCancel className="h-auto p-0 focus-visible:ring-0 focus-visible:ring-offset-0">
                   <Close className="h-4 md:h-5 w-5 md:w-5 hover:stroke-destructive transition-all duration-300 cursor-pointer" />
@@ -53,9 +53,11 @@ const TokenCard: React.FC<{
             <form action={formAction} className="flex flex-col gap-2 md:gap-5">
               <p>{info.description}</p>
               <div className="flex items-center gap-4">
-                <p className="text-2xl font-semibold text-green-700">
-                  {info.actionLabel}
-                </p>
+                {info.actionLabel && (
+                  <p className="text-2xl font-semibold text-green-700">
+                    {info.actionLabel}
+                  </p>
+                )}
                 {!state.message && (
                   <SubmitButton
                     label={info.button as string}

@@ -2,10 +2,14 @@ import { Suspense } from "react";
 import { STS } from "@prisma/client";
 import { cookies } from "next/headers";
 
+import {
+  columnData,
+  columnDropdownItems,
+  type,
+} from "@/assets/data/dashboard/entry/sts";
 import { api } from "@assets/data/api/endpoints";
 import Loading from "@components/Loading";
-import { columns } from "./_sts/Columns";
-import { DataTable } from "./_sts/DataTable";
+import Middleware from "../_components/Middleware";
 
 async function getData(cookieStore: any): Promise<STS[]> {
   let stsList = await fetch(`${api}/sts`, {
@@ -29,7 +33,12 @@ export default async function STSTable() {
   return (
     <div className="container h-full">
       <Suspense fallback={<Loading />}>
-        <DataTable columns={columns} data={data} />
+        <Middleware
+          data={data}
+          type={type}
+          columnData={columnData}
+          columnDropdownItems={columnDropdownItems}
+        />
       </Suspense>
     </div>
   );

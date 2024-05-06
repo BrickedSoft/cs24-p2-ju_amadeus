@@ -1,4 +1,4 @@
-import { NavLink as NavLinkType } from "@allTypes";
+import { Link as NavLinkType } from "@allTypes";
 import SideNavLinkComp from "./SideNavLinkComp";
 
 const SideNav: React.FC<{ sideNavValue: NavLinkType[] }> = ({

@@ -1,4 +1,5 @@
-import { FormInfoExtended } from "@allTypes";
+import { Column, FormInfoExtended, InputField } from "@allTypes";
+import { routes } from "@assets/data/routes";
 
 export const stsInfo: FormInfoExtended = {
   actionLabel: "Submit",
@@ -31,8 +32,6 @@ export const newStsInfo: FormInfoExtended = {
     { name: "latitude", label: "Latitude" },
   ],
 };
-
-import { InputField } from "@allTypes";
 
 export const title = "Create new STS";
 export const description = "Enter STS information";
@@ -83,3 +82,24 @@ export const buttons = {
   submit: "Submit",
   reset: "Reset",
 };
+
+export const type = "STS";
+
+export const columnData: Column[] = [
+  { accessorKey: "name", name: "Name" },
+  { accessorKey: "wardNumber", name: "Ward Number" },
+  { accessorKey: "capacity", name: "Capacity" },
+  { accessorKey: "longitude", name: "Longitude" },
+  { accessorKey: "latitude", name: "Latitude" },
+];
+
+export const columnDropdownItems = [
+  {
+    title: "Update",
+    href: `${routes.sts}/$id$`,
+  },
+  {
+    title: "Delete",
+    href: `${routes.sts}/$id$/delete`,
+  },
+];

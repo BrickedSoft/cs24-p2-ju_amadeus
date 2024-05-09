@@ -5,5 +5,5 @@ export const description = `This action cannot be undone. This will permanently 
 
 export const buttons = {
   cancel: "Cancel",
-  continue: "Continue",
+  continue: "Delete",
 };

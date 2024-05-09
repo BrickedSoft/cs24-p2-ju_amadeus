@@ -1,82 +1,65 @@
-import { Dispatch, SetStateAction, useMemo, useRef } from "react";
+import { useRef } from "react";
+import { Control, Controller, UseFormSetValue } from "react-hook-form";
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
 
-import { Coordinate } from "@allTypes";
-import { Input } from "@components/ui/input";
 import { center } from "@constants/map";
 
-interface FormValues {
-  name: string;
-  label: string;
-}
+type Props = {
+  control: Control<
+    {
+      [x: string]: any;
+    },
+    any
+  >;
+  setValue: UseFormSetValue<{
+    [x: string]: any;
+  }>;
+};
 
-const lnglatData: FormValues[] = [
-  { name: "lat", label: "Latitude" },
-  { name: "lng", label: "Longitude" },
-];
-
-const DraggableMarker = ({
-  position,
-  setPosition,
-}: {
-  position: Coordinate;
-  setPosition: Dispatch<SetStateAction<Coordinate>>;
-}) => {
+const DraggableMarker: React.FC<Props> = ({ control, setValue }) => {
   const markerRef = useRef(null);
-  const eventHandlers = useMemo(
-    () => ({
-      dragend() {
-        const marker: any = markerRef.current;
-        if (marker != null) {
-          setPosition(marker.getLatLng());
-        }
-      },
-    }),
-    [setPosition]
-  );
 
   return (
-    <div className="mt-4">
-      <MapContainer
-        center={center}
-        zoom={12}
-        style={{ height: "340px", width: "100%" }}
-      >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        <Marker
-          position={position}
-          draggable={true}
-          eventHandlers={eventHandlers}
-          ref={markerRef}
-        />
-      </MapContainer>
+    <MapContainer
+      center={center}
+      zoom={12}
+      style={{ height: "340px", width: "100%" }}
+    >
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      <div className="flex justify-between my-2">
-        {lnglatData.map((ele) => (
-          <div
-            key={ele.name}
-            className="flex items-center gap-2 md:gap-3 mt-4 mb-1"
-          >
-            <p className="text-sm">{`${ele.label}:`}</p>
-            <Input
-              type="number"
-              step={0.01}
-              value={position[ele.name as keyof Coordinate].toFixed(2)}
-              className="w-28"
-              onChange={(e) => {
-                setPosition((prev) => ({
-                  ...prev,
-                  [ele.name]: parseFloat(e.target.value),
-                }));
-              }}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
+      <Controller
+        control={control}
+        name="position"
+        render={({ field: { value } }) => (
+          <Marker
+            position={{
+              lat: control._formValues.latitude,
+              lng: control._formValues.longitude,
+            }}
+            draggable={true}
+            eventHandlers={(() => ({
+              dragend() {
+                const marker: any = markerRef.current;
+                if (marker != null) {
+                  setValue("latitude", marker.getLatLng().lng, {
+                    shouldDirty: true,
+                    shouldTouch: true,
+                  });
+                  setValue("longitude", marker.getLatLng().lat, {
+                    shouldDirty: true,
+                    shouldTouch: true,
+                  });
+                }
+              },
+            }))()}
+            ref={markerRef}
+          />
+        )}
+      />
+    </MapContainer>
   );
 };
 

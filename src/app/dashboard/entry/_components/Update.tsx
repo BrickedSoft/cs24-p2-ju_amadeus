@@ -1,21 +1,22 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import _ from "lodash";
-import { useRouter } from "next/navigation";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useFormState, useFormStatus } from "react-dom";
+import { useForm } from "react-hook-form";
 import { z, ZodRawShape } from "zod";
 
-import { Coordinate, InputField } from "@allTypes";
+import { InputField } from "@allTypes";
 import { Form } from "@components/ui/form";
 import { Skeleton } from "@components/ui/skeleton";
-import { center } from "@constants/map";
-import ecoSync from "@ecoSync";
 import Fields from "./Fields";
 
+const initialState = {
+  message: "",
+};
+
 type Props = {
-  endpoint: string;
   fields: InputField[];
   title: string;
   description: string;
@@ -26,20 +27,23 @@ type Props = {
     [key: string]: string;
   };
   mapFieldTitle: string;
+  action: (id: string, prevState: any, formData: FormData) => Promise<never>;
+  initialValues: {
+    [key: string]: string;
+  };
 };
 
-const Create: React.FC<Props> = ({
-  endpoint,
+const Update: React.FC<Props> = ({
   fields,
   title,
   description,
   errors: defaultErrors,
   buttons,
   mapFieldTitle,
+  action,
+  initialValues,
 }) => {
-  const router = useRouter();
-  const [position, setPosition] = useState<Coordinate>(center);
-
+  const { pending } = useFormStatus();
   const formSchema = z.object(
     _.reduce(
       fields.map((item) => ({
@@ -53,45 +57,25 @@ const Create: React.FC<Props> = ({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      latitude: center.lat,
-      longitude: center.lng,
-    },
+    defaultValues: initialValues,
   });
-
   const {
-    handleSubmit,
-    setError,
     control,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = form;
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) =>
-    ecoSync
-      .post(endpoint, {
-        ...data,
-        longitude: position.lng,
-        latitude: position.lat,
-      })
-      .then(() => {
-        router.back();
-      })
-      .catch((error) => {
-        fields.map((item) =>
-          setError(item.id, {
-            type: "manual",
-            message: item.errors.wrong,
-          })
-        );
-      });
+  const [state, formAction] = useFormState(
+    action.bind(null, initialValues.id),
+    initialState
+  );
 
   return (
     <Suspense fallback={<Skeleton className="w-full h-28" />}>
       <Form {...form}>
         <form
           className="flex flex-col gap-3 bg-background p-8 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8"
-          onSubmit={handleSubmit(onSubmit)}
+          action={formAction}
         >
           <Fields
             form={form}
@@ -103,12 +87,12 @@ const Create: React.FC<Props> = ({
             mapFieldTitle={mapFieldTitle}
             control={control}
             setValue={setValue}
-            isLoading={isSubmitting}
           />
+          <p className="text-sm text-green-600">{state?.message}</p>
         </form>
       </Form>
     </Suspense>
   );
 };
 
-export default Create;
+export default Update;

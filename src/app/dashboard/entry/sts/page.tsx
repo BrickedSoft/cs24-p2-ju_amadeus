@@ -6,6 +6,7 @@ import {
   columnData,
   columnDropdownItems,
   pathToCreate,
+  query,
   type,
 } from "@/assets/data/dashboard/entry/sts";
 import { api } from "@assets/data/api/endpoints";
@@ -42,6 +43,7 @@ export default async function STSTable() {
           columnDropdownItems={columnDropdownItems}
           deleteMethod={deleteSts}
           pathToCreate={pathToCreate}
+          query={query}
         />
       </Suspense>
     </div>

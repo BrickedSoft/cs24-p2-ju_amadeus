@@ -1,4 +1,4 @@
-import { Column, FormInfoExtended } from "@allTypes";
+import { Column, FormInfoExtended, Query } from "@allTypes";
 import { routes } from "@assets/data/routes";
 
 export const landfillSiteInfo: FormInfoExtended = {
@@ -32,7 +32,11 @@ export const newLandfillSiteInfo: FormInfoExtended = {
 
 import { InputField } from "@allTypes";
 
-export const title = "Create new Landfill Site";
+export const title = {
+  new: "Create new Landfill Site",
+  update: "Update Landfill Site information",
+};
+
 export const description = "Enter landfill site's information";
 
 export const fields: InputField[] = [
@@ -83,4 +87,9 @@ export const columnDropdownItems = [
 export const pathToCreate = {
   title: "Add landfill",
   href: routes.landfillSitesNew,
+};
+
+export const query: Query = {
+  title: "Search by name",
+  key: "name",
 };

@@ -7,6 +7,7 @@ import {
   columnData,
   columnDropdownItems,
   pathToCreate,
+  query,
   type,
 } from "@assets/data/dashboard/entry/users";
 import Loading from "@components/Loading";
@@ -42,6 +43,7 @@ const Users = async () => {
           columnDropdownItems={columnDropdownItems}
           deleteMethod={deleteUser}
           pathToCreate={pathToCreate}
+          query={query}
         />
       </Suspense>
     </div>

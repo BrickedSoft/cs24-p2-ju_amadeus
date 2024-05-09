@@ -1,9 +1,11 @@
-'use client';
-import { CustomVehicleEntry } from '@allTypes';
-import { VehicleRoute } from '@prisma/client';
-import { useState } from 'react';
-import SelectBilling from './BillingSelect';
-import BillingPreview from './BillingPreview';
+"use client";
+
+import { useState } from "react";
+import { VehicleRoute } from "@prisma/client";
+
+import { CustomVehicleEntry } from "@allTypes";
+import BillingPreview from "./BillingPreview";
+import SelectBilling from "./BillingSelect";
 
 const Billing: React.FC<{
   vehicleRouteList: VehicleRoute[];
@@ -12,7 +14,7 @@ const Billing: React.FC<{
   const [vehicleEntry, setVehicleEntry] = useState<CustomVehicleEntry>();
 
   return (
-    <>
+    <div className="h-full flex flex-col gap-8">
       <SelectBilling
         setVehicleEntry={setVehicleEntry}
         vehicleEntryList={vehicleEntryList}
@@ -21,7 +23,7 @@ const Billing: React.FC<{
         vehicleEntry={vehicleEntry}
         vehicleRouteList={vehicleRouteList}
       />
-    </>
+    </div>
   );
 };
 export default Billing;

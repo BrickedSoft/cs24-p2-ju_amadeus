@@ -30,6 +30,8 @@ type Props = {
   variant?: "md" | "lg";
   [key: string]: any;
   width?: number;
+  direction?: "horizontal" | "vertical";
+  decimalPoint?: number;
 };
 
 const CustomInput: React.FC<Props> = ({
@@ -38,6 +40,8 @@ const CustomInput: React.FC<Props> = ({
   item,
   variant = "md",
   width,
+  direction = "vertical",
+  decimalPoint = undefined,
   ...rest
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,10 +52,12 @@ const CustomInput: React.FC<Props> = ({
         control={form.control}
         name={item.id}
         render={({ field }) => (
-          <FormItem>
+          <FormItem
+            className={`w-auto flex gap-2 md:gap-3 ${direction === "vertical" ? "flex-col" : "items-center justify-center"}`}
+          >
             <FormLabel>{item.title}</FormLabel>
             <FormControl>
-              <div className="relative w-auto">
+              <div className="relative w-auto !mt-0">
                 <Input
                   placeholder={
                     "placeholder" in item ? item.placeholder : undefined
@@ -60,7 +66,16 @@ const CustomInput: React.FC<Props> = ({
                   {...field}
                   variant={variant}
                   {...rest}
-                  className={`${width ? `w-[${width * 4}px]` : variant === "md" ? "max-w-[360px]" : "max-w-full"} ${item.type === "password" ? "pr-12 md:pr-16" : ""}`}
+                  className={`${item.type === "password" ? "pr-12 md:pr-16" : ""}`}
+                  style={{
+                    width: width ? `${width * 4}px` : "",
+                    maxWidth: !width && variant === "md" ? "360px" : "full",
+                  }}
+                  value={
+                    typeof field.value === "number" && decimalPoint
+                      ? field.value.toFixed(decimalPoint)
+                      : field.value
+                  }
                 />
                 {item.type === "password" && (
                   <div

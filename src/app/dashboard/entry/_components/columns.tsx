@@ -22,8 +22,8 @@ import TableHeader from "./TableHeader";
 type ColumnProps = {
   type: string;
   columnData: Column[];
-  columnDropdownItems: LinkType[];
-  deleteMethod: (
+  columnDropdownItems?: LinkType[];
+  deleteMethod?: (
     id: string,
     prevState: any,
     formData: FormData
@@ -49,45 +49,44 @@ export const columns = ({
       }) => <TableHeader column={column} name={item.name} />,
     }));
 
-  return [
-    ...columns,
-    {
-      id: "actions",
-      cell: ({ row }) =>
-        (() => {
-          const data = row.original;
-          const [open, setOpen] = useState(false);
+  const options: ColumnDef<User | Vehicle | STS | LandFill | VehicleEntry> = {
+    id: "actions",
+    cell: ({ row }: { row: any }) =>
+      (() => {
+        const data = row.original;
+        const [open, setOpen] = useState(false);
 
-          return (
-            <DropdownMenu open={open} onOpenChange={setOpen}>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                  <span className="sr-only">Open menu</span>
-                  <DotsHorizontalIcon className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {columnDropdownItems.map((item, index) =>
-                  item.title.toLowerCase() === "delete" ? (
-                    <DeleteAlert
-                      key={index}
-                      setOpen={setOpen}
-                      type={type}
-                      data={data}
-                      deleteMethod={deleteMethod}
-                    />
-                  ) : (
-                    <Link key={index} href={item.href.replace("$id$", data.id)}>
-                      <DropdownMenuItem>{item.title}</DropdownMenuItem>
-                    </Link>
-                  )
-                )}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          );
-        })(),
-    },
-  ];
+        return columnDropdownItems ? (
+          <DropdownMenu open={open} onOpenChange={setOpen}>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <DotsHorizontalIcon className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {columnDropdownItems.map((item, index) =>
+                item.title.toLowerCase() === "delete" && deleteMethod ? (
+                  <DeleteAlert
+                    key={index}
+                    setOpen={setOpen}
+                    type={type}
+                    data={data}
+                    deleteMethod={deleteMethod}
+                  />
+                ) : (
+                  <Link key={index} href={item.href.replace("$id$", data.id)}>
+                    <DropdownMenuItem>{item.title}</DropdownMenuItem>
+                  </Link>
+                )
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : null;
+      })(),
+  };
+
+  return columnDropdownItems ? [...columns, options] : [...columns];
 };

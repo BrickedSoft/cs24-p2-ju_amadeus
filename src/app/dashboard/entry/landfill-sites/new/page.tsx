@@ -14,7 +14,7 @@ const NewSts: React.FC = () => (
     endpoint={landfillEndpoint}
     errors={errors}
     fields={fields}
-    title={title}
+    title={title.new}
     description={description}
     buttons={buttons}
     mapFieldTitle={mapFieldTitle}

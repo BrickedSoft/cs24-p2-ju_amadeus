@@ -1,4 +1,4 @@
-import { Column, FormInfoExtended, InputField } from "@allTypes";
+import { Column, FormInfoExtended, InputField, Query } from "@allTypes";
 import { routes } from "@assets/data/routes";
 
 export const stsInfo: FormInfoExtended = {
@@ -33,7 +33,10 @@ export const newStsInfo: FormInfoExtended = {
   ],
 };
 
-export const title = "Create new STS";
+export const title = {
+  new: "Create new STS",
+  update: "Update STS information",
+};
 export const description = "Enter STS information";
 
 export const fields: InputField[] = [
@@ -107,4 +110,9 @@ export const columnDropdownItems = [
 export const pathToCreate = {
   title: "Add STS",
   href: routes.stsNew,
+};
+
+export const query: Query = {
+  title: "Search by name",
+  key: "name",
 };

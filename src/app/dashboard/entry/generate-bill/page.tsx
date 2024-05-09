@@ -1,17 +1,17 @@
-import { LandFill, STS, VehicleRoute } from '@prisma/client';
-import { cookies } from 'next/headers';
-import { Suspense } from 'react';
-import Loading from '@/components/Loading';
-import { CustomVehicleEntry } from '@allTypes';
+import { LandFill, STS, VehicleRoute } from "@prisma/client";
+import { cookies } from "next/headers";
+import { Suspense } from "react";
+import Loading from "@/components/Loading";
+import { CustomVehicleEntry } from "@allTypes";
 import {
   vehicleEntriesEndpoint,
   vehicleRouteEndpoint,
-} from '@assets/data/api/endpoints';
-import Billing from './_generate/Billing';
+} from "@assets/data/api/endpoints";
+import Billing from "./_generate/Billing";
 
 async function getVehicleRoutes(cookieStore: any): Promise<VehicleRoute[]> {
   let vehicleRoutes = await fetch(vehicleRouteEndpoint, {
-    cache: 'no-store',
+    cache: "no-store",
     headers: {
       cookie: cookieStore,
     },
@@ -27,7 +27,7 @@ async function getVehicleEntries(
   cookieStore: any
 ): Promise<CustomVehicleEntry[]> {
   let vehicleEntryList = await fetch(vehicleEntriesEndpoint, {
-    cache: 'no-store',
+    cache: "no-store",
     headers: {
       cookie: cookieStore,
     },
@@ -44,9 +44,12 @@ export default async function GenerateBill() {
   const vehicleRouteList = await getVehicleRoutes(cookieStore);
   const vehicleEntryList = await getVehicleEntries(cookieStore);
   return (
-    <div className='container h-full'>
+    <div className="container h-full">
       <Suspense fallback={<Loading />}>
-        <Billing vehicleRouteList={vehicleRouteList} vehicleEntryList={vehicleEntryList}/>
+        <Billing
+          vehicleRouteList={vehicleRouteList}
+          vehicleEntryList={vehicleEntryList}
+        />
       </Suspense>
     </div>
   );

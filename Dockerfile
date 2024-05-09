@@ -16,12 +16,14 @@ RUN apt-get -qy update && apt-get -qy install openssl
 # install dependencies
 RUN yarn install
 
-ENV NEXT_TELEMETRY_DISABLED 1
 
 COPY . .
+RUN yarn pnpify prisma generate 
+RUN yarn pnpify prisma migrate dev
+RUN yarn run seed
+
+# start app
 RUN yarn run build
-
-
 EXPOSE 3000
 EXPOSE 5555
 CMD yarn run start

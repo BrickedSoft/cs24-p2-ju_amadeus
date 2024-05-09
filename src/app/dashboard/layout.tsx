@@ -17,7 +17,7 @@ export default function DashboardLayout({
   return (
     <>
       <Navbar />
-      <div className="h-[calc(100vh-64px)]">{children}</div>
+      <div>{children}</div>
     </>
   );
 }

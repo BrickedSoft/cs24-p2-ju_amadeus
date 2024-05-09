@@ -7,6 +7,7 @@ import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet/dist/leaflet.css";
 import { GeoJSON, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import process from "process";
 
 import {
   Coordinate,
@@ -52,7 +53,7 @@ const DirectionMap: React.FC<Props> = ({
         if (start && destination) {
           //TODO: API Key exposed here
           const response = await fetch(
-            `https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf624859738a47d29f41438c5e81d6af957204&start=${start?.cord?.lng},${start?.cord?.lat}&end=${destination?.cord?.lng},${destination?.cord?.lat}`
+            `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${process.env.NEXT_PUBLIC_OPEN_ROUTE_API}&start=${start?.cord?.lng},${start?.cord?.lat}&end=${destination?.cord?.lng},${destination?.cord?.lat}`
           );
           const data = await response.json();
 

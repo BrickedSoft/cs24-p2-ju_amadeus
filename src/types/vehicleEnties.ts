@@ -9,3 +9,5 @@ export type CustomVehicleEntry = VehicleEntry & {
   landFill: LandFill;
   vehicle: CustomVehicle;
 };
+
+export type TrippingVehicle = { vehicle: Vehicle, tripCount: number, totalCost: number }

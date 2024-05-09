@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,7 +13,7 @@ import {
 } from "@tanstack/react-table";
 import Link from "next/link";
 
-import { Link as LinkType } from "@allTypes";
+import { CustomVehicleEntry, Link as LinkType, Query } from "@allTypes";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import {
@@ -34,13 +34,17 @@ import {
 type Props<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  pathToCreate: LinkType;
+  pathToCreate?: LinkType;
+  setVehicleEntry?: Dispatch<SetStateAction<CustomVehicleEntry | undefined>>;
+  query: Query;
 };
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   pathToCreate,
+  setVehicleEntry,
+  query,
 }: Props<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -57,24 +61,29 @@ export function DataTable<TData, TValue>({
       columnFilters,
     },
   });
+
   return (
     <div>
       <div className="flex justify-between items-center">
         <div className="flex items-center py-4">
           <Input
-            placeholder="Search by email"
-            value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+            placeholder={query.title}
+            value={
+              (table.getColumn(query.key)?.getFilterValue() as string) ?? ""
+            }
             onChange={(event) =>
-              table.getColumn("email")?.setFilterValue(event.target.value)
+              table.getColumn(query.key)?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
         </div>
-        <Link href={pathToCreate.href}>
-          <Button rounded={false} className="text-small">
-            {pathToCreate.title}
-          </Button>
-        </Link>
+        {pathToCreate && (
+          <Link href={pathToCreate.href}>
+            <Button rounded={false} size="sm">
+              {pathToCreate.title}
+            </Button>
+          </Link>
+        )}
       </div>
       <div className="rounded-md border overflow-scroll h-[500px]">
         <Table>
@@ -102,6 +111,16 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className={
+                    setVehicleEntry ? "hover:bg-primary/20 cursor-pointer" : ""
+                  }
+                  onClick={() => {
+                    // TODO: fix typing here
+                    if (setVehicleEntry) {
+                      //@ts-ignore
+                      setVehicleEntry(row.original);
+                    }
+                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="px-8">

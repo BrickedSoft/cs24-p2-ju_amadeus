@@ -1,4 +1,4 @@
-import { Column, FormInfoExtended, InputField } from "@allTypes";
+import { Column, FormInfoExtended, InputField, Query } from "@allTypes";
 import { routes } from "@assets/data/routes";
 
 export const newVehicleInfo: FormInfoExtended = {
@@ -55,4 +55,9 @@ export const columnDropdownItems = [
 export const pathToCreate = {
   title: "Add vehicle",
   href: routes.vehiclesNew,
+};
+
+export const query: Query = {
+  title: "Search by vehicle number",
+  key: "number",
 };

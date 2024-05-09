@@ -1,4 +1,4 @@
-import { Column, FormInfoExtended } from "@allTypes";
+import { Column, FormInfoExtended, Query } from "@allTypes";
 import { routes } from "@assets/data/routes";
 
 export const landfillSiteInfo: FormInfoExtended = {
@@ -87,4 +87,9 @@ export const columnDropdownItems = [
 export const pathToCreate = {
   title: "Add landfill",
   href: routes.landfillSitesNew,
+};
+
+export const query: Query = {
+  title: "Search by name",
+  key: "name",
 };

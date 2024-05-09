@@ -9,6 +9,7 @@ import {
   columnData,
   columnDropdownItems,
   pathToCreate,
+  query,
   type,
 } from "@assets/data/dashboard/entry/vehicle-entries";
 import Loading from "@components/Loading";
@@ -53,6 +54,7 @@ export default async function VehicleEntries() {
           columnDropdownItems={columnDropdownItems}
           deleteMethod={deleteVehicleEntry}
           pathToCreate={pathToCreate}
+          query={query}
         />
       </Suspense>
     </div>

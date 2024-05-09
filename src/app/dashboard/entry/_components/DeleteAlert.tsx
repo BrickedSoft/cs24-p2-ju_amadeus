@@ -73,7 +73,7 @@ const DeleteAlert: React.FC<Props> = ({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="relative w-full flex hover:bg-primary/20 cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+      <AlertDialogTrigger className="relative w-full flex hover:bg-primary/20 cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-small outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
         {actionLabel}
       </AlertDialogTrigger>
       <AlertDialogContent>

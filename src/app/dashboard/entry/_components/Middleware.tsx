@@ -1,8 +1,9 @@
 "use client";
 
+import { Dispatch, SetStateAction } from "react";
 import { LandFill, STS, User, Vehicle, VehicleEntry } from "@prisma/client";
 
-import { Column, Link as LinkType } from "@allTypes";
+import { Column, CustomVehicleEntry, Link as LinkType, Query } from "@allTypes";
 import { columns } from "./columns";
 import { DataTable } from "./DataTable";
 
@@ -10,13 +11,15 @@ type Props = {
   data: User[] | Vehicle[] | STS[] | LandFill[] | VehicleEntry[];
   type: string;
   columnData: Column[];
-  columnDropdownItems: LinkType[];
-  deleteMethod: (
+  columnDropdownItems?: LinkType[];
+  deleteMethod?: (
     id: string,
     prevState: any,
     formData: FormData
   ) => Promise<never>;
-  pathToCreate: LinkType;
+  pathToCreate?: LinkType;
+  setVehicleEntry?: Dispatch<SetStateAction<CustomVehicleEntry | undefined>>;
+  query: Query;
 };
 
 const Middleware: React.FC<Props> = ({
@@ -26,6 +29,8 @@ const Middleware: React.FC<Props> = ({
   columnDropdownItems,
   deleteMethod,
   pathToCreate,
+  setVehicleEntry,
+  query,
 }) => {
   return (
     <DataTable
@@ -37,6 +42,8 @@ const Middleware: React.FC<Props> = ({
         columnDropdownItems,
         deleteMethod,
       })}
+      setVehicleEntry={setVehicleEntry}
+      query={query}
     />
   );
 };

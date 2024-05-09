@@ -1,16 +1,8 @@
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { CustomVehicleEntry } from '@allTypes';
-import { VehicleRoute } from '@prisma/client';
-import { Dispatch, SetStateAction } from 'react';
-import { DataTable } from '../_pick-vehicle-entries/DataTable';
-import { columns } from '../_pick-vehicle-entries/Columns';
+import { Dispatch, SetStateAction } from "react";
+
+import { CustomVehicleEntry } from "@allTypes";
+import { columnData, query, type } from "@assets/data/dashboard/entry/billing";
+import Middleware from "../../_components/Middleware";
 
 type props = {
   setVehicleEntry: Dispatch<SetStateAction<CustomVehicleEntry | undefined>>;
@@ -21,10 +13,12 @@ const SelectBilling: React.FC<props> = ({
   vehicleEntryList,
 }) => {
   return (
-    <DataTable
+    <Middleware
       data={vehicleEntryList}
-      columns={columns}
+      type={type}
+      columnData={columnData}
       setVehicleEntry={setVehicleEntry}
+      query={query}
     />
   );
 };

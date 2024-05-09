@@ -1,4 +1,10 @@
-import { Column, FormInfo, FormInfoExtended, InputField } from "@allTypes";
+import {
+  Column,
+  FormInfo,
+  FormInfoExtended,
+  InputField,
+  Query,
+} from "@allTypes";
 import { routes } from "@assets/data/routes";
 
 export const assignLandfillInfo: FormInfo = {
@@ -65,4 +71,9 @@ export const columnDropdownItems = [
 export const pathToCreate = {
   title: "Create user",
   href: routes.usersNew,
+};
+
+export const query: Query = {
+  title: "Search by email",
+  key: "email",
 };

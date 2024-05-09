@@ -6,6 +6,7 @@ import {
   columnData,
   columnDropdownItems,
   pathToCreate,
+  query,
   type,
 } from "@assets/data/dashboard/entry/landfill-sites";
 import Loading from "@components/Loading";
@@ -42,6 +43,7 @@ export default async function LandfillTable() {
           columnDropdownItems={columnDropdownItems}
           deleteMethod={deleteLandfill}
           pathToCreate={pathToCreate}
+          query={query}
         />
       </Suspense>
     </div>

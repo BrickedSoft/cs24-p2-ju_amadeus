@@ -6,4 +6,5 @@ export * from "./link";
 export * from "./map";
 export * from "./navigation";
 export * from "./vehicleEnties";
-export * from './table'
+export * from "./table";
+export * from "./user";

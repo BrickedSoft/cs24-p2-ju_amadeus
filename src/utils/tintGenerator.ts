@@ -1,4 +1,5 @@
-export const tintGenerator = (color: string, factor: number) => {
+export const tintGenerator = (colorCode: string, factor: number) => {
+  const color = colorCode.length === 7 ? colorCode.slice(1) : colorCode;
   if (color.length === 6 || color.length == 3) {
     let r: number, g: number, b: number;
 
@@ -23,5 +24,5 @@ export const tintGenerator = (color: string, factor: number) => {
     );
   }
 
-  return null;
+  return color;
 };

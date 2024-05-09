@@ -1,11 +1,13 @@
 import { Suspense } from "react";
 import { cookies } from "next/headers";
 
+import { Users } from "@allTypes";
 import { userDataEndpoint } from "@assets/data/api/endpoints";
 import Loading from "@components/Loading";
 import TokenAlert from "./_components/TokenAlert";
-import TotalEntries from "./_overview/TotalEntries";
-import UserEntries from "./_overview/UserEntries";
+import TotalEntries from "./_overview/admin/TotalEntries";
+import UserEntries from "./_overview/admin/UserEntries";
+import StsOverview from "./_overview/sts/page";
 
 const Dashboard: React.FC = async () => {
   const cookieStore = cookies();
@@ -17,7 +19,7 @@ const Dashboard: React.FC = async () => {
       headers: {
         cookie: cookieStore,
       },
-    },
+    }
   ).then(async (res) => {
     const data = await res.json();
     return data;
@@ -27,12 +29,12 @@ const Dashboard: React.FC = async () => {
     <main className="w-full">
       <TokenAlert />
       <div className="max-w-6xl px-5 mx-auto my-12 flex flex-col gap-8">
-        <Suspense fallback={<Loading />}>
+        {/* <Suspense fallback={<Loading />}>
           <h1 className="heading-secondary text-primary">
             Welcome {userData.user.name}
           </h1>
-        </Suspense>
-        {userData.user.role === "SystemAdmin" && (
+        </Suspense> */}
+        {userData.user.role === Users.systemAdmin && (
           <>
             <Suspense fallback={<Loading />}>
               <TotalEntries />
@@ -42,6 +44,7 @@ const Dashboard: React.FC = async () => {
             </Suspense>
           </>
         )}
+        {userData.user.role === Users.stsManager && <StsOverview />}
       </div>
     </main>
   );

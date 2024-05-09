@@ -120,7 +120,12 @@ const DeleteAlert: React.FC<Props> = ({
           >
             {buttons.cancel}
           </AlertDialogCancel>
-          <AlertDialogAction variant="destructive">
+          <AlertDialogAction
+            variant="destructive"
+            onClick={() => {
+              if (setOpen) setOpen(false);
+            }}
+          >
             <form action={formAction}>
               <button>{buttons.continue}</button>
             </form>

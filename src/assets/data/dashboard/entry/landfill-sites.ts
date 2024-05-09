@@ -32,7 +32,11 @@ export const newLandfillSiteInfo: FormInfoExtended = {
 
 import { InputField } from "@allTypes";
 
-export const title = "Create new Landfill Site";
+export const title = {
+  new: "Create new Landfill Site",
+  update: "Update Landfill Site information",
+};
+
 export const description = "Enter landfill site's information";
 
 export const fields: InputField[] = [

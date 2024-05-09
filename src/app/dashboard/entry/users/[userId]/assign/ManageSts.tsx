@@ -119,11 +119,10 @@ const ManageSts: React.FC<{ params: { userId: string } }> = ({ params }) => {
                 .map((sts: STS) => (
                   <div key={sts.id}>
                     <p className="py-2 max-w-2/3 text-sm">{sts.name}</p>
-
                     <div key={sts.id} className="flex justify-between gap-x-2">
                       <Input
                         type="text"
-                        defaultValue={sts.id}
+                        defaultValue={sts.wardNumber}
                         id="stsId"
                         key="stsId"
                         disabled

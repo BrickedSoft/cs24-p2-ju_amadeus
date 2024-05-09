@@ -71,7 +71,7 @@ export function DataTable<TData, TValue>({
           />
         </div>
         <Link href={pathToCreate.href}>
-          <Button className="text-sm bg-gray-300 text-black hover:bg-black hover:text-white rounded-sm sm">
+          <Button rounded={false} className="text-small">
             {pathToCreate.title}
           </Button>
         </Link>

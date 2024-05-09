@@ -6,24 +6,24 @@ const SubmitButton: React.FC<{
   label: string;
   disabled?: boolean;
   variant?: "default" | "secondary";
-}> = ({ label, disabled, variant = "default" }) => {
+  isLoading?: boolean;
+}> = ({ label, disabled, variant = "default", isLoading }) => {
   const { pending } = useFormStatus();
-
-  const style = {
-    secondary: "",
-    default:
-      "text-sm font-medium text-gray-500 text-left rounded-[8px] p-2 px-3 bg-gray-200 hover:text-white hover:bg-black",
-  };
 
   return (
     <Button
-      aria-disabled={pending}
-      disabled={pending || disabled}
+      aria-disabled={pending || isLoading}
+      disabled={pending || isLoading || disabled}
       type="submit"
-      variant={variant === "secondary" ? "default" : null}
-      className={style[variant]}
+      variant={variant === "secondary" ? "submit" : "default"}
+      rounded={false}
+      size="sm"
     >
-      {pending ? <UpdateIcon className="mx-4 h-4 w-4 animate-spin" /> : label}
+      {pending || isLoading ? (
+        <UpdateIcon className="mx-4 h-4 w-4 animate-spin" />
+      ) : (
+        label
+      )}
     </Button>
   );
 };

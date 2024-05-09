@@ -33,7 +33,10 @@ export const newStsInfo: FormInfoExtended = {
   ],
 };
 
-export const title = "Create new STS";
+export const title = {
+  new: "Create new STS",
+  update: "Update STS information",
+};
 export const description = "Enter STS information";
 
 export const fields: InputField[] = [

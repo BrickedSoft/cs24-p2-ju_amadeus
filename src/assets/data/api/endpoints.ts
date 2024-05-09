@@ -1,4 +1,6 @@
-export const hostname = "http://localhost:3000";
+import process from "process";
+
+export const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
 export const api = `${hostname}/api`;
 export const userDataEndpoint = `${api}/users`;
 export const vehicleDataEndpoint = `${api}/vehicles`;

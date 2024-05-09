@@ -23,6 +23,11 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { LandFill, STS, Vehicle, VehicleRoute } from '@prisma/client';
 import { Separator } from '@/components/ui/separator';
+import Spinner from '@/components/ui/spinner';
+import ecoSync from '@/api/ecoSync';
+import { fleetOptimize, login } from '@/assets/data/api/endpoints';
+import { useState } from 'react';
+import { TrippingVehicle } from '@/types/vehicleEnties';
 
 const Optimizing: React.FC<{
   vehicleList: Vehicle[];
@@ -30,6 +35,9 @@ const Optimizing: React.FC<{
   routeList: VehicleRoute[];
   stsList: STS[];
 }> = ({ vehicleList, landfillList, routeList, stsList }) => {
+  const [trippingVehicleList, setTrippingVehicleList] = useState<
+    TrippingVehicle[]
+  >([]);
   const FormSchema = z.object({
     currSTS: z.string().refine((value) => value, {
       message: 'Select a STS',
@@ -58,15 +66,13 @@ const Optimizing: React.FC<{
   } = form;
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    setSuccess(undefined);
     ecoSync
-      .post(login, { ...data })
-      .then(function () {
-        setSuccess(true);
+      .post(fleetOptimize, { ...data })
+      .then(function (res) {
+        if (res.data.trippingVehicle)
+          setTrippingVehicleList(res.data.trippingVehicle);
       })
       .catch(function (error) {
-        const errorCode = error.response.status as string;
-        setSuccess(false);
         // TODO: show error
       });
   }
@@ -192,7 +198,11 @@ const Optimizing: React.FC<{
             )}
           />
           <div className='flex w-full justify-end'>
-            <Button type='submit'>Optimize</Button>
+            <Button
+              type='submit'
+              disabled={isSubmitting}>
+              {isSubmitting ? <Spinner /> : 'Optimize'}
+            </Button>
           </div>
         </div>
       </form>

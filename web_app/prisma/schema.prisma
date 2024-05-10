@@ -30,7 +30,7 @@ model User {
 
   STS         STS[]
   landfill    LandFill[]
-  Workforce   Workforce? @relation(fields: [workforceId], references: [id])
+  Workforce   Workforce?    @relation(fields: [workforceId], references: [id])
   workforceId String?
   issueReport IssueReport[]
 }
@@ -109,20 +109,53 @@ model VehicleEntry {
 }
 
 model VehicleRoute {
-  id         String    @id @default(cuid())
-  timestamp  DateTime?
-  distance   Float
-  duration   Float
-  STS        STS?      @relation(fields: [stsId], references: [id])
-  stsId      String?
-  LandFill   LandFill? @relation(fields: [landFillId], references: [id])
-  landFillId String?
+  id          String     @id @default(cuid())
+  timestamp   DateTime?
+  distance    Float
+  duration    Float
+  STS         STS?       @relation(fields: [stsId], references: [id])
+  stsId       String?
+  LandFill    LandFill?  @relation(fields: [landFillId], references: [id])
+  landFillId  String?
+  Workforce   Workforce? @relation(fields: [workforceId], references: [id])
+  workforceId String?
+}
+
+model Contractor {
+  id          String    @id @default(cuid())
+  name        String
+  contractId  String
+  createdAt   DateTime  @default(now())
+  tin         String    @unique
+  contact     String
+  size        Int
+  salary      Float
+  wasteVolume Float
+  termination DateTime?
+  wardNumber  String
+  STS         STS?      @relation(fields: [stsId], references: [id])
+  stsId       String?
+}
+
+model Workforce {
+  id           String         @id @default(cuid())
+  name         String
+  dateOfBirth  DateTime
+  designation  String
+  joiningDate  DateTime
+  salary       Float
+  contact      String
+  vehicleRoute VehicleRoute[]
+  termination  DateTime?
+  manager      User[]
+  STS          STS?           @relation(fields: [sTSId], references: [id])
+  sTSId        String?
 }
 
 model IssueReport {
-  id String @id @default(cuid())
-  reportType String?
-  location String?
+  id          String  @id @default(cuid())
+  reportType  String?
+  location    String?
   description String?
 
   user   User?   @relation(fields: [userId], references: [id])

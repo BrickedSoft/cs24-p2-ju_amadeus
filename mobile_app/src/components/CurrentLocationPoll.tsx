@@ -68,16 +68,18 @@ export default function CurrentLocationPoll() {
         </Text>
       </Text>
       <CustomButton
-        onPress={() => {
+        onPress={async () => {
           setLoading(true);
+          const loca = await Location.getCurrentPositionAsync({});
           const res = pollLocationApi(
             {
-              latitude: location?.coords.latitude,
-              longitude: location?.coords.longitude,
+              latitude: loca?.coords.latitude,
+              longitude: loca?.coords.longitude,
             },
             session,
             userId
           );
+          setLocation(loca)
           setLoading(false);
         }}
         loading={loading}

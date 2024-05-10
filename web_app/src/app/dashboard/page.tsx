@@ -9,6 +9,7 @@ import TotalEntries from "./_overview/admin/TotalEntries";
 import UserEntries from "./_overview/admin/UserEntries";
 import StsOverview from "./_overview/sts/page";
 import LandfillOverview from "./_overview/landfill/page";
+import UserInfo from "./_overview/admin/UserInfo";
 
 const Dashboard: React.FC = async () => {
   const cookieStore = cookies();
@@ -37,6 +38,9 @@ const Dashboard: React.FC = async () => {
         </Suspense> */}
         {userData.user.role === Users.admin && (
           <>
+            <Suspense fallback={<Loading />}>
+              <UserInfo />
+            </Suspense>
             <Suspense fallback={<Loading />}>
               <TotalEntries />
             </Suspense>

@@ -21,7 +21,7 @@ const Markers: React.FC<Props> = ({ stsList, landfillList }) => {
     <div className="flex flex-col gap-6 border-2 rounded-lg overflow-hidden">
       <div className="px-12 pt-8 text-gray-500 flex flex-col gap-6">
         <p className="text-large font-medium">{title}</p>
-        <div className="flex gap-6 justify-between">
+        <div className="flex gap-40">
           {stsList.length > 0 && (
             <div className="flex flex-col gap-3">
               <p className="text-medium font-medium">{labels.sts}</p>
@@ -37,7 +37,7 @@ const Markers: React.FC<Props> = ({ stsList, landfillList }) => {
           )}
           {landfillList.length > 0 && (
             <div className="flex flex-col gap-3">
-              <p className="text-medium font-medium">{labels.sts}</p>
+              <p className="text-medium font-medium">{labels.landfill}</p>
               <div className="flex flex-col gap-1.5 pl-4">
                 {landfillList.map((landfill) => (
                   <div key={landfill.id} className="flex gap-2 items-center">

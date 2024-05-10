@@ -4,6 +4,9 @@ import CustomPicker from '@/components/CustomPicker';
 import { TextInput } from 'react-native-paper';
 import { View } from 'react-native';
 import CustomButton from '@/components/CustomButton';
+import { router } from 'expo-router';
+import { submitReportApi } from '@/api/api';
+import { useSession } from '@/utils/authContext';
 
 const reportType: string[] = [
   'Waste Management',
@@ -18,7 +21,11 @@ export default function Report() {
   const [location, setLocation] = useState('');
   const [selectedIssueType, setSelectedIssueType] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+  const [visible, setVisible] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const { session, userId } = useSession();
+
   return (
     <>
       <Header title={'Report'} />
@@ -29,8 +36,8 @@ export default function Report() {
           padding: 24,
         }}>
         <CustomPicker
-          selectedIssueType={selectedIssueType}
-          setSelectedIssueType={setSelectedIssueType}
+          selectedIssueType={visible}
+          setSelectedIssueType={setVisible}
           pickerValue={annoynmous}
         />
         <CustomPicker
@@ -59,6 +66,19 @@ export default function Report() {
           }}
         />
         <CustomButton
+          onPress={() => {
+            submitReportApi(
+              {
+                location: location,
+                issueType: selectedIssueType,
+                description: description,
+                visible: visible,
+              },
+              session,
+              userId
+            );
+            router.back();
+          }}
           loading={loading}
           actionName='Submit report'
         />

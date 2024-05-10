@@ -4,9 +4,11 @@ import { Button, useTheme } from 'react-native-paper';
 export default function CustomButton({
   loading,
   actionName,
+  onPress,
 }: {
   loading: boolean;
   actionName: string;
+  onPress: () => void;
 }) {
   const theme = useTheme();
   return (
@@ -25,9 +27,7 @@ export default function CustomButton({
           backgroundColor: theme.colors.primary,
         },
       ]}
-      onPress={() => {
-        router.push('/SignUp');
-      }}
+      onPress={onPress}
       loading={loading}
       disabled={loading}>
       {actionName}

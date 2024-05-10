@@ -7,8 +7,8 @@ export const validateTokenUser = async (
   request: NextRequest,
   requiredRole: string = "none",
 ): Promise<{ userId: string; role: string; token: string } | undefined> => {
-  const userId = request.cookies.get("userId")?.value;
-  const token = request.cookies.get("token")?.value;
+  const userId = request.cookies.get("userId")?.value || request.headers.get("userid");
+  let token = request.cookies.get("token")?.value || request.headers.get("token");
 
   if (!token || !userId) return undefined;
 

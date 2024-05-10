@@ -106,6 +106,7 @@ export const routes = {
   contractor: `${entryPath}/${path.contractor}`,
   contractorNew: `${entryPath}/${path.contractor}/${path.new}`,
   workForce: `${entryPath}/${path.workForce}`,
+  workForceNew: `${entryPath}/${path.workForce}/${path.new}`,
 };
 
 export const links = {
@@ -171,4 +172,5 @@ export const links = {
   },
   contractor: { title: pathTitles.contractor, href: routes.contractor },
   workForce: { title: pathTitles.workForce, href: routes.workForce },
+  workForceNew: { title: pathTitles.workForce, href: routes.workForceNew },
 };

@@ -5,28 +5,32 @@ export const actionLabel = "Create";
 export const description = "Fill the fields with the work force's information";
 export const title = "Work Force details";
 
-export const WorkforceInfo: InputField[] = [
+export const workforceInfo: InputField[] = [
   {
     id: "name",
     title: "Name",
   },
-  { id: "dateOfBirth", title: "Date of Birth", type: "date" },
+  { id: "nid", title: "NID number" },
   { id: "designation", title: "Job Title" },
-  { id: "joiningDate", title: "Date of hire", type: "date" },
   { id: "salary", title: "Payment rate per hour", type: "float" },
   { id: "contact", title: "Mobile number" },
+  { id: "dateOfBirth", title: "Date of Birth", type: "date" },
+  { id: "joiningDate", title: "Date of hire", type: "date" },
 ];
 
 export const type = "workforce";
 
 export const columnData: Column[] = [
-  { accessorKey: "name", name: "Company Name" },
-  { accessorKey: "tin", name: "TIN number" },
-  { accessorKey: "size", name: "Workforce size" },
-  { accessorKey: "salary", name: "Payment per tonnage of waste" },
-  { accessorKey: "wasteVolume", name: "Required amount of waste per day" },
-  { accessorKey: "termination", name: "Termination Date" },
-  { accessorKey: "wardNumber", name: "Ward Number" },
+  {
+    accessorKey: "name",
+    name: "Name",
+  },
+  { accessorKey: "nid", name: "NID number" },
+  { accessorKey: "designation", name: "Job Title" },
+  { accessorKey: "salary", name: "Payment rate per hour" },
+  { accessorKey: "contact", name: "Mobile number" },
+  { accessorKey: "dateOfBirth", name: "Date of Birth" },
+  { accessorKey: "joiningDate", name: "Date of hire" },
 ];
 
 export const columnDropdownItems = [
@@ -38,7 +42,7 @@ export const columnDropdownItems = [
 
 export const pathToCreate = {
   title: "Create Workforce",
-  href: routes.workForce,
+  href: routes.workForceNew,
 };
 
 export const query: Query = {

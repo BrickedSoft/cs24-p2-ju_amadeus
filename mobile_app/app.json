@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "EcoSync",
+    "slug": "cs24-final-ju_amadeus",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/ecosync-icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/ecosync-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/ecosync-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.jahidem.cs24finalju_amadeus"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "762b73a8-cea7-46c2-a827-2b22a192719a"
+      }
+    }
+  }
+}

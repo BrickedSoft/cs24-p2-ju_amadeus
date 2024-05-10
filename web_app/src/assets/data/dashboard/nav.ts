@@ -8,7 +8,13 @@ export const sideNavAccount: Link[] = [links.general, links.passwordLogins];
 
 export const sideNavEntry = (roleType: RoleType): Link[] => {
   if (roleType == RoleType.SYSTEM_ADMIN)
-    return [links.users, links.vehicles, links.sts, links.landfillSites];
+    return [
+      links.users,
+      links.vehicles,
+      links.sts,
+      links.landfillSites,
+      links.contractor,
+    ];
 
   if (roleType == RoleType.STS_MANAGER)
     return [

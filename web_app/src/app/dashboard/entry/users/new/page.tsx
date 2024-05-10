@@ -133,6 +133,7 @@ const NewUser: React.FC<{}> = ({}) => {
                   <FormControl>
                     <div className="relative w-auto !mt-0">
                       <Input
+                        required
                         type={ele.type || "text"}
                         {...field}
                         value={field.value}
@@ -162,6 +163,7 @@ const NewUser: React.FC<{}> = ({}) => {
                     <FormControl>
                       <div className="relative w-auto !mt-0">
                         <Input
+                          required
                           type={ele.type || "text"}
                           {...field}
                           value={field.value}

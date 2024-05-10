@@ -24,6 +24,7 @@ export const path = {
   fleetOptimization: "fleet-optimization",
   generateBill: "generate-bill",
   new: "new",
+  contractor: "contractor",
 };
 
 export const pathTitles = {
@@ -51,6 +52,7 @@ export const pathTitles = {
   routeOptimization: "Route optimization",
   fleetOptimization: "Fleet optimization",
   generateBill: "Generate Bill",
+  contractor: "Contractor",
 };
 
 /* ---------------------------------- Paths --------------------------------- */
@@ -95,6 +97,7 @@ export const routes = {
   routeOptimization: `${entryPath}/${path.routeOptimization}`,
   fleetOptimization: `${entryPath}/${path.fleetOptimization}`,
   generateBill: `${entryPath}/${path.generateBill}`,
+  contractor: `${entryPath}/${path.contractor}`,
 };
 
 export const links = {
@@ -150,4 +153,5 @@ export const links = {
     title: pathTitles.generateBill,
     href: routes.generateBill,
   },
+  contractor: { title: pathTitles.contractor, href: routes.contractor },
 };

@@ -88,7 +88,7 @@ export const query: Query = {
 
 export const errors = {
   empty: "This is required",
-  wrong: "Invalid Email or Password",
+  wrong: "Invalid value",
   default: "Something went wrong",
 };
 

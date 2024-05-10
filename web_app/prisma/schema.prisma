@@ -65,6 +65,8 @@ model STS {
   manager      User[]
   vehicle      Vehicle[]
   vehicleRoute VehicleRoute[]
+  Workforce    Workforce[]
+  Contractor   Contractor[]
 }
 
 model LandFill {
@@ -118,6 +120,22 @@ model VehicleRoute {
   workforceId String?
 }
 
+model Contractor {
+  id          String    @id @default(cuid())
+  name        String
+  contractId  String
+  createdAt   DateTime  @default(now())
+  tin         String
+  contact     String
+  size        Int
+  salary      Float
+  wasteVolume Float
+  termination DateTime?
+  wardNumber  String
+  STS         STS?      @relation(fields: [stsId], references: [id])
+  stsId       String?
+}
+
 model Workforce {
   id           String         @id @default(cuid())
   name         String
@@ -129,4 +147,6 @@ model Workforce {
   vehicleRoute VehicleRoute[]
   termination  DateTime?
   manager      User[]
+  STS          STS?           @relation(fields: [sTSId], references: [id])
+  sTSId        String?
 }

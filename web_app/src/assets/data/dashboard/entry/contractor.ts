@@ -1,15 +1,26 @@
-import { FormValues } from "@allTypes";
+import { FormValues, InputField } from "@allTypes";
 
-export const contractorInfo: FormValues[] = [
+// actionLabel: "Update",
+//   description: "Update user informations",
+//   title: "Update user details",
+
+export const contractorInfo: InputField[] = [
   {
-    name: "company",
-    label: "Name of the company",
+    id: "name",
+    title: "Name of the company",
   },
-  { name: "contractId", label: "Contract ID" },
-  { name: "contact", label: "Contact number" },
-  { name: "size", label: "Workforce size" },
-  { name: "payment", label: "Payment per tonnage of waste" },
-  { name: "waste", label: "The required amount of waste per day" },
-  { name: "duration", label: "Contract duration" },
-  { name: "area", label: "Area of collection" },
+  { id: "contractId", title: "Contract ID" },
+  { id: "tin", title: "TIN number" },
+  { id: "contact", title: "Contact number" },
+  { id: "size", title: "Workforce size" },
+  { id: "salary", title: "Payment per tonnage of waste" },
+  { id: "wasteVolume", title: "The required amount of waste per day" },
+  { id: "termination", title: "Termination Date" },
+  { id: "wardNumber", title: "Ward Number" },
 ];
+
+export const errors = {
+  empty: "This is required",
+  wrong: "Invalid value",
+  default: "Something went wrong",
+};

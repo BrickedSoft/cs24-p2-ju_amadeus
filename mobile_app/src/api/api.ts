@@ -1,4 +1,4 @@
-import { submitReport, signup } from "@/data/endpoints"
+import { submitReport, signup, locationPoll } from "@/data/endpoints"
 import ecoSync from "./ecoSync"
 import { SignUpType } from "@/data/types"
 
@@ -16,6 +16,18 @@ export const signUpApi = async (data: SignUpType) => {
 export const submitReportApi = async (data: any, token: string | undefined | null, userId: string | undefined | null) => {
   const res = await ecoSync
     .post(submitReport, { ...data }, { headers: { token: token, userId: userId } })
+    .then(async (res) => (
+      res.status == 201
+    )).catch(() => {
+      return false
+    })
+  return res
+}
+
+
+export const pollLocationApi = async (data: any, token: string | undefined | null, userId: string | undefined | null) => {
+  const res = await ecoSync
+    .post(locationPoll, { ...data }, { headers: { token: token, userId: userId } })
     .then(async (res) => (
       res.status == 201
     )).catch(() => {

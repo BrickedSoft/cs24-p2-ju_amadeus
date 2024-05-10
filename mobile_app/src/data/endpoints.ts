@@ -8,4 +8,5 @@ export const initiateReset = `${resetPassword}/initiate`;
 export const confirmReset = `${resetPassword}/confirm`;
 export const changePassword = "/auth/change-password";
 export const signup = "/citizen/sign-up";
+export const locationPoll = "/location-poll";
 export const submitReport = "/issue-report/";

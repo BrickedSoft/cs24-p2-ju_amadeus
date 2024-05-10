@@ -33,6 +33,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RoleType } from "@/constants/userContants";
 import { createUser } from "@lib/entry/users/createUser";
 import { Contractor } from "@prisma/client";
+import Loading from "@/components/Loading";
 
 const initialState = {
   message: "",
@@ -52,11 +53,11 @@ const NewUser: React.FC = () => {
     fetch("/api/contractors")
       .then((res) => res.json())
       .then((contractors) => {
-        setRoleList(contractors.contractors.map((ele: Contractor) => ele));
+        setContractors(contractors.contractors.map((ele: Contractor) => ele));
       });
   }, []);
 
-  console.log(contractors)
+  console.log(contractors);
 
   const formSchema = z.object(
     _.reduce(
@@ -81,7 +82,11 @@ const NewUser: React.FC = () => {
   } = form;
 
   const [state, formAction] = useFormState(createUser, initialState);
-  return (
+
+
+  console.log(roleList);
+
+  return roleList ? (
     <Form {...form}>
       <form
         action={formAction}
@@ -198,6 +203,8 @@ const NewUser: React.FC = () => {
         <p className="text-sm text-green-600">{state.message}</p>
       </form>
     </Form>
+  ) : (
+    <Loading />
   );
 };
 

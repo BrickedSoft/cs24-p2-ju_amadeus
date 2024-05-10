@@ -15,19 +15,11 @@ export const createUser = async (prevState: any, formData: FormData) => {
       email: z.string().min(1),
       password: z.string().min(1),
       role: z.string().min(1),
-      username: z.string().min(1).nullable().optional(),
       contact: z.string().min(1).nullable().optional(),
-      contractCompany: z.string().min(1).nullable().optional(),
-      accessLevel: z.string().min(1).nullable().optional(),
     })
     .refine((schema) => {
       if (schema.role === RoleType.CONTRACTOR_MANAGER) {
-        return (
-          schema.username &&
-          schema.contact &&
-          schema.contractCompany &&
-          schema.accessLevel
-        );
+        return schema.contact;
       }
       return true;
     });
@@ -37,10 +29,7 @@ export const createUser = async (prevState: any, formData: FormData) => {
     email: formData.get("email") || undefined,
     password: formData.get("password") || undefined,
     role: formData.get("role") || undefined,
-    username: formData.get("username" || undefined),
     contact: formData.get("contact" || undefined),
-    contractCompany: formData.get("contractCompany" || undefined),
-    accessLevel: formData.get("accessLevel" || undefined),
   });
 
   const exists = await prisma.user.findUnique({
@@ -63,10 +52,7 @@ export const createUser = async (prevState: any, formData: FormData) => {
       parsed.role === RoleType.CONTRACTOR_MANAGER
         ? {
             ...required,
-            username: parsed.username,
             contact: parsed.contact,
-            contractCompany: parsed.contractCompany,
-            accessLevel: parsed.accessLevel,
           }
         : {
             ...required,

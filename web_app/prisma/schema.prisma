@@ -128,7 +128,7 @@ model Contractor {
   salary      Float
   wasteVolume Float
   termination DateTime?
-  wardNumber  String
+  wardNumber  String?
   STS         STS?        @relation(fields: [stsId], references: [id])
   stsId       String?
   workforces  Workforce[]
@@ -145,7 +145,7 @@ model Workforce {
   salary       Float
   contact      String
   vehicleRoute VehicleRoute[]
-  manager         User?          @relation(fields: [userId], references: [id])
+  manager      User?          @relation(fields: [userId], references: [id])
   userId       String?
   contractor   Contractor?    @relation(fields: [contractorId], references: [id])
   contractorId String?

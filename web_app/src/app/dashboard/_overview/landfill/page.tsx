@@ -90,11 +90,9 @@ const LandfillOverview: React.FC = async () => {
             </div>
           </div>
 
-          <div className="border-2 rounded-lg overflow-hidden">
-            <Suspense fallback={<Loading />}>
-              <Markers landfillList={user.landfill} stsList={user.STS} />
-            </Suspense>
-          </div>
+          <Suspense fallback={<Loading />}>
+            <Markers landfillList={user.landfill} stsList={user.STS} />
+          </Suspense>
         </div>
       ) : (
         <Loading />

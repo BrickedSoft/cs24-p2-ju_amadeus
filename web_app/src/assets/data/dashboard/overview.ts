@@ -7,3 +7,10 @@ export const roleFromString = (value: string | undefined) => {
   if (value == RoleType.SYSTEM_ADMIN) return RoleType.SYSTEM_ADMIN;
   return RoleType.UNASSIGNED;
 };
+
+export const title = "See your assigned STS and Landfill locations on the map";
+
+export const labels = {
+  sts: "Assigned STS",
+  landfill: "Assigned Landfill",
+};

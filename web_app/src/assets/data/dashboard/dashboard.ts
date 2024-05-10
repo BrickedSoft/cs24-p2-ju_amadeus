@@ -51,6 +51,10 @@ export const sideNavEntry = (roleType: RoleType) => {
         href: `${currentPath}/entry/vehicle-entries`,
       },
       {
+        label: "Waste from contractor",
+        href: `${currentPath}/entry/waste-from-contractor`,
+      },
+      {
         label: "Route optimization",
         href: `${currentPath}/entry/route-optimization`,
       },

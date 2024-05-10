@@ -20,6 +20,7 @@ export const path = {
   sts: "sts",
   landfillSites: "landfill-sites",
   vehicleEntries: "vehicle-entries",
+  wasteFromContractor: "waste-from-contractor",
   routeOptimization: "route-optimization",
   fleetOptimization: "fleet-optimization",
   generateBill: "generate-bill",
@@ -50,6 +51,7 @@ export const pathTitles = {
   sts: "STS",
   landfillSites: "Landfill Sites",
   vehicleEntries: "Vehicle Entries",
+  wasteFromContractor: "Waste from Contractor",
   routeOptimization: "Route optimization",
   fleetOptimization: "Fleet optimization",
   generateBill: "Generate Bill",
@@ -95,6 +97,7 @@ export const routes = {
   landfillSites: `${entryPath}/${path.landfillSites}`,
   landfillSitesNew: `${entryPath}/${path.landfillSites}/${path.new}`,
   vehicleEntries: `${entryPath}/${path.vehicleEntries}`,
+  wasteFromContractor: `${entryPath}/${path.wasteFromContractor}`,
   vehicleEntriesNew: `${entryPath}/${path.vehicleEntries}/${path.new}`,
   routeOptimization: `${entryPath}/${path.routeOptimization}`,
   fleetOptimization: `${entryPath}/${path.fleetOptimization}`,
@@ -144,6 +147,10 @@ export const links = {
   vehicleEntries: {
     title: pathTitles.vehicleEntries,
     href: routes.vehicleEntries,
+  },
+  wasteFromContractor: {
+    title: pathTitles.wasteFromContractor,
+    href: routes.wasteFromContractor,
   },
   routeOptimization: {
     title: pathTitles.routeOptimization,

@@ -60,6 +60,8 @@ const NewUser: React.FC = () => {
       });
   }, []);
 
+  console.log(contractors)
+
   const formSchema = z.object(
     _.reduce(
       [...newUserInfo.formValues, ...contractorManagerInfo].map((item) => ({

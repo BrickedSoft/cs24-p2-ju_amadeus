@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcrypt");
 const prism = new PrismaClient();
-const roleList = ["SystemAdmin", "STSManager", "LandfillManager", "Unassigned"];
+const roleList = ["SystemAdmin", "STSManager", "LandfillManager", "Unassigned", "Citizen"];
 
 const populate = async () => {
   // populate the roles

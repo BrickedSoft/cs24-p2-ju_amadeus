@@ -107,3 +107,4 @@ model VehicleRoute {
   LandFill   LandFill? @relation(fields: [landFillId], references: [id])
   landFillId String?
 }
+

@@ -15,7 +15,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {
-  contractorInfo,
   contractorManagerInfo,
   errors as defaultErrors,
   instruction,
@@ -52,7 +51,7 @@ const NewUser: React.FC<{}> = ({}) => {
 
   const formSchema = z.object(
     _.reduce(
-      [...newUserInfo.formValues, ...contractorInfo].map((item) => ({
+      [...newUserInfo.formValues, ...contractorManagerInfo].map((item) => ({
         [item.name]: z.string().min(1, {
           message: defaultErrors.empty,
         }),
@@ -122,67 +121,34 @@ const NewUser: React.FC<{}> = ({}) => {
         </p>
 
         <div className="flex flex-col gap-5 mt-3">
-          {[
-            RoleType.UNASSIGNED,
-            RoleType.SYSTEM_ADMIN,
-            RoleType.STS_MANAGER,
-            RoleType.LANDFILL_MANAGER,
-          ].includes(selectedRole) &&
-            newUserInfo.formValues.map((ele) => (
-              <FormField
-                key={ele.name}
-                control={form.control}
-                name={ele.name}
-                render={({ field }) => (
-                  <FormItem className="flex flex-col gap-2">
-                    <FormLabel className="!text-small">{ele.label}</FormLabel>
-                    <FormControl>
-                      <div className="relative w-auto !mt-0">
-                        <Input
-                          type={ele.type || "text"}
-                          {...field}
-                          value={field.value}
-                          maxLength={32}
-                          className="max-w-[560px] border-gray-300 placeholder:text-gray-600 h-10"
-                        />
-                      </div>
-                    </FormControl>
+          {newUserInfo.formValues.map((ele) => (
+            <FormField
+              key={ele.name}
+              control={form.control}
+              name={ele.name}
+              render={({ field }) => (
+                <FormItem className="flex flex-col gap-2">
+                  <FormLabel className="!text-small">{ele.label}</FormLabel>
+                  <FormControl>
+                    <div className="relative w-auto !mt-0">
+                      <Input
+                        type={ele.type || "text"}
+                        {...field}
+                        value={field.value}
+                        maxLength={32}
+                        className="max-w-[560px] border-gray-300 placeholder:text-gray-600 h-10"
+                      />
+                    </div>
+                  </FormControl>
 
-                    <FormMessage
-                      className={`${errors?.[ele.name]?.type === "manual" ? "hidden" : ""}`}
-                    />
-                  </FormItem>
-                )}
-              />
-            ))}
-          {selectedRole === RoleType.CONTRACTOR &&
-            contractorInfo.map((ele) => (
-              <FormField
-                key={ele.name}
-                control={form.control}
-                name={ele.name}
-                render={({ field }) => (
-                  <FormItem className="flex flex-col gap-2">
-                    <FormLabel className="!text-small">{ele.label}</FormLabel>
-                    <FormControl>
-                      <div className="relative w-auto !mt-0">
-                        <Input
-                          type={ele.type || "text"}
-                          {...field}
-                          value={field.value}
-                          maxLength={32}
-                          className="max-w-[560px] border-gray-300 placeholder:text-gray-600 h-10"
-                        />
-                      </div>
-                    </FormControl>
+                  <FormMessage
+                    className={`${errors?.[ele.name]?.type === "manual" ? "hidden" : ""}`}
+                  />
+                </FormItem>
+              )}
+            />
+          ))}
 
-                    <FormMessage
-                      className={`${errors?.[ele.name]?.type === "manual" ? "hidden" : ""}`}
-                    />
-                  </FormItem>
-                )}
-              />
-            ))}
           {selectedRole === RoleType.CONTRACTOR_MANAGER &&
             contractorManagerInfo.map((ele) => (
               <FormField

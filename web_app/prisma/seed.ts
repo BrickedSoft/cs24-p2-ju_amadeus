@@ -5,7 +5,6 @@ const roleList = [
   "SystemAdmin",
   "STSManager",
   "LandfillManager",
-  "Contractor",
   "ContractorManager",
   "Unassigned",
 ];

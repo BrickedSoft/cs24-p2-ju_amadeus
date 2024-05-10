@@ -16,7 +16,7 @@ import {
   SelectValue,
 } from "@components/ui/select";
 import SubmitButton from "@components/ui/SubmitButton";
-import { RoleType } from "@lib/constants/userContants";
+import { RoleType } from "@/constants/userContants";
 import { addVehicleEntry } from "@lib/entry/vehicle-entries/addVehicleEntry";
 
 const initialState = {

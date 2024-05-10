@@ -13,6 +13,10 @@ export const createUser = async (prevState: any, formData: FormData) => {
     email: z.string().min(1),
     password: z.string().min(1),
     role: z.string().min(1),
+    username: z.string().min(1),
+    contact: z.string().min(1),
+    contractCompany: z.string().min(1),
+    accessLevel: z.string().min(1),
   });
 
   const parsed = schema.parse({
@@ -20,6 +24,10 @@ export const createUser = async (prevState: any, formData: FormData) => {
     email: formData.get("email") || undefined,
     password: formData.get("password") || undefined,
     role: formData.get("role") || undefined,
+    username: formData.get("username" || undefined),
+    contact: formData.get("contact" || undefined),
+    contractCompany: formData.get("contractCompany" || undefined),
+    accessLevel: formData.get("accessLevel" || undefined),
   });
 
   const exists = await prisma.user.findUnique({
@@ -29,12 +37,17 @@ export const createUser = async (prevState: any, formData: FormData) => {
   const role: Role | null = await prisma.role.findUnique({
     where: { name: parsed.role },
   });
+
   await prisma.user.create({
     data: {
       name: parsed.name,
       email: parsed.email,
       password: await hashPassword(parsed.password),
       role: { connect: { id: role?.id } },
+      username: parsed.username,
+      contact: parsed.contact,
+      contractCompany: parsed.contractCompany,
+      accessLevel: parsed.accessLevel,
     },
   });
   revalidatePath("/");

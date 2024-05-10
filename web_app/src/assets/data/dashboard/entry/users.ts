@@ -43,7 +43,7 @@ export const contractorManagerInfo: FormValues[] = [
 export const updateUserInfo: FormInfoExtended = {
   actionLabel: "Update",
   description: "Update user informations",
-  title: "User details",
+  title: "Update user details",
   formValues: [
     {
       name: "name",

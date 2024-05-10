@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import prisma from "@/lib/db";
 import { validateTokenUser } from "@/lib/db-utils/auth";
-import { RoleType } from "@/lib/constants/userContants";
+import { RoleType } from "@/constants/userContants";
 
 const schema = z.object({
   role: z.string(),

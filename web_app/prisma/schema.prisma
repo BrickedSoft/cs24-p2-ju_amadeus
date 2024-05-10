@@ -18,6 +18,12 @@ model User {
   password      String
   resetToken    String?
   loginToken    LoginToken[]
+  createdAt     DateTime     @default(now())
+
+  username        String?
+  contact         String?
+  contractCompany String?
+  accessLevel     String?
 
   role   Role   @relation(fields: [roleId], references: [id])
   roleId String

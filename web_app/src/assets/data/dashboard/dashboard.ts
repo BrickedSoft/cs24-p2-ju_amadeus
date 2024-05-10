@@ -1,4 +1,4 @@
-import { RoleType } from "@/lib/constants/userContants";
+import { RoleType } from "@/constants/userContants";
 
 export interface NavLink {
   label: string;

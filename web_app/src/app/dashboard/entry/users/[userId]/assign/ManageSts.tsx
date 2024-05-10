@@ -13,7 +13,7 @@ import CardLoading from "@components/ui/card-loading";
 import { Input } from "@components/ui/input";
 import { ScrollArea } from "@components/ui/scroll-area";
 import { Separator } from "@components/ui/separator";
-import { RoleType } from "@lib/constants/userContants";
+import { RoleType } from "@/constants/userContants";
 
 const ManageSts: React.FC<{ params: { userId: string } }> = ({ params }) => {
   const [user, setUser] = useState<any>();
@@ -24,13 +24,13 @@ const ManageSts: React.FC<{ params: { userId: string } }> = ({ params }) => {
   useEffect(() => {
     if (isLoading == "assign") {
       fetch(`/api/users/${params.userId}/assignSts/${stsId}`).then(() =>
-        setIsLoading("none"),
+        setIsLoading("none")
       );
     }
 
     if (isLoading == "remove") {
       fetch(`/api/users/${params.userId}/removeSts/${stsId}`).then(() =>
-        setIsLoading("none"),
+        setIsLoading("none")
       );
     }
   }, [isLoading, params.userId, setIsLoading, stsId]);

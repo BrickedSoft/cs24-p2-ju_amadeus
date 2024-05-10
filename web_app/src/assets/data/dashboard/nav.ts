@@ -1,5 +1,5 @@
 import { Link } from "@allTypes";
-import { RoleType } from "@lib/constants/userContants";
+import { RoleType } from "@/constants/userContants";
 import { links } from "../routes";
 
 export const navLinks: Link[] = [links.overview, links.entry, links.account];

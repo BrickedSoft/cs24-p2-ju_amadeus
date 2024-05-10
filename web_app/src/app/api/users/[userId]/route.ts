@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { validateTokenUser } from "@/lib/db-utils/auth";
-import { RoleType } from "@/lib/constants/userContants";
+import { RoleType } from "@/constants/userContants";
+import { User } from "@prisma/client";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { userId: string } },
+  { params }: { params: { userId: string } }
 ) {
   const auth = await validateTokenUser(request);
   const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN);
@@ -16,7 +17,7 @@ export async function GET(
       {
         message: "Insuficient permission",
       },
-      { status: 400 },
+      { status: 400 }
     );
 
   const user = await prisma.user.findUnique({
@@ -33,7 +34,7 @@ export async function GET(
       {
         message: "Not found",
       },
-      { status: 400 },
+      { status: 400 }
     );
 
   return NextResponse.json(
@@ -47,15 +48,19 @@ export async function GET(
         role: user.role.name,
         STS: user.STS,
         landfill: user.landfill,
+        username: user.username,
+        contact: user.contact,
+        contractCompany: user.contractCompany,
+        accessLevel: user.accessLevel,
       },
     },
-    { status: 200 },
+    { status: 200 }
   );
 }
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { userId: string } },
+  { params }: { params: { userId: string } }
 ) {
   const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN);
 
@@ -66,7 +71,7 @@ export async function DELETE(
       {
         message: "Insuficient permission",
       },
-      { status: 400 },
+      { status: 400 }
     );
 
   const user = await prisma.user.delete({ where: { id: queryUserId } });
@@ -76,7 +81,7 @@ export async function DELETE(
       {
         message: "Not found",
       },
-      { status: 400 },
+      { status: 400 }
     );
 
   return NextResponse.json(
@@ -88,6 +93,6 @@ export async function DELETE(
         resetToken: user.resetToken,
       },
     },
-    { status: 200 },
+    { status: 200 }
   );
 }

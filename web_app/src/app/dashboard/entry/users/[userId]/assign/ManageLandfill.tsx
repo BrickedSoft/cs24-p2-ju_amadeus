@@ -13,7 +13,7 @@ import CardLoading from "@components/ui/card-loading";
 import { Input } from "@components/ui/input";
 import { ScrollArea } from "@components/ui/scroll-area";
 import { Separator } from "@components/ui/separator";
-import { RoleType } from "@lib/constants/userContants";
+import { RoleType } from "@/constants/userContants";
 
 const ManageLandfill: React.FC<{ params: { userId: string } }> = ({
   params,
@@ -26,13 +26,13 @@ const ManageLandfill: React.FC<{ params: { userId: string } }> = ({
   useEffect(() => {
     if (isLoading == "assign") {
       fetch(`/api/users/${params.userId}/assignLandfill/${landfillId}`).then(
-        () => setIsLoading("none"),
+        () => setIsLoading("none")
       );
     }
 
     if (isLoading == "remove") {
       fetch(`/api/users/${params.userId}/removeLandfill/${landfillId}`).then(
-        () => setIsLoading("none"),
+        () => setIsLoading("none")
       );
     }
   }, [isLoading, params.userId, setIsLoading, landfillId]);

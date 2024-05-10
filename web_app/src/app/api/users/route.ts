@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { validateTokenUser } from "@/lib/db-utils/auth";
-import { RoleType } from "@/lib/constants/userContants";
+import { RoleType } from "@/constants/userContants";
 import { z } from "zod";
 import { hashPassword } from "@/lib/utils/encoding";
 
@@ -10,6 +10,10 @@ const schema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
   role: z.string(),
+  username: z.string(),
+  contact: z.string(),
+  contractCompany: z.string(),
+  accessLevel: z.string(),
 });
 
 export async function GET(request: NextRequest) {
@@ -20,7 +24,7 @@ export async function GET(request: NextRequest) {
       {
         message: "Insuficient permission",
       },
-      { status: 400 },
+      { status: 400 }
     );
 
   const users = await prisma.user.findMany({
@@ -39,7 +43,7 @@ export async function GET(request: NextRequest) {
         role: ele.role.name,
       })),
     },
-    { status: 200 },
+    { status: 200 }
   );
 }
 
@@ -53,7 +57,7 @@ export async function POST(request: NextRequest) {
       {
         message: "Invalid data",
       },
-      { status: 400 },
+      { status: 400 }
     );
 
   if (!authAdmin)
@@ -61,10 +65,19 @@ export async function POST(request: NextRequest) {
       {
         message: "Insuficient permission",
       },
-      { status: 400 },
+      { status: 400 }
     );
 
-  const { name, email, password, role } = parsed.data;
+  const {
+    name,
+    email,
+    password,
+    role,
+    username,
+    contact,
+    contractCompany,
+    accessLevel,
+  } = parsed.data;
   const userExist = await prisma.user.findUnique({ where: { email: email } });
 
   if (userExist)
@@ -72,7 +85,7 @@ export async function POST(request: NextRequest) {
       {
         message: "Email already in use",
       },
-      { status: 400 },
+      { status: 400 }
     );
 
   const userRole = await prisma.role.findUnique({ where: { name: role } });
@@ -82,6 +95,10 @@ export async function POST(request: NextRequest) {
       email: email,
       password: await hashPassword(password),
       role: { connect: { id: userRole?.id } },
+      username,
+      contact,
+      contractCompany,
+      accessLevel,
     },
   });
 
@@ -89,6 +106,6 @@ export async function POST(request: NextRequest) {
     {
       user: user,
     },
-    { status: 200 },
+    { status: 200 }
   );
 }

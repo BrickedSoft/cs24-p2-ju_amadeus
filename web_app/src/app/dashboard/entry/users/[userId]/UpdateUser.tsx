@@ -1,7 +1,8 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import _ from "lodash";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormState } from "react-dom";
 import { useForm } from "react-hook-form";
 import { z, ZodRawShape } from "zod";
@@ -14,12 +15,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { RoleType } from "@/constants/userContants";
+import { User } from "@allTypes";
 import {
   contractorManagerInfo,
   errors as defaultErrors,
   instruction,
-  newUserInfo,
+  updateUserInfo,
 } from "@assets/data/dashboard/entry/users";
+import CardLoading from "@components/ui/card-loading";
 import { Input } from "@components/ui/input";
 import {
   Select,
@@ -29,29 +33,24 @@ import {
   SelectValue,
 } from "@components/ui/select";
 import SubmitButton from "@components/ui/SubmitButton";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { RoleType } from "@/constants/userContants";
-import { createUser } from "@lib/entry/users/createUser";
+import { updateUser } from "@lib/entry/users/updateUser";
 
 const initialState = {
   message: "",
 };
 
-const NewUser: React.FC<{}> = ({}) => {
-  const [roleList, setRoleList] = useState([RoleType.UNASSIGNED]);
-  const [selectedRole, setSelectedRole] = useState(RoleType.UNASSIGNED);
+type Props = {
+  id: string;
+  user: User;
+  roleList: RoleType[];
+};
 
-  useEffect(() => {
-    fetch("/api/users/roles")
-      .then((res) => res.json())
-      .then((newUserInfo) => {
-        setRoleList(newUserInfo.roles.map((ele: { name: any }) => ele.name));
-      });
-  }, []);
+const UpdateUser: React.FC<Props> = ({ id, user, roleList }) => {
+  const [selectedRole, setSelectedRole] = useState(user.role);
 
   const formSchema = z.object(
     _.reduce(
-      [...newUserInfo.formValues, ...contractorManagerInfo].map((item) => ({
+      [...updateUserInfo.formValues, ...contractorManagerInfo].map((item) => ({
         [item.name]: z.string().min(1, {
           message: defaultErrors.empty,
         }),
@@ -62,23 +61,24 @@ const NewUser: React.FC<{}> = ({}) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      role: RoleType.UNASSIGNED,
-    },
+    defaultValues: user,
   });
   const {
     control,
     formState: { errors },
   } = form;
 
-  const [state, formAction] = useFormState(createUser, initialState);
-  return (
+  const [state, formAction] = useFormState(
+    updateUser.bind(null, id),
+    initialState
+  );
+  return user ? (
     <Form {...form}>
       <form
         action={formAction}
         className="bg-background px-6 py-4 rounded-md  border-[1.45px] border-gray-300 shadow-sm mt-8"
       >
-        <p className="text-lg font-medium">{newUserInfo.title}</p>
+        <p className="text-lg font-medium">{updateUserInfo.title}</p>
         <p className="my-3 text-sm">{instruction}</p>
 
         <FormField
@@ -118,11 +118,11 @@ const NewUser: React.FC<{}> = ({}) => {
         />
 
         <p className="my-3 text-medium font-medium mt-8">
-          {newUserInfo.description}
+          {updateUserInfo.description}
         </p>
 
         <div className="flex flex-col gap-5 mt-3">
-          {newUserInfo.formValues.map((ele) => (
+          {updateUserInfo.formValues.map((ele) => (
             <FormField
               key={ele.name}
               control={form.control}
@@ -182,12 +182,14 @@ const NewUser: React.FC<{}> = ({}) => {
 
         <div className="w-full mt-4 flex justify-between">
           <div></div>
-          <SubmitButton label={newUserInfo.actionLabel} disabled={false} />
+          <SubmitButton label={updateUserInfo.actionLabel} disabled={false} />
         </div>
         <p className="text-sm text-green-600">{state.message}</p>
       </form>
     </Form>
+  ) : (
+    <CardLoading />
   );
 };
 
-export default NewUser;
+export default UpdateUser;

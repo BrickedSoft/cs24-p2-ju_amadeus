@@ -1,4 +1,4 @@
-import { RoleType } from "@lib/constants/userContants";
+import { RoleType } from "@/constants/userContants";
 
 export const roleFromString = (value: string | undefined) => {
   if (!value) return RoleType.UNASSIGNED;

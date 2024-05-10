@@ -64,6 +64,7 @@ model STS {
   vehicle      Vehicle[]
   vehicleRoute VehicleRoute[]
   contractor   Contractor[]
+  WasteEntry   WasteEntry[]
 }
 
 model LandFill {
@@ -86,6 +87,7 @@ model Vehicle {
   vehicleEntry     VehicleEntry[]
   STS              STS?           @relation(fields: [stsId], references: [id])
   stsId            String?
+  WasteEntry       WasteEntry[]
 }
 
 model VehicleEntry {
@@ -104,6 +106,22 @@ model VehicleEntry {
   landFillId String?
 }
 
+model WasteEntry {
+  id             String   @id @default(cuid())
+  wasteVolume    Float
+  collectionDate DateTime
+  wasteType      String
+
+  vehicle   Vehicle? @relation(fields: [vehicleId], references: [id])
+  vehicleId String?
+
+  contractor   Contractor? @relation(fields: [contractorId], references: [id])
+  contractorId String?
+
+  STS   STS?    @relation(fields: [stsId], references: [id])
+  stsId String?
+}
+
 model VehicleRoute {
   id         String    @id @default(cuid())
   timestamp  DateTime?
@@ -116,22 +134,23 @@ model VehicleRoute {
 }
 
 model Contractor {
-  id          String      @id @default(cuid())
+  id          String       @id @default(cuid())
   name        String
   contractId  String
-  createdAt   DateTime    @default(now())
-  tin         String      @unique
+  createdAt   DateTime     @default(now())
+  tin         String       @unique
   contact     String
   size        Int
   salary      Float
   wasteVolume Float
   termination DateTime?
   wardNumber  String?
-  STS         STS?        @relation(fields: [stsId], references: [id])
+  STS         STS?         @relation(fields: [stsId], references: [id])
   stsId       String?
   workforces  Workforce[]
-  manager     User?       @relation(fields: [userId], references: [id])
-  userId      String?     @unique
+  manager     User?        @relation(fields: [userId], references: [id])
+  userId      String?      @unique
+  WasteEntry  WasteEntry[]
 }
 
 model Workforce {

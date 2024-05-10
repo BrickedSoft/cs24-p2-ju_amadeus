@@ -26,6 +26,8 @@ export async function GET(
       STS: true,
       landfill: true,
       role: true,
+      workforces: true,
+      contractor: true,
     },
   });
 
@@ -48,10 +50,9 @@ export async function GET(
         role: user.role.name,
         STS: user.STS,
         landfill: user.landfill,
-        username: user.username,
         contact: user.contact,
-        contractCompany: user.contractCompany,
-        accessLevel: user.accessLevel,
+        workforces: user.workforces,
+        contractor: user.contractor,
       },
     },
     { status: 200 }

@@ -5,8 +5,7 @@ export const roleList = [
   "Unassigned",
   "ContractorManager",
   "Citizen",
-  "WorkforceManager"
-
+  "WorkforceManager",
 ];
 export enum RoleType {
   SYSTEM_ADMIN = "SystemAdmin",
@@ -15,5 +14,5 @@ export enum RoleType {
   UNASSIGNED = "Unassigned",
   CONTRACTOR_MANAGER = "ContractorManager",
   CITIZEN = "Citizen",
-  WORKFORCEMANAGER="WorkforceManager"
+  WORKFORCEMANAGER = "WorkforceManager",
 }

@@ -34,10 +34,7 @@ export const newUserInfo: FormInfoExtended = {
 };
 
 export const contractorManagerInfo: FormValues[] = [
-  { name: "username", label: "Username" },
   { name: "contact", label: "Contact number" },
-  { name: "contractCompany", label: "Assigned Contractor Company" },
-  { name: "accessLevel", label: "Access Level" },
 ];
 
 export const updateUserInfo: FormInfoExtended = {

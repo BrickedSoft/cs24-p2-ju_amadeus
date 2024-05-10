@@ -9,4 +9,5 @@ export enum RoleType {
   STS_MANAGER = "STSManager",
   LANDFILL_MANAGER = "LandfillManager",
   UNASSIGNED = "Unassigned",
+  CITIZEN = "Citizen",
 }

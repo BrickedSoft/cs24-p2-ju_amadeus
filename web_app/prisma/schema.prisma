@@ -28,8 +28,10 @@ model User {
   role   Role   @relation(fields: [roleId], references: [id])
   roleId String
 
-  STS      STS[]
-  landfill LandFill[]
+  STS         STS[]
+  landfill    LandFill[]
+  Workforce   Workforce? @relation(fields: [workforceId], references: [id])
+  workforceId String?
 }
 
 model Role {
@@ -104,12 +106,27 @@ model VehicleEntry {
 }
 
 model VehicleRoute {
-  id         String    @id @default(cuid())
-  timestamp  DateTime?
-  distance   Float
-  duration   Float
-  STS        STS?      @relation(fields: [stsId], references: [id])
-  stsId      String?
-  LandFill   LandFill? @relation(fields: [landFillId], references: [id])
-  landFillId String?
+  id          String     @id @default(cuid())
+  timestamp   DateTime?
+  distance    Float
+  duration    Float
+  STS         STS?       @relation(fields: [stsId], references: [id])
+  stsId       String?
+  LandFill    LandFill?  @relation(fields: [landFillId], references: [id])
+  landFillId  String?
+  Workforce   Workforce? @relation(fields: [workforceId], references: [id])
+  workforceId String?
+}
+
+model Workforce {
+  id           String         @id @default(cuid())
+  name         String
+  dateOfBirth  DateTime
+  designation  String
+  joiningDate  DateTime
+  salary       Float
+  contact      String
+  vehicleRoute VehicleRoute[]
+  termination  DateTime?
+  manager      User[]
 }

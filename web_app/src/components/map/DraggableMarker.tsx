@@ -44,11 +44,11 @@ const DraggableMarker: React.FC<Props> = ({ control, setValue }) => {
               dragend() {
                 const marker: any = markerRef.current;
                 if (marker != null) {
-                  setValue("latitude", marker.getLatLng().lng, {
+                  setValue("latitude", marker.getLatLng().lat, {
                     shouldDirty: true,
                     shouldTouch: true,
                   });
-                  setValue("longitude", marker.getLatLng().lat, {
+                  setValue("longitude", marker.getLatLng().lng, {
                     shouldDirty: true,
                     shouldTouch: true,
                   });

@@ -16,12 +16,12 @@ export default function AppLayout() {
   if (!session) {
     // On web, static rendering will stop here as the user is not authenticated
     // in the headless Node process that the pages are rendered in.
-    return <Redirect href='/SignIn' />;
+    return <Redirect href='/Landing' />;
   }
 
   // This layout can be deferred because it's not the root layout.
   return (
-    <Stack>
+    <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name='(tabs)'
         options={{ headerShown: false }}

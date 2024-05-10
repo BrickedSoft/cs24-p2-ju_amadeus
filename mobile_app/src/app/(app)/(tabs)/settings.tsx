@@ -5,7 +5,7 @@ export default function Tab() {
   const { signOut } = useSession();
   const theme = useTheme();
   return (
-    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+    <View style={{ flex: 1, justifyContent: 'center' }}>
       <Button
         mode='elevated'
         labelStyle={[
@@ -17,6 +17,7 @@ export default function Tab() {
         style={{
           borderRadius: theme.roundness,
           backgroundColor: theme.colors.primary,
+          margin: 24,
         }}
         onPress={() => signOut()}>
         Sign Out

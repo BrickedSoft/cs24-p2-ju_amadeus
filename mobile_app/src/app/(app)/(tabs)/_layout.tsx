@@ -6,7 +6,7 @@ import { useTheme } from 'react-native-paper';
 export default function TabLayout() {
   const theme = useTheme();
   return (
-    <Tabs screenOptions={{ tabBarActiveTintColor: theme.colors.primary }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: theme.colors.primary, headerShown: false }}>
       <Tabs.Screen
         name='index'
         options={{

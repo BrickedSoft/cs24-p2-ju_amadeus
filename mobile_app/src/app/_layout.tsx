@@ -3,8 +3,22 @@ import { SessionProvider } from '@utils/authContext';
 import { PaperProvider } from 'react-native-paper';
 import { useFonts } from 'expo-font';
 import theme from '@/data/theme';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  Platform,
+  View,
+  StatusBar as StatusBarRN,
+  StyleSheet,
+} from 'react-native';
 
 export default function App() {
+  const styles = StyleSheet.create({
+    paddingTopForAndroid: {
+      height: Platform.OS === 'android' ? StatusBarRN.currentHeight : 0,
+      backgroundColor: 'white',
+    },
+  });
+
   const [fontLoader] = useFonts({
     'Poppins-Black': require('@assets/fonts/Poppins/Poppins-Black.ttf'),
     'Poppins-BlackItalic': require('@assets/fonts/Poppins/Poppins-BlackItalic.ttf'),
@@ -30,7 +44,8 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
       <SessionProvider>
-        <Slot />
+          <View style={styles.paddingTopForAndroid} />
+          <Slot />
       </SessionProvider>
     </PaperProvider>
   );

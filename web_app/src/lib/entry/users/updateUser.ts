@@ -13,10 +13,7 @@ export const updateUser = async (
     name: z.string().optional(),
     email: z.string().optional(),
     role: z.string().optional(),
-    username: z.string().optional(),
     contact: z.string().optional(),
-    contractCompany: z.string().optional(),
-    accessLevel: z.string().optional(),
   });
 
   const parsed = schema.parse({
@@ -35,10 +32,7 @@ export const updateUser = async (
       name: parsed.name,
       email: parsed.email,
       role: { connect: { name: parsed.role } },
-      username: parsed.username,
       contact: parsed.contact,
-      contractCompany: parsed.contractCompany,
-      accessLevel: parsed.accessLevel,
     },
   });
   revalidatePath("/");

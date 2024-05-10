@@ -25,6 +25,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json(
     {
       contractors: contractors.map((ele) => ({
+        id: ele.id,
         name: ele.name,
         contractId: ele.contractId,
         tin: ele.tin,

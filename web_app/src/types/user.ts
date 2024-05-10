@@ -1,4 +1,11 @@
-import { LandFill, STS, User as UserType } from "@prisma/client";
+import {
+  Contractor,
+  IssueReport,
+  LandFill,
+  STS,
+  User as UserType,
+  Workforce,
+} from "@prisma/client";
 
 export enum Users {
   admin = "SystemAdmin",
@@ -13,4 +20,7 @@ export type User = UserType & {
   role: string;
   STS: STS[];
   landfill: LandFill[];
+  issueReport?: IssueReport[];
+  workforces?: Workforce[];
+  contractor?: Contractor;
 };

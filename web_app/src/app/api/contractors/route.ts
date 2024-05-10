@@ -17,6 +17,8 @@ export async function GET(request: NextRequest) {
   const contractors = await prisma.contractor.findMany({
     include: {
       STS: true,
+      workforces: true,
+      manager: true,
     },
   });
 
@@ -33,6 +35,8 @@ export async function GET(request: NextRequest) {
         termination: ele.termination,
         wardNumber: ele.wardNumber,
         STS: ele.STS,
+        manager: ele.manager,
+        workforces: ele.workforces,
       })),
     },
     { status: 200 }

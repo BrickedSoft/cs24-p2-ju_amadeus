@@ -20,19 +20,16 @@ model User {
   loginToken    LoginToken[]
   createdAt     DateTime     @default(now())
 
-  username        String?
-  contact         String?
-  contractCompany String?
-  accessLevel     String?
+  contact String?
 
   role   Role   @relation(fields: [roleId], references: [id])
   roleId String
 
   STS         STS[]
   landfill    LandFill[]
-  Workforce   Workforce?    @relation(fields: [workforceId], references: [id])
-  workforceId String?
   issueReport IssueReport[]
+  workforces  Workforce[]
+  contractor  Contractor?
 }
 
 model Role {
@@ -66,8 +63,7 @@ model STS {
   manager      User[]
   vehicle      Vehicle[]
   vehicleRoute VehicleRoute[]
-  Workforce    Workforce[]
-  Contractor   Contractor[]
+  contractor   Contractor[]
 }
 
 model LandFill {
@@ -122,19 +118,22 @@ model VehicleRoute {
 }
 
 model Contractor {
-  id          String    @id @default(cuid())
+  id          String      @id @default(cuid())
   name        String
   contractId  String
-  createdAt   DateTime  @default(now())
-  tin         String    @unique
+  createdAt   DateTime    @default(now())
+  tin         String      @unique
   contact     String
   size        Int
   salary      Float
   wasteVolume Float
   termination DateTime?
   wardNumber  String
-  STS         STS?      @relation(fields: [stsId], references: [id])
+  STS         STS?        @relation(fields: [stsId], references: [id])
   stsId       String?
+  workforces  Workforce[]
+  manager     User?       @relation(fields: [userId], references: [id])
+  userId      String?     @unique
 }
 
 model Workforce {
@@ -146,10 +145,10 @@ model Workforce {
   salary       Float
   contact      String
   vehicleRoute VehicleRoute[]
-  termination  DateTime?
-  manager      User[]
-  STS          STS?           @relation(fields: [sTSId], references: [id])
-  sTSId        String?
+  manager         User?          @relation(fields: [userId], references: [id])
+  userId       String?
+  contractor   Contractor?    @relation(fields: [contractorId], references: [id])
+  contractorId String?
 }
 
 model IssueReport {

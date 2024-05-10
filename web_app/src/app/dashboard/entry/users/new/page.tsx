@@ -32,6 +32,7 @@ import SubmitButton from "@components/ui/SubmitButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RoleType } from "@/constants/userContants";
 import { createUser } from "@lib/entry/users/createUser";
+import { Contractor } from "@prisma/client";
 
 const initialState = {
   message: "",
@@ -40,6 +41,7 @@ const initialState = {
 const NewUser: React.FC = () => {
   const [roleList, setRoleList] = useState([RoleType.UNASSIGNED]);
   const [selectedRole, setSelectedRole] = useState(RoleType.UNASSIGNED);
+  const [contractors, setContractors] = useState<Contractor[]>([]);
 
   useEffect(() => {
     fetch("/api/users/roles")
@@ -47,7 +49,14 @@ const NewUser: React.FC = () => {
       .then((newUserInfo) => {
         setRoleList(newUserInfo.roles.map((ele: { name: any }) => ele.name));
       });
+    fetch("/api/contractors")
+      .then((res) => res.json())
+      .then((contractors) => {
+        setRoleList(contractors.contractors.map((ele: Contractor) => ele));
+      });
   }, []);
+
+  console.log(contractors)
 
   const formSchema = z.object(
     _.reduce(

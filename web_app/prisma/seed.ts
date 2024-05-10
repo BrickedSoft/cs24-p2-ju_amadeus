@@ -7,7 +7,8 @@ const roleList = [
   "LandfillManager",
   "ContractorManager",
   "Unassigned",
-, "Citizen"];
+  "Citizen",
+];
 
 const populate = async () => {
   // populate the roles

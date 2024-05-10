@@ -10,10 +10,7 @@ const schema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
   role: z.string(),
-  username: z.string(),
   contact: z.string(),
-  contractCompany: z.string(),
-  accessLevel: z.string(),
 });
 
 export async function GET(request: NextRequest) {
@@ -29,7 +26,11 @@ export async function GET(request: NextRequest) {
 
   const users = await prisma.user.findMany({
     include: {
+      STS: true,
+      landfill: true,
       role: true,
+      workforces: true,
+      contractor: true,
     },
   });
 
@@ -41,6 +42,11 @@ export async function GET(request: NextRequest) {
         email: ele.email,
         roleId: ele.roleId,
         role: ele.role.name,
+        contact: ele.contact,
+        STS: ele.STS,
+        landfill: ele.landfill,
+        workforces: ele.workforces,
+        contractor: ele.contractor,
       })),
     },
     { status: 200 }
@@ -68,16 +74,7 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
 
-  const {
-    name,
-    email,
-    password,
-    role,
-    username,
-    contact,
-    contractCompany,
-    accessLevel,
-  } = parsed.data;
+  const { name, email, password, role, contact } = parsed.data;
   const userExist = await prisma.user.findUnique({ where: { email: email } });
 
   if (userExist)
@@ -95,10 +92,7 @@ export async function POST(request: NextRequest) {
       email: email,
       password: await hashPassword(password),
       role: { connect: { id: userRole?.id } },
-      username,
       contact,
-      contractCompany,
-      accessLevel,
     },
   });
 

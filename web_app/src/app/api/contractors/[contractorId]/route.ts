@@ -23,6 +23,8 @@ export async function GET(
     where: { id: queryContractorId },
     include: {
       STS: true,
+      workforces: true,
+      manager: true,
     },
   });
 
@@ -48,6 +50,8 @@ export async function GET(
         termination: contractor.termination,
         wardNumber: contractor.wardNumber,
         STS: contractor.STS,
+        manager: contractor.manager,
+        workforces: contractor.workforces,
       },
     },
     { status: 200 }

@@ -2,6 +2,7 @@ import {
   Column,
   FormInfo,
   FormInfoExtended,
+  FormValues,
   InputField,
   Query,
 } from "@allTypes";
@@ -27,10 +28,37 @@ export const newUserInfo: FormInfoExtended = {
       name: "name",
       label: "Name",
     },
-    { name: "email", label: "Email" },
-    { name: "password", label: "Password" },
+    { name: "email", label: "Email", type: "email" },
+    { name: "password", label: "Password", type: "password" },
   ],
 };
+
+export const contractorInfo: FormValues[] = [
+  {
+    name: "company",
+    label: "Name of the company",
+  },
+  { name: "contractId", label: "Contract ID" },
+  { name: "contact", label: "Contact number" },
+  { name: "size", label: "Workforce size" },
+  { name: "payment", label: "Payment per tonnage of waste" },
+  { name: "waste", label: "The required amount of waste per day" },
+  { name: "duration", label: "Contract duration" },
+  { name: "area", label: "Area of collection" },
+];
+
+export const contractorManagerInfo: FormValues[] = [
+  {
+    name: "name",
+    label: "Full Name",
+  },
+  { name: "contact", label: "Contact number" },
+  { name: "contractCompany", label: "Assigned Contractor Company" },
+  { name: "email", label: "Email", type: "email" },
+  { name: "username", label: "Username" },
+  { name: "password", label: "Password", type: "password" },
+  { name: "accessLevel", label: "Access Level" },
+];
 
 export const updateUserInfo: FormInfoExtended = {
   actionLabel: "Update",
@@ -77,3 +105,12 @@ export const query: Query = {
   title: "Search by email",
   key: "email",
 };
+
+export const errors = {
+  empty: "This is required",
+  wrong: "Invalid Email or Password",
+  default: "Something went wrong",
+};
+
+export const instruction =
+  "Please select the role of the user and fill in the required information.";

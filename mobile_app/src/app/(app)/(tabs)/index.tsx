@@ -1,4 +1,4 @@
-import { View, Text, Image, Pressable } from 'react-native';
+import { View, Text, Image, Pressable, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from 'react-native-paper';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -120,7 +120,7 @@ export default function Tab() {
           flexDirection: 'row',
           justifyContent: 'space-between',
           paddingHorizontal: 32,
-          paddingVertical: 12,
+          paddingVertical: 6,
           alignItems: 'center',
           backgroundColor: 'white',
           shadowColor: '#000',
@@ -187,6 +187,40 @@ export default function Tab() {
             />
           ))}
         </View>
+      </View>
+      <Text style={{ padding: 12, fontSize: 18, fontWeight: 'bold' }}>
+        Upcoming event:
+      </Text>
+      <View
+        style={{
+          flexDirection: 'column',
+          height: 280,
+          marginHorizontal: 24,
+          borderColor: '#DCDCDC',
+          borderWidth: 2,
+          borderRadius: 13,
+          alignItems: 'center',
+        }}>
+        <Text
+          style={{
+            marginTop: 12,
+            fontSize: 18,
+            fontWeight: '600',
+          }}>
+          Dhaka North City Sanitation Trade Fair
+        </Text>
+        <Image
+          style={{
+            width: 256,
+            height: 140,
+            margin: 12,
+          }}
+          source={require('../../../../assets/eventjpg.jpg')}
+        />
+        <Text style={{ padding: 12 }}>
+          Dhaka North City Sanitation Trade Fair 2023 will be held in Justice.
+          Sahabuddin Ahmed Park, Gulshan-2, Dhaka 9th 10th March 2023.
+        </Text>
       </View>
     </View>
   );

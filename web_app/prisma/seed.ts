@@ -8,7 +8,8 @@ const roleList = [
   "ContractorManager",
   "Unassigned",
   "Citizen",
-  "WorkforceManager"
+  "WorkforceManager",
+  "DNCCWorker"
 ];
 
 const populate = async () => {

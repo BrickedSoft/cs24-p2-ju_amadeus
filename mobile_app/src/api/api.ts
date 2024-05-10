@@ -23,3 +23,15 @@ export const submitReportApi = async (data: any, token: string | undefined | nul
     })
   return res
 }
+
+
+export const pollLocationApi = async (data: any, token: string | undefined | null, userId: string | undefined | null) => {
+  const res = await ecoSync
+    .post(submitReport, { ...data }, { headers: { token: token, userId: userId } })
+    .then(async (res) => (
+      res.status == 201
+    )).catch(() => {
+      return false
+    })
+  return res
+}

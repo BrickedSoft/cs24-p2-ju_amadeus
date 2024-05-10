@@ -19,6 +19,7 @@ export const sideNavEntry = (roleType: RoleType): Link[] => {
   if (roleType == RoleType.STS_MANAGER)
     return [
       links.vehicleEntries,
+      links.wasteFromContractor,
       links.routeOptimization,
       links.fleetOptimization,
     ];

@@ -7,7 +7,8 @@ const SubmitButton: React.FC<{
   disabled?: boolean;
   variant?: "default" | "secondary";
   isLoading?: boolean;
-}> = ({ label, disabled, variant = "default", isLoading }) => {
+  rounded?: boolean;
+}> = ({ label, disabled, variant = "default", isLoading, rounded = false }) => {
   const { pending } = useFormStatus();
 
   return (
@@ -16,7 +17,7 @@ const SubmitButton: React.FC<{
       disabled={pending || isLoading || disabled}
       type="submit"
       variant={variant === "secondary" ? "submit" : "default"}
-      rounded={false}
+      rounded={rounded}
       size="sm"
     >
       {pending || isLoading ? (

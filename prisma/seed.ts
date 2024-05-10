@@ -33,7 +33,7 @@ const populate = async () => {
     console.log("Admin account created");
   } else console.error("Failed to create Admin account");
 
-  // disconnect
+  // diconnect
   await prism.$disconnect();
 };
 

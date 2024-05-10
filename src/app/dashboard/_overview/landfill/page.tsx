@@ -8,7 +8,7 @@ import { IDCard, LandSite, Mail, Storage, User } from "@icons";
 import { getUser } from "@utils/getUser";
 import Markers from "../components/Markers";
 
-const StsOverview: React.FC = async () => {
+const LandfillOverview: React.FC = async () => {
   const cookieStore = cookies();
   const user = await getUser(cookieStore);
 
@@ -90,9 +90,11 @@ const StsOverview: React.FC = async () => {
             </div>
           </div>
 
-          <Suspense fallback={<Loading />}>
-            <Markers landfillList={user.landfill} stsList={user.STS} />
-          </Suspense>
+          <div className="border-2 rounded-lg overflow-hidden">
+            <Suspense fallback={<Loading />}>
+              <Markers landfillList={user.landfill} stsList={user.STS} />
+            </Suspense>
+          </div>
         </div>
       ) : (
         <Loading />
@@ -101,4 +103,4 @@ const StsOverview: React.FC = async () => {
   );
 };
 
-export default StsOverview;
+export default LandfillOverview;

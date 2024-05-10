@@ -62,7 +62,7 @@ const TokenCard: React.FC<{
                   <SubmitButton
                     label={info.button as string}
                     disabled={false}
-                    variant="secondary"
+                    rounded
                   />
                 )}
               </div>

@@ -15,9 +15,9 @@ export default function DashboardLayout({
   }
 
   return (
-    <div>
+    <>
       <Navbar />
       <div>{children}</div>
-    </div>
+    </>
   );
 }

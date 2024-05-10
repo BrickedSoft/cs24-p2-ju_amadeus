@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${workSans.variable}`}>
-        <div className="flex flex-col justify-between min-h-screen overflow-hidden">
+        <div className="flex flex-col min-h-screen overflow-hidden">
           <Suspense>
             <ProgressBar />
           </Suspense>

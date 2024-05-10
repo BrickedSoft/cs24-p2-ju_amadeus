@@ -1,14 +1,21 @@
 "use client";
 
 import { Dispatch, SetStateAction } from "react";
-import { LandFill, STS, User, Vehicle, VehicleEntry } from "@prisma/client";
+import {
+  Contractor,
+  LandFill,
+  STS,
+  User,
+  Vehicle,
+  VehicleEntry,
+} from "@prisma/client";
 
 import { Column, CustomVehicleEntry, Link as LinkType, Query } from "@allTypes";
 import { columns } from "./columns";
 import { DataTable } from "./DataTable";
 
 type Props = {
-  data: User[] | Vehicle[] | STS[] | LandFill[] | VehicleEntry[];
+  data: User[] | Vehicle[] | STS[] | LandFill[] | VehicleEntry[] | Contractor[];
   type: string;
   columnData: Column[];
   columnDropdownItems?: LinkType[];

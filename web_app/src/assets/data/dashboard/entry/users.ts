@@ -2,6 +2,7 @@ import {
   Column,
   FormInfo,
   FormInfoExtended,
+  FormValues,
   InputField,
   Query,
 } from "@allTypes";
@@ -27,15 +28,22 @@ export const newUserInfo: FormInfoExtended = {
       name: "name",
       label: "Name",
     },
-    { name: "email", label: "Email" },
-    { name: "password", label: "Password" },
+    { name: "email", label: "Email", type: "email" },
+    { name: "password", label: "Password", type: "password" },
   ],
 };
+
+export const contractorManagerInfo: FormValues[] = [
+  { name: "username", label: "Username" },
+  { name: "contact", label: "Contact number" },
+  { name: "contractCompany", label: "Assigned Contractor Company" },
+  { name: "accessLevel", label: "Access Level" },
+];
 
 export const updateUserInfo: FormInfoExtended = {
   actionLabel: "Update",
   description: "Update user informations",
-  title: "User details",
+  title: "Update user details",
   formValues: [
     {
       name: "name",
@@ -77,3 +85,12 @@ export const query: Query = {
   title: "Search by email",
   key: "email",
 };
+
+export const errors = {
+  empty: "This is required",
+  wrong: "Invalid value",
+  default: "Something went wrong",
+};
+
+export const instruction =
+  "Please select the role of the user and fill in the required information.";

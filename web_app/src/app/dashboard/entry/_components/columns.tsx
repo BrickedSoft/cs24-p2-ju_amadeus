@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { LandFill, STS, User, Vehicle, VehicleEntry } from "@prisma/client";
+import {
+  Contractor,
+  LandFill,
+  STS,
+  User,
+  Vehicle,
+  VehicleEntry,
+} from "@prisma/client";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
@@ -36,20 +43,23 @@ export const columns = ({
   columnDropdownItems,
   deleteMethod,
 }: ColumnProps): ColumnDef<
-  User | Vehicle | STS | LandFill | VehicleEntry
+  User | Vehicle | STS | LandFill | VehicleEntry | Contractor
 >[] => {
   //@ts-ignore
-  const columns: ColumnDef<User | Vehicle | STS | LandFill | VehicleEntry>[] =
-    columnData.map((item) => ({
-      accessorKey: item.accessorKey,
-      header: ({
-        column,
-      }: {
-        column: User | Vehicle | STS | LandFill | VehicleEntry;
-      }) => <TableHeader column={column} name={item.name} />,
-    }));
+  const columns: ColumnDef<
+    User | Vehicle | STS | LandFill | VehicleEntry | Contractor
+  >[] = columnData.map((item) => ({
+    accessorKey: item.accessorKey,
+    header: ({
+      column,
+    }: {
+      column: User | Vehicle | STS | LandFill | VehicleEntry | Contractor;
+    }) => <TableHeader column={column} name={item.name} />,
+  }));
 
-  const options: ColumnDef<User | Vehicle | STS | LandFill | VehicleEntry> = {
+  const options: ColumnDef<
+    User | Vehicle | STS | LandFill | VehicleEntry | Contractor
+  > = {
     id: "actions",
     cell: ({ row }: { row: any }) =>
       (() => {

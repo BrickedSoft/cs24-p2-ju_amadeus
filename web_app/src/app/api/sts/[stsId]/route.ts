@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { validateTokenUser } from "@/lib/db-utils/auth";
-import { RoleType } from "@/lib/constants/userContants";
+import { RoleType } from "@/constants/userContants";
 import { STS } from "@prisma/client";
 
 export async function GET(

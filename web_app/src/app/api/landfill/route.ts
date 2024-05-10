@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { RoleType } from "@lib/constants/userContants";
+import { RoleType } from "@/constants/userContants";
 import prisma from "@lib/db";
 import { validateTokenUser } from "@lib/db-utils/auth";
 import { LandFill } from "@prisma/client";

@@ -43,7 +43,6 @@ const Update: React.FC<Props> = ({
   action,
   initialValues,
 }) => {
-  const { pending } = useFormStatus();
   const formSchema = z.object(
     _.reduce(
       fields.map((item) => ({

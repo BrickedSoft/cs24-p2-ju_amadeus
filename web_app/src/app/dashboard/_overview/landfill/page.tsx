@@ -5,7 +5,7 @@ import { colors } from "@/assets/data/colors";
 import { tintGenerator } from "@/utils/tintGenerator";
 import Loading from "@components/Loading";
 import { IDCard, LandSite, Mail, Storage, User } from "@icons";
-import { getUser } from "@utils/getUser";
+import { getUser } from "@/utils/getData";
 import Markers from "../components/Markers";
 
 const LandfillOverview: React.FC = async () => {

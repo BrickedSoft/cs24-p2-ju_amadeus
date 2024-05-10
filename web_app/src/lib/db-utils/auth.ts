@@ -1,7 +1,7 @@
 import { LoginToken } from "@prisma/client";
 import prisma from "../db";
 import { NextRequest } from "next/server";
-import { RoleType } from "../constants/userContants";
+import { RoleType } from "../../constants/userContants";
 
 export const validateTokenUser = async (
   request: NextRequest,

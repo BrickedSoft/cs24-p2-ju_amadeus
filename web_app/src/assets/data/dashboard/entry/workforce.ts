@@ -5,12 +5,13 @@ export const actionLabel = "Create";
 export const description = "Fill the fields with the work force's information";
 export const title = "Work Force details";
 
-export const WorkforceInfo: InputField[] = [
+export const workforceInfo: InputField[] = [
   {
     id: "name",
     title: "Name",
   },
   { id: "dateOfBirth", title: "Date of Birth", type: "date" },
+  { id: "nid", title: "NID number" },
   { id: "designation", title: "Job Title" },
   { id: "joiningDate", title: "Date of hire", type: "date" },
   { id: "salary", title: "Payment rate per hour", type: "float" },

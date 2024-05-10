@@ -3,7 +3,7 @@
 import { z } from "zod";
 import prisma from "@/lib/db";
 import { hashPassword } from "@/lib/utils/encoding";
-import { Role } from "@prisma/client";
+import { Contractor, Role } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { RoleType } from "@/constants/userContants";
@@ -15,7 +15,8 @@ export const createUser = async (prevState: any, formData: FormData) => {
       email: z.string().min(1),
       password: z.string().min(1),
       role: z.string().min(1),
-      contact: z.string().min(1).nullable().optional(),
+      contact: z.string().nullable().optional(),
+      contractorId: z.string().nullable().optional(),
     })
     .refine((schema) => {
       if (schema.role === RoleType.CONTRACTOR_MANAGER) {
@@ -30,6 +31,7 @@ export const createUser = async (prevState: any, formData: FormData) => {
     password: formData.get("password") || undefined,
     role: formData.get("role") || undefined,
     contact: formData.get("contact" || undefined),
+    contractorId: formData.get("contractorId" || undefined),
   });
 
   const exists = await prisma.user.findUnique({
@@ -39,6 +41,11 @@ export const createUser = async (prevState: any, formData: FormData) => {
   const role: Role | null = await prisma.role.findUnique({
     where: { name: parsed.role },
   });
+  const contract: Contractor | null = parsed?.contractorId
+    ? await prisma.contractor.findUnique({
+        where: { id: parsed?.contractorId },
+      })
+    : null;
 
   const required = {
     name: parsed.name,
@@ -50,10 +57,16 @@ export const createUser = async (prevState: any, formData: FormData) => {
   await prisma.user.create({
     data:
       parsed.role === RoleType.CONTRACTOR_MANAGER
-        ? {
-            ...required,
-            contact: parsed.contact,
-          }
+        ? contract
+          ? {
+              ...required,
+              contact: parsed.contact,
+              contractor: { connect: { id: contract?.id } },
+            }
+          : {
+              ...required,
+              contact: parsed.contact,
+            }
         : {
             ...required,
           },

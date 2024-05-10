@@ -43,6 +43,7 @@ const NewUser: React.FC = () => {
   const [roleList, setRoleList] = useState([RoleType.UNASSIGNED]);
   const [selectedRole, setSelectedRole] = useState(RoleType.UNASSIGNED);
   const [contractors, setContractors] = useState<Contractor[]>([]);
+  const [selectedContractor, setSelectedContractor] = useState<Contractor>();
 
   useEffect(() => {
     fetch("/api/users/roles")
@@ -54,10 +55,10 @@ const NewUser: React.FC = () => {
       .then((res) => res.json())
       .then((contractors) => {
         setContractors(contractors.contractors.map((ele: Contractor) => ele));
+        if (contractors.contractors.length > 0)
+          setSelectedContractor(contractors.contractors[0].id);
       });
   }, []);
-
-  console.log(contractors);
 
   const formSchema = z.object(
     _.reduce(
@@ -82,9 +83,6 @@ const NewUser: React.FC = () => {
   } = form;
 
   const [state, formAction] = useFormState(createUser, initialState);
-
-
-  console.log(roleList);
 
   return roleList ? (
     <Form {...form}>
@@ -165,35 +163,83 @@ const NewUser: React.FC = () => {
             />
           ))}
 
-          {selectedRole === RoleType.CONTRACTOR_MANAGER &&
-            contractorManagerInfo.map((ele) => (
-              <FormField
-                key={ele.name}
-                control={form.control}
-                name={ele.name}
-                render={({ field }) => (
-                  <FormItem className="flex flex-col gap-2">
-                    <FormLabel className="!text-small">{ele.label}</FormLabel>
-                    <FormControl>
-                      <div className="relative w-auto !mt-0">
-                        <Input
-                          required
-                          type={ele.type || "text"}
-                          {...field}
-                          value={field.value}
-                          maxLength={32}
-                          className="max-w-[560px] border-gray-300 placeholder:text-gray-600 h-10"
-                        />
-                      </div>
-                    </FormControl>
+          {selectedRole === RoleType.CONTRACTOR_MANAGER && (
+            <>
+              {contractorManagerInfo.map((ele) => (
+                <FormField
+                  key={ele.name}
+                  control={form.control}
+                  name={ele.name}
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col gap-2">
+                      <FormLabel className="!text-small">{ele.label}</FormLabel>
+                      <FormControl>
+                        <div className="relative w-auto !mt-0">
+                          <Input
+                            required
+                            type={ele.type || "text"}
+                            {...field}
+                            value={field.value}
+                            maxLength={32}
+                            className="max-w-[560px] border-gray-300 placeholder:text-gray-600 h-10"
+                          />
+                        </div>
+                      </FormControl>
 
-                    <FormMessage
-                      className={`${errors?.[ele.name]?.type === "manual" ? "hidden" : ""}`}
-                    />
-                  </FormItem>
-                )}
-              />
-            ))}
+                      <FormMessage
+                        className={`${errors?.[ele.name]?.type === "manual" ? "hidden" : ""}`}
+                      />
+                    </FormItem>
+                  )}
+                />
+              ))}
+
+              {contractors && (
+                <FormField
+                  key={"contractorId"}
+                  control={control}
+                  name={"contractorId"}
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col gap-2">
+                      <FormLabel className="!text-small">
+                        Select Contractor
+                      </FormLabel>
+                      <Select
+                        onValueChange={(e) => {
+                          field.onChange;
+                          setSelectedContractor(
+                            contractors.filter((ele) => ele.name === e)[0]
+                          );
+                        }}
+                        {...field}
+                        value={selectedContractor?.id}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="w-[240px]">
+                            <SelectValue placeholder="Select Contractor" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {contractors.map((contractor) => (
+                            <SelectItem
+                              key={contractor.id}
+                              value={contractor.id}
+                            >
+                              {contractor.id}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+
+                      <FormMessage
+                        className={`${errors?.role?.type === "manual" ? "hidden" : ""}`}
+                      />
+                    </FormItem>
+                  )}
+                />
+              )}
+            </>
+          )}
         </div>
 
         <div className="w-full mt-4 flex justify-between">

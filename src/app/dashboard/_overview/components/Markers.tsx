@@ -14,18 +14,20 @@ type Props = {
 };
 
 const Markers: React.FC<Props> = ({ stsList, landfillList }) => {
+  console.log(stsList, landfillList);
+
   return (
     <MapContainer
       center={{
-        lat: stsList[0].latitude ?? center.lat,
-        lng: stsList[0].longitude ?? center.lng,
+        lat: stsList[0]?.latitude ?? landfillList[0]?.latitude ?? center.lat,
+        lng: stsList[0]?.longitude ?? landfillList[0]?.longitude ?? center.lng,
       }}
       zoom={10}
-      style={{ height: "100%", width: "100%", zIndex: "0" }}
+      style={{ height: "450px", width: "100%", zIndex: "0" }}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      {stsList.map((sts) => (
+      {stsList?.map((sts) => (
         <Marker
           //   icon={L.divIcon({
           //     className:
@@ -41,7 +43,7 @@ const Markers: React.FC<Props> = ({ stsList, landfillList }) => {
         </Marker>
       ))}
 
-      {landfillList.map((landfill) => (
+      {landfillList?.map((landfill) => (
         <Marker
           key={landfill.id}
           position={[landfill.latitude as number, landfill.longitude as number]}
@@ -49,8 +51,6 @@ const Markers: React.FC<Props> = ({ stsList, landfillList }) => {
           <Popup>{landfill.name}</Popup>
         </Marker>
       ))}
-
-      {/* <GeoJSON key={geoJsonObj.metadata.timestamp} data={geoJsonObj} /> */}
     </MapContainer>
   );
 };

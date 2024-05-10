@@ -200,7 +200,7 @@ const Optimizing: React.FC<{
               )}
             />
             <div className="flex w-full justify-end">
-              <Button type="submit" disabled={isSubmitting}>
+              <Button type="submit" disabled={isSubmitting} rounded={false}>
                 {isSubmitting ? <Spinner /> : "Optimize"}
               </Button>
             </div>

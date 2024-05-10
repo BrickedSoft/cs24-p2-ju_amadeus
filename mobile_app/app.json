@@ -36,7 +36,13 @@
     "plugins": [
       "expo-secure-store",
       "expo-router",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow EcoSync to use your location."
+        }
+      ]
     ],
     "runtimeVersion": {
       "policy": "appVersion"

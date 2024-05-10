@@ -69,6 +69,8 @@ export function SessionProvider(props: React.PropsWithChildren) {
         },
         signOut: () => {
           setSession(null);
+          setRole(null);
+          setUserId(null);
         },
         session,
         isLoading,

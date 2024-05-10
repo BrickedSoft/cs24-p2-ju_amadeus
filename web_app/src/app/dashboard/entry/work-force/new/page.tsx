@@ -35,8 +35,6 @@ const Create: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(user);
-
   return user ? (
     <form
       action={formAction}

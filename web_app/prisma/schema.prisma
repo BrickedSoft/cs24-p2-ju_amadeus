@@ -28,6 +28,7 @@ model User {
   STS         STS[]
   landfill    LandFill[]
   issueReport IssueReport[]
+  locationPoll LocationPoll[]
   workforces  Workforce[]
   contractor  Contractor?
 }
@@ -176,4 +177,13 @@ model IssueReport {
 
   user   User?   @relation(fields: [userId], references: [id])
   userId String?
+}
+
+model LocationPoll {
+    id          String  @id @default(cuid())
+    pollingTime     DateTime     @default(now())
+    longitude    Float?
+    latitude     Float?
+    user   User?   @relation(fields: [userId], references: [id])
+    userId String?
 }

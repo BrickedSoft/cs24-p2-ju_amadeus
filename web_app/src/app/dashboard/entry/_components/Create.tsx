@@ -81,7 +81,7 @@ const Create: React.FC<Props> = ({
         fields.map((item) =>
           setError(item.id, {
             type: "manual",
-            message: item.errors.wrong,
+            message: item?.errors?.wrong,
           })
         );
       });

@@ -1,4 +1,4 @@
-import { submitReport } from "@/data/endpoints"
+import { submitReport, signup } from "@/data/endpoints"
 import ecoSync from "./ecoSync"
 import { SignUpType } from "@/data/types"
 

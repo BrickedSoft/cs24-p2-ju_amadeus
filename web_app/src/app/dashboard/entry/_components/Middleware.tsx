@@ -8,6 +8,7 @@ import {
   User,
   Vehicle,
   VehicleEntry,
+  Workforce,
 } from "@prisma/client";
 
 import { Column, CustomVehicleEntry, Link as LinkType, Query } from "@allTypes";
@@ -15,7 +16,14 @@ import { columns } from "./columns";
 import { DataTable } from "./DataTable";
 
 type Props = {
-  data: User[] | Vehicle[] | STS[] | LandFill[] | VehicleEntry[] | Contractor[];
+  data:
+    | User[]
+    | Vehicle[]
+    | STS[]
+    | LandFill[]
+    | VehicleEntry[]
+    | Contractor[]
+    | Workforce[];
   type: string;
   columnData: Column[];
   columnDropdownItems?: LinkType[];

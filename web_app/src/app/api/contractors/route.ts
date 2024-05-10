@@ -5,8 +5,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN);
+  const sts = await validateTokenUser(request, RoleType.STS_MANAGER);
 
-  if (!authAdmin)
+  if (!authAdmin && !sts)
     return NextResponse.json(
       {
         message: "Insuficient permission",

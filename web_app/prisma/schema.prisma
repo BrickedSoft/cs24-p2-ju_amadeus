@@ -125,7 +125,7 @@ model Contractor {
   name        String
   contractId  String
   createdAt   DateTime  @default(now())
-  tin         String
+  tin         String    @unique
   contact     String
   size        Int
   salary      Float

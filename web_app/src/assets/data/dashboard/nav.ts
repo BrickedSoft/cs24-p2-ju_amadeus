@@ -26,5 +26,7 @@ export const sideNavEntry = (roleType: RoleType): Link[] => {
   if (roleType == RoleType.LANDFILL_MANAGER)
     return [links.vehicleEntries, links.generateBill];
 
+  if (roleType == RoleType.CONTRACTOR_MANAGER) return [links.workForce];
+
   return [links.home];
 };

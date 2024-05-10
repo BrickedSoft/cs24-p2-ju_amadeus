@@ -3,6 +3,7 @@ import process from "process";
 export const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
 export const api = `${hostname}/api`;
 export const userDataEndpoint = `${api}/users`;
+export const contractorDataEndpoint = `${api}/contractors`;
 export const vehicleDataEndpoint = `${api}/vehicles`;
 export const stsDataEndpoint = `${api}/sts`;
 export const landfillEndpoint = `${api}/landfill`;

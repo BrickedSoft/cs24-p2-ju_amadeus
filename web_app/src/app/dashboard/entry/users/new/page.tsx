@@ -37,7 +37,7 @@ const initialState = {
   message: "",
 };
 
-const NewUser: React.FC<{}> = ({}) => {
+const NewUser: React.FC = () => {
   const [roleList, setRoleList] = useState([RoleType.UNASSIGNED]);
   const [selectedRole, setSelectedRole] = useState(RoleType.UNASSIGNED);
 

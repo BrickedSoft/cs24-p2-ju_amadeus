@@ -25,6 +25,7 @@ export const path = {
   generateBill: "generate-bill",
   new: "new",
   contractor: "contractor",
+  workForce: "work-force",
 };
 
 export const pathTitles = {
@@ -53,6 +54,7 @@ export const pathTitles = {
   fleetOptimization: "Fleet optimization",
   generateBill: "Generate Bill",
   contractor: "Contractor",
+  workForce: "Work Force",
 };
 
 /* ---------------------------------- Paths --------------------------------- */
@@ -98,6 +100,8 @@ export const routes = {
   fleetOptimization: `${entryPath}/${path.fleetOptimization}`,
   generateBill: `${entryPath}/${path.generateBill}`,
   contractor: `${entryPath}/${path.contractor}`,
+  contractorNew: `${entryPath}/${path.contractor}/${path.new}`,
+  workForce: `${entryPath}/${path.workForce}`,
 };
 
 export const links = {
@@ -154,4 +158,5 @@ export const links = {
     href: routes.generateBill,
   },
   contractor: { title: pathTitles.contractor, href: routes.contractor },
+  workForce: { title: pathTitles.workForce, href: routes.workForce },
 };

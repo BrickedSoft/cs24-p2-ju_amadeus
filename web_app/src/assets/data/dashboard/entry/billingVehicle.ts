@@ -31,3 +31,5 @@ export const headings = {
   vehicle: "Vehicle Information",
   routes: "Route Information",
 };
+
+export const instruction = "Select a vehicle entry to generate a bill.";

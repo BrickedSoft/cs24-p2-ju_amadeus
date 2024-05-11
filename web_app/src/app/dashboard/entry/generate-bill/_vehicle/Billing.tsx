@@ -21,6 +21,7 @@ const Billing: React.FC<{
       />
       <BillingPreview
         vehicleEntry={vehicleEntry}
+        setVehicleEntry={setVehicleEntry}
         vehicleRouteList={vehicleRouteList}
       />
     </div>

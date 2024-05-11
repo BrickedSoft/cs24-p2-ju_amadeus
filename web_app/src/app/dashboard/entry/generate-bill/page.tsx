@@ -7,7 +7,10 @@ import {
   vehicleEntriesEndpoint,
   vehicleRouteEndpoint,
 } from "@assets/data/api/endpoints";
-import Billing from "./_generate/Billing";
+import VehicleBilling from "./_vehicle/Billing";
+import WasteBilling from "./_waste/Billing";
+import { getContractors, getUser } from "@/utils/getData";
+import { RoleType } from "@/constants/userContants";
 
 async function getVehicleRoutes(cookieStore: any): Promise<VehicleRoute[]> {
   let vehicleRoutes = await fetch(vehicleRouteEndpoint, {
@@ -43,13 +46,20 @@ export default async function GenerateBill() {
   const cookieStore = cookies();
   const vehicleRouteList = await getVehicleRoutes(cookieStore);
   const vehicleEntryList = await getVehicleEntries(cookieStore);
+  const user = await getUser(cookieStore);
+  const contractors = await getContractors(cookieStore);
+
   return (
     <div className="container h-full">
       <Suspense fallback={<Loading />}>
-        <Billing
-          vehicleRouteList={vehicleRouteList}
-          vehicleEntryList={vehicleEntryList}
-        />
+        {user.role === RoleType.SYSTEM_ADMIN ? (
+          <VehicleBilling
+            vehicleRouteList={vehicleRouteList}
+            vehicleEntryList={vehicleEntryList}
+          />
+        ) : (
+          <WasteBilling contractorList={contractors} />
+        )}
       </Suspense>
     </div>
   );

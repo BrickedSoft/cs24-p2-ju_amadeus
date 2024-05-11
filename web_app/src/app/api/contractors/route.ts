@@ -20,6 +20,7 @@ export async function GET(request: NextRequest) {
       STS: true,
       workforces: true,
       manager: true,
+      WasteEntry: true,
     },
   });
 
@@ -39,6 +40,7 @@ export async function GET(request: NextRequest) {
         STS: ele.STS,
         manager: ele.manager,
         workforces: ele.workforces,
+        WasteEntry: ele.WasteEntry,
       })),
     },
     { status: 200 }

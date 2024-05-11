@@ -28,7 +28,9 @@ export const addWasteEntry = async (prevState: any, formData: FormData) => {
   await prisma.wasteEntry.create({
     data: {
       wasteVolume: parseFloat(parsed.wasteVolume),
-      collectionDate: parsed.collectionDate,
+      collectionDate: new Date(
+        new Date(parsed.collectionDate).toISOString().substring(0, 10)
+      ).toISOString(),
       vehicle: { connect: { id: parsed.vehicleId } },
       wasteType: parsed.wasteType,
       contractor: { connect: { id: parsed.contractorId } },

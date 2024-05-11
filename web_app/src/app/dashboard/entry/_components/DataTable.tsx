@@ -1,6 +1,5 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -12,7 +11,9 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import Link from "next/link";
+import { Dispatch, SetStateAction, useState } from "react";
 
+import { WasteWithDate } from "@/types/wasteEntry";
 import { CustomVehicleEntry, Link as LinkType, Query } from "@allTypes";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
@@ -30,21 +31,26 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@components/ui/tooltip";
+import { Bulb } from "@icons";
 
 type Props<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   pathToCreate?: LinkType;
-  setVehicleEntry?: Dispatch<SetStateAction<CustomVehicleEntry | undefined>>;
+  setEntry?:
+    | Dispatch<SetStateAction<CustomVehicleEntry | undefined>>
+    | Dispatch<SetStateAction<WasteWithDate | undefined>>;
   query: Query;
+  instruction?: string;
 };
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   pathToCreate,
-  setVehicleEntry,
+  setEntry,
   query,
+  instruction,
 }: Props<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -65,6 +71,12 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex justify-between items-center">
+        {instruction && (
+          <div className="flex items-center gap-1">
+            <Bulb className="h-4 w-4 stroke-blue-600" />
+            <p className="text-blue-600">{instruction}</p>
+          </div>
+        )}
         <div className="flex items-center py-4">
           <Input
             placeholder={query.title}
@@ -112,13 +124,13 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                   className={
-                    setVehicleEntry ? "hover:bg-primary/20 cursor-pointer" : ""
+                    setEntry ? "hover:bg-primary/20 cursor-pointer" : ""
                   }
                   onClick={() => {
                     // TODO: fix typing here
-                    if (setVehicleEntry) {
+                    if (setEntry) {
                       //@ts-ignore
-                      setVehicleEntry(row.original);
+                      setEntry(row.original);
                     }
                   }}
                 >

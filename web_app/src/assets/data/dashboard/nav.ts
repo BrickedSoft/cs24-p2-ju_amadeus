@@ -22,6 +22,7 @@ export const sideNavEntry = (roleType: RoleType): Link[] => {
       links.wasteEntries,
       links.routeOptimization,
       links.fleetOptimization,
+      links.generateBill,
     ];
 
   if (roleType == RoleType.LANDFILL_MANAGER)

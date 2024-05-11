@@ -14,7 +14,6 @@ import Loading from "@components/Loading";
 import { dateFormatter } from "@utils/dateFormatter";
 import Middleware from "../_components/Middleware";
 
-
 export default async function WasteEntries() {
   const cookieStore = cookies();
 
@@ -23,8 +22,6 @@ export default async function WasteEntries() {
   const formattedData = _.chain(data)
     .map((item) => ({
       ...item,
-      departureTime: dateFormatter(item.departureTime),
-      arrivalTime: dateFormatter(item.arrivalTime),
     }))
     .value();
 

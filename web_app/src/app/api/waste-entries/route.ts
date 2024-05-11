@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { validateTokenUser } from "@/lib/db-utils/auth";
 import { RoleType } from "@/constants/userContants";
-import { STS } from "@prisma/client";
 import { z } from "zod";
+import { WasteEntry } from "@prisma/client";
+
 
 export async function GET(request: NextRequest) {
   const auth = await validateTokenUser(request);
@@ -52,17 +53,20 @@ export async function GET(request: NextRequest) {
   );
 }
 
+
+
 const schema = z.object({
-  name: z.string().min(1),
-  wardNumber: z.string().min(1),
-  capacity: z.string(),
-  longitude: z.number(),
-  latitude: z.number(),
+  wasteVolume: z.string(),
+  collectionDate: z.string().pipe(z.coerce.date()),
+  vehicleId: z.string().min(1),
+  wasteType: z.string().min(1),
+  contractorId: z.string().min(1),
+  stsId: z.string().min(1),
 });
 
 export async function POST(request: NextRequest) {
+  console.log(request);
   const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN);
-  const stsManager = await validateTokenUser(request, RoleType.STS_MANAGER);
 
   const parsed = schema.safeParse(await request.json());
 
@@ -74,7 +78,7 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
 
-  if (!authAdmin && !stsManager)
+  if (!authAdmin)
     return NextResponse.json(
       {
         message: "Insuficient permission",
@@ -82,22 +86,30 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
 
-  const { name, wardNumber, capacity, longitude, latitude } = parsed.data;
+  const {
+    wasteVolume,
+    collectionDate,
+    vehicleId,
+    wasteType,
+    contractorId,
+    stsId,
+  } = parsed.data;
 
   // Create a STS
-  const sts: STS = await prisma.sTS.create({
+  const wasteEntries: WasteEntry = await prisma.wasteEntry.create({
     data: {
-      name: name,
-      wardNumber: wardNumber,
-      capacity: parseFloat(capacity),
-      longitude: longitude,
-      latitude: latitude,
+      wasteVolume: parseFloat(wasteVolume),
+      collectionDate: collectionDate,
+      vehicleId: vehicleId,
+      wasteType: wasteType,
+      contractorId: contractorId,
+      stsId: stsId,
     },
   });
 
   return NextResponse.json(
     {
-      sts: sts,
+      wasteEntries: wasteEntries,
     },
     { status: 200 }
   );

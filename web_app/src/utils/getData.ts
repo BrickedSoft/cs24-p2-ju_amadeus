@@ -1,4 +1,10 @@
-import { CollectionPlan, Contractor, LandFill, STS, Workforce } from "@prisma/client";
+import {
+  CollectionPlan,
+  Contractor,
+  LandFill,
+  STS,
+  Workforce,
+} from "@prisma/client";
 
 import { CustomVehicleEntry, User } from "@allTypes";
 import {
@@ -8,6 +14,8 @@ import {
   stsDataEndpoint,
   userDataEndpoint,
 } from "@assets/data/api/endpoints";
+import { CustomContractor } from "@/types/contractor";
+import { CustomWasteEntry } from "@/types/wasteEntry";
 
 export async function getSTS(cookieStore: any): Promise<STS[]> {
   let STSList = await fetch(stsDataEndpoint, {
@@ -55,7 +63,9 @@ export async function getUser(cookieStore: any): Promise<User> {
   return userData.user;
 }
 
-export async function getContractors(cookieStore: any): Promise<Contractor[]> {
+export async function getContractors(
+  cookieStore: any
+): Promise<CustomContractor[]> {
   let contractorList = await fetch(`${contractorDataEndpoint}`, {
     cache: "no-store",
     headers: {
@@ -71,7 +81,7 @@ export async function getContractors(cookieStore: any): Promise<Contractor[]> {
 
 export async function getWasteEntries(
   cookieStore: any
-): Promise<CustomVehicleEntry[]> {
+): Promise<CustomWasteEntry[]> {
   let wasteEntryList = await fetch(`${api}/waste-entries`, {
     cache: "no-store",
     headers: {
@@ -99,8 +109,9 @@ export async function getWorkForces(cookieStore: any): Promise<Workforce[]> {
   return workForceList;
 }
 
-
-export async function getCollectionPlans(cookieStore: any): Promise<CollectionPlan[]> {
+export async function getCollectionPlans(
+  cookieStore: any
+): Promise<CollectionPlan[]> {
   let collectionPlans = await fetch(`${api}/collection-plans`, {
     cache: "no-store",
     headers: {

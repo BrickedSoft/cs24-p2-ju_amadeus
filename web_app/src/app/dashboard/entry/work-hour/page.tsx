@@ -11,7 +11,6 @@ import {
 import Loading from "@components/Loading";
 import _ from "lodash";
 import Middleware from "../_components/Middleware";
-import { WorkHour } from "@prisma/client";
 
 export default async function WasteForces() {
   const cookieStore = cookies();
@@ -23,7 +22,7 @@ export default async function WasteForces() {
   const values = Object.values(groupedData);
 
   return (
-    <div className="container h-full pt-8 flex flex-col gap-10">
+    <div className="container h-full flex flex-col gap-10">
       <Suspense fallback={<Loading />}>
         {ids.map((id, index) => {
           // @ts-ignore

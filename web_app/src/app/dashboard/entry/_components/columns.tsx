@@ -28,6 +28,7 @@ import {
 } from "@components/ui/dropdown-menu";
 import DeleteAlert from "./DeleteAlert";
 import TableHeader from "./TableHeader";
+import { WasteWithDate } from "@/types/wasteEntry";
 
 type ColumnProps = {
   type: string;
@@ -55,6 +56,7 @@ export const columns = ({
   | Workforce
   | CollectionPlan
   | WorkHour
+  | WasteWithDate
 >[] => {
   //@ts-ignore
   const columns: ColumnDef<
@@ -67,6 +69,7 @@ export const columns = ({
     | Workforce
     | CollectionPlan
     | WorkHour
+    | WasteWithDate
   >[] = columnData.map((item) => ({
     accessorKey: item.accessorKey,
     header: ({
@@ -81,6 +84,7 @@ export const columns = ({
         | Contractor
         | Workforce
         | WorkHour
+        | WasteWithDate
         | CollectionPlan;
     }) => <TableHeader column={column} name={item.name} />,
   }));
@@ -94,6 +98,7 @@ export const columns = ({
     | Contractor
     | Workforce
     | WorkHour
+    | WasteWithDate
     | CollectionPlan
   > = {
     id: "actions",

@@ -16,6 +16,7 @@ import {
 import { Column, CustomVehicleEntry, Link as LinkType, Query } from "@allTypes";
 import { columns } from "./columns";
 import { DataTable } from "./DataTable";
+import { WasteWithDate } from "@/types/wasteEntry";
 
 type Props = {
   data:
@@ -27,7 +28,8 @@ type Props = {
     | Contractor[]
     | Workforce[]
     | WorkHour[]
-    | CollectionPlan[];
+    | CollectionPlan[]
+    | WasteWithDate[];
   type: string;
   columnData: Column[];
   columnDropdownItems?: LinkType[];
@@ -37,8 +39,11 @@ type Props = {
     formData: FormData
   ) => Promise<never>;
   pathToCreate?: LinkType;
-  setVehicleEntry?: Dispatch<SetStateAction<CustomVehicleEntry | undefined>>;
+  setEntry?:
+    | Dispatch<SetStateAction<CustomVehicleEntry | undefined>>
+    | Dispatch<SetStateAction<WasteWithDate | undefined>>;
   query: Query;
+  instruction?: string;
 };
 
 const Middleware: React.FC<Props> = ({
@@ -48,8 +53,9 @@ const Middleware: React.FC<Props> = ({
   columnDropdownItems,
   deleteMethod,
   pathToCreate,
-  setVehicleEntry,
+  setEntry,
   query,
+  instruction,
 }) => {
   return (
     <DataTable
@@ -61,8 +67,9 @@ const Middleware: React.FC<Props> = ({
         columnDropdownItems,
         deleteMethod,
       })}
-      setVehicleEntry={setVehicleEntry}
+      setEntry={setEntry}
       query={query}
+      instruction={instruction}
     />
   );
 };

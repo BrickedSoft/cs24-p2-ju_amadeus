@@ -1,7 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
 
 import { CustomVehicleEntry } from "@allTypes";
-import { columnData, query, type } from "@assets/data/dashboard/entry/billing";
+import {
+  columnData,
+  instruction,
+  query,
+  type,
+} from "@/assets/data/dashboard/entry/billingVehicle";
 import Middleware from "../../_components/Middleware";
 
 type props = {
@@ -17,8 +22,9 @@ const SelectBilling: React.FC<props> = ({
       data={vehicleEntryList}
       type={type}
       columnData={columnData}
-      setVehicleEntry={setVehicleEntry}
+      setEntry={setVehicleEntry}
       query={query}
+      instruction={instruction}
     />
   );
 };

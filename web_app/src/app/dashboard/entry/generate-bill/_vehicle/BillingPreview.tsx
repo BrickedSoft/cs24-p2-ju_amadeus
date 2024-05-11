@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { VehicleRoute } from "@prisma/client";
 
 import Spinner from "@/components/ui/spinner";
 import { CustomVehicleEntry } from "@allTypes";
-import { buttons, error, title } from "@assets/data/dashboard/entry/billing";
+import { buttons, error, title } from "@/assets/data/dashboard/entry/billingVehicle";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,8 +24,9 @@ import BillingPdf from "./BillingPdf";
 
 const BillingPreview: React.FC<{
   vehicleEntry: CustomVehicleEntry | undefined;
+  setVehicleEntry: Dispatch<SetStateAction<CustomVehicleEntry | undefined>>;
   vehicleRouteList: VehicleRoute[];
-}> = ({ vehicleEntry, vehicleRouteList }) => {
+}> = ({ vehicleEntry, vehicleRouteList, setVehicleEntry }) => {
   const [open, setOpen] = useState(false);
 
   const [vehicleRoute, setVehicleRoute] = useState<VehicleRoute>();
@@ -84,7 +85,10 @@ const BillingPreview: React.FC<{
             <div className="flex justify-between items-start mb-1 md:mb-2">
               <p>{title}</p>
 
-              <AlertDialogCancel className="h-auto p-0 focus-visible:ring-0 focus-visible:ring-offset-0">
+              <AlertDialogCancel
+                className="h-auto p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                onClick={() => setVehicleEntry(undefined)}
+              >
                 <Close className="h-4 md:h-5 w-5 md:w-5 hover:stroke-destructive transition-all duration-300 cursor-pointer" />
               </AlertDialogCancel>
             </div>
@@ -110,6 +114,7 @@ const BillingPreview: React.FC<{
             variant="outline"
             onClick={() => {
               if (setOpen) setOpen(false);
+              setVehicleEntry(undefined);
             }}
           >
             {buttons.close}

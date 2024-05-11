@@ -4,7 +4,7 @@ import { VehicleRoute } from "@prisma/client";
 import { Document, Page, Text, View } from "@react-pdf/renderer";
 
 import { CustomVehicleEntry } from "@allTypes";
-import { headings } from "@assets/data/dashboard/entry/billing";
+import { headings } from "@/assets/data/dashboard/entry/billingVehicle";
 
 type Props = {
   vehicleEntry: CustomVehicleEntry;

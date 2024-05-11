@@ -25,13 +25,13 @@ model User {
   role   Role   @relation(fields: [roleId], references: [id])
   roleId String
 
-  STS          STS[]
-  landfill     LandFill[]
-  issueReport  IssueReport[]
-  locationPoll LocationPoll[]
-  workforces   Workforce[]
-  contractor   Contractor?
-  collectionPlan  CollectionPlan[]
+  STS            STS[]
+  landfill       LandFill[]
+  issueReport    IssueReport[]
+  locationPoll   LocationPoll[]
+  workforces     Workforce[]
+  contractor     Contractor?
+  collectionPlan CollectionPlan[]
 }
 
 model Role {

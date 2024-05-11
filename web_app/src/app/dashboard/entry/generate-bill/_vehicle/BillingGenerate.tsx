@@ -3,7 +3,7 @@
 import { VehicleRoute } from "@prisma/client";
 
 import { CustomVehicleEntry } from "@allTypes";
-import { error, headings } from "@/assets/data/dashboard/entry/billing";
+import { error, headings } from "@/assets/data/dashboard/entry/billingVehicle";
 
 const BillingGenerate: React.FC<{
   vehicleEntry: CustomVehicleEntry;

@@ -113,3 +113,17 @@ export async function getCollectionPlans(cookieStore: any): Promise<CollectionPl
 
   return collectionPlans;
 }
+
+export async function getWorkHours(cookieStore: any): Promise<Workforce[]> {
+  let workHourList = await fetch(`${api}/work-hour`, {
+    cache: "no-store",
+    headers: {
+      cookie: cookieStore,
+    },
+  }).then(async (res) => {
+    const data = await res.json();
+    return data.workHours;
+  });
+
+  return workHourList;
+}

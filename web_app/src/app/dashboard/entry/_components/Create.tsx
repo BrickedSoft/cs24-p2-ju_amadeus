@@ -2,7 +2,7 @@
 
 import { Suspense, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import _ from "lodash";
+import _, { get } from "lodash";
 import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { z, ZodRawShape } from "zod";

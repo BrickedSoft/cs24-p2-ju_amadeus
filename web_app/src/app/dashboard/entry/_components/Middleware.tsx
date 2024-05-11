@@ -10,6 +10,7 @@ import {
   Vehicle,
   VehicleEntry,
   Workforce,
+  WorkHour,
 } from "@prisma/client";
 
 import { Column, CustomVehicleEntry, Link as LinkType, Query } from "@allTypes";
@@ -24,7 +25,8 @@ type Props = {
     | LandFill[]
     | VehicleEntry[]
     | Contractor[]
-    | Workforce[] 
+    | Workforce[]
+    | WorkHour[]
     | CollectionPlan[];
   type: string;
   columnData: Column[];

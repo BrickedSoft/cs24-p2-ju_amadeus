@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   CollectionPlan,
   Contractor,
@@ -10,13 +10,14 @@ import {
   Vehicle,
   VehicleEntry,
   Workforce,
-} from '@prisma/client';
-import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { ColumnDef } from '@tanstack/react-table';
-import Link from 'next/link';
+  WorkHour,
+} from "@prisma/client";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
 
-import { Column, Link as LinkType } from '@allTypes';
-import { Button } from '@components/ui/button';
+import { Column, Link as LinkType } from "@allTypes";
+import { Button } from "@components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,9 +25,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@components/ui/dropdown-menu';
-import DeleteAlert from './DeleteAlert';
-import TableHeader from './TableHeader';
+} from "@components/ui/dropdown-menu";
+import DeleteAlert from "./DeleteAlert";
+import TableHeader from "./TableHeader";
 
 type ColumnProps = {
   type: string;
@@ -53,6 +54,7 @@ export const columns = ({
   | Contractor
   | Workforce
   | CollectionPlan
+  | WorkHour
 >[] => {
   //@ts-ignore
   const columns: ColumnDef<
@@ -64,6 +66,7 @@ export const columns = ({
     | Contractor
     | Workforce
     | CollectionPlan
+    | WorkHour
   >[] = columnData.map((item) => ({
     accessorKey: item.accessorKey,
     header: ({
@@ -77,13 +80,9 @@ export const columns = ({
         | VehicleEntry
         | Contractor
         | Workforce
+        | WorkHour
         | CollectionPlan;
-    }) => (
-      <TableHeader
-        column={column}
-        name={item.name}
-      />
-    ),
+    }) => <TableHeader column={column} name={item.name} />,
   }));
 
   const options: ColumnDef<
@@ -94,31 +93,28 @@ export const columns = ({
     | VehicleEntry
     | Contractor
     | Workforce
+    | WorkHour
     | CollectionPlan
   > = {
-    id: 'actions',
+    id: "actions",
     cell: ({ row }: { row: any }) =>
       (() => {
         const data = row.original;
         const [open, setOpen] = useState(false);
 
         return columnDropdownItems ? (
-          <DropdownMenu
-            open={open}
-            onOpenChange={setOpen}>
+          <DropdownMenu open={open} onOpenChange={setOpen}>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant='ghost'
-                className='h-8 w-8 p-0'>
-                <span className='sr-only'>Open menu</span>
-                <DotsHorizontalIcon className='h-4 w-4' />
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <DotsHorizontalIcon className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
+            <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
               {columnDropdownItems.map((item, index) =>
-                item.title.toLowerCase() === 'delete' && deleteMethod ? (
+                item.title.toLowerCase() === "delete" && deleteMethod ? (
                   <DeleteAlert
                     key={index}
                     setOpen={setOpen}
@@ -127,9 +123,7 @@ export const columns = ({
                     deleteMethod={deleteMethod}
                   />
                 ) : (
-                  <Link
-                    key={index}
-                    href={item.href.replace('$id$', data.id)}>
+                  <Link key={index} href={item.href.replace("$id$", data.id)}>
                     <DropdownMenuItem>{item.title}</DropdownMenuItem>
                   </Link>
                 )

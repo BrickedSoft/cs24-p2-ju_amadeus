@@ -6,7 +6,6 @@ import { RoleType } from "@/constants/userContants";
 import { STS } from "@prisma/client";
 import { z } from "zod";
 
-
 export async function GET(request: NextRequest) {
   const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN);
   const authSTS = await validateTokenUser(request, RoleType.STS_MANAGER);

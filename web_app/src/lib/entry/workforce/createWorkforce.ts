@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export const createWorkforce = async (prevState: any, formData: FormData) => {
-  console.log(formData);
   const schema = z.object({
     name: z.string().min(1),
     dateOfBirth: z.string().pipe(z.coerce.date()),
@@ -48,7 +47,7 @@ export const createWorkforce = async (prevState: any, formData: FormData) => {
     manager: { connect: { id: parsed.userId } },
   };
 
-  await prisma.workforce.create({
+  const workForce = await prisma.workforce.create({
     data: parsed.contractorId
       ? {
           ...required,
@@ -58,6 +57,18 @@ export const createWorkforce = async (prevState: any, formData: FormData) => {
           ...required,
         },
   });
+
+  if (workForce && parsed.contractorId) {
+    await prisma.contractor.update({
+      where: { id: parsed.contractorId },
+      data: {
+        size: {
+          increment: 1,
+        },
+      },
+    });
+  }
+
   revalidatePath("/");
   redirect(routes.workForce);
 };

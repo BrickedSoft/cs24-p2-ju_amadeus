@@ -2,6 +2,7 @@
 
 import { Dispatch, SetStateAction } from "react";
 import {
+  CollectionPlan,
   Contractor,
   LandFill,
   STS,
@@ -23,7 +24,8 @@ type Props = {
     | LandFill[]
     | VehicleEntry[]
     | Contractor[]
-    | Workforce[];
+    | Workforce[] 
+    | CollectionPlan[];
   type: string;
   columnData: Column[];
   columnDropdownItems?: LinkType[];

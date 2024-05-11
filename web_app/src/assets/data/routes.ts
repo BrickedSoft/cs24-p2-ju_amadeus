@@ -27,6 +27,7 @@ export const path = {
   new: "new",
   contractor: "contractor",
   workForce: "work-force",
+  collectionPlan: "collection-plan"
 };
 
 export const pathTitles = {
@@ -57,6 +58,8 @@ export const pathTitles = {
   generateBill: "Generate Bill",
   contractor: "Contractor",
   workForce: "Work Force",
+  collectionPlan: "Collection Plan",
+
 };
 
 /* ---------------------------------- Paths --------------------------------- */
@@ -107,6 +110,9 @@ export const routes = {
   contractorNew: `${entryPath}/${path.contractor}/${path.new}`,
   workForce: `${entryPath}/${path.workForce}`,
   workForceNew: `${entryPath}/${path.workForce}/${path.new}`,
+  collectionPlan: `${entryPath}/${path.collectionPlan}`,
+  collectionPlanNew: `${entryPath}/${path.collectionPlan}/${path.new}`,
+
 };
 
 export const links = {
@@ -173,4 +179,5 @@ export const links = {
   contractor: { title: pathTitles.contractor, href: routes.contractor },
   workForce: { title: pathTitles.workForce, href: routes.workForce },
   workForceNew: { title: pathTitles.workForce, href: routes.workForceNew },
+  collectionPlan: {title: pathTitles.collectionPlan, href: routes.collectionPlan}
 };

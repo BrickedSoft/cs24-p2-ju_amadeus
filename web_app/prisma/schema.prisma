@@ -25,12 +25,13 @@ model User {
   role   Role   @relation(fields: [roleId], references: [id])
   roleId String
 
-  STS         STS[]
-  landfill    LandFill[]
-  issueReport IssueReport[]
+  STS          STS[]
+  landfill     LandFill[]
+  issueReport  IssueReport[]
   locationPoll LocationPoll[]
-  workforces  Workforce[]
-  contractor  Contractor?
+  workforces   Workforce[]
+  contractor   Contractor?
+  collectionPlan  CollectionPlan[]
 }
 
 model Role {
@@ -180,10 +181,23 @@ model IssueReport {
 }
 
 model LocationPoll {
-    id          String  @id @default(cuid())
-    pollingTime     DateTime     @default(now())
-    longitude    Float?
-    latitude     Float?
-    user   User?   @relation(fields: [userId], references: [id])
-    userId String?
+  id          String   @id @default(cuid())
+  pollingTime DateTime @default(now())
+  longitude   Float?
+  latitude    Float?
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+model CollectionPlan {
+  id                    String    @id @default(cuid())
+  areaOfCollection      String?
+  startTime             DateTime?
+  durationForCollection Float?
+  numberOfLabors        Int?
+  numberOfVans          Int?
+  expectedWasteWeight   Float?
+
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
 }

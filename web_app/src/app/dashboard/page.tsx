@@ -10,6 +10,8 @@ import UserEntries from "./_overview/admin/UserEntries";
 import StsOverview from "./_overview/sts/page";
 import LandfillOverview from "./_overview/landfill/page";
 import UserInfo from "./_overview/admin/UserInfo";
+import ContractorUserInfo from "./_overview/contractor/UserInfo";
+import { RoleType } from "@/constants/userContants";
 
 const Dashboard: React.FC = async () => {
   const cookieStore = cookies();
@@ -36,7 +38,7 @@ const Dashboard: React.FC = async () => {
             Welcome {userData.user.name}
           </h1>
         </Suspense> */}
-        {userData.user.role === Users.admin && (
+        {userData.user.role === RoleType.SYSTEM_ADMIN && (
           <>
             <Suspense fallback={<Loading />}>
               <UserInfo />
@@ -49,8 +51,13 @@ const Dashboard: React.FC = async () => {
             </Suspense>
           </>
         )}
-        {userData.user.role === Users.sts && <StsOverview />}
-        {userData.user.role === Users.landfill && <LandfillOverview />}
+        {userData.user.role === RoleType.STS_MANAGER && <StsOverview />}
+        {userData.user.role === RoleType.LANDFILL_MANAGER && (
+          <LandfillOverview />
+        )}
+        {userData.user.role === RoleType.CONTRACTOR_MANAGER && (
+          <ContractorUserInfo />
+        )}
       </div>
     </main>
   );

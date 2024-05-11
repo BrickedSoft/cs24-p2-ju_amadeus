@@ -9,6 +9,7 @@ import {
   Vehicle,
   VehicleEntry,
   Workforce,
+  WorkHour,
 } from "@prisma/client";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ColumnDef } from "@tanstack/react-table";
@@ -44,11 +45,25 @@ export const columns = ({
   columnDropdownItems,
   deleteMethod,
 }: ColumnProps): ColumnDef<
-  User | Vehicle | STS | LandFill | VehicleEntry | Contractor | Workforce
+  | User
+  | Vehicle
+  | STS
+  | LandFill
+  | VehicleEntry
+  | Contractor
+  | Workforce
+  | WorkHour
 >[] => {
   //@ts-ignore
   const columns: ColumnDef<
-    User | Vehicle | STS | LandFill | VehicleEntry | Contractor | Workforce
+    | User
+    | Vehicle
+    | STS
+    | LandFill
+    | VehicleEntry
+    | Contractor
+    | Workforce
+    | WorkHour
   >[] = columnData.map((item) => ({
     accessorKey: item.accessorKey,
     header: ({
@@ -61,12 +76,20 @@ export const columns = ({
         | LandFill
         | VehicleEntry
         | Contractor
-        | Workforce;
+        | Workforce
+        | WorkHour;
     }) => <TableHeader column={column} name={item.name} />,
   }));
 
   const options: ColumnDef<
-    User | Vehicle | STS | LandFill | VehicleEntry | Contractor | Workforce
+    | User
+    | Vehicle
+    | STS
+    | LandFill
+    | VehicleEntry
+    | Contractor
+    | Workforce
+    | WorkHour
   > = {
     id: "actions",
     cell: ({ row }: { row: any }) =>

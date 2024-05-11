@@ -25,12 +25,12 @@ model User {
   role   Role   @relation(fields: [roleId], references: [id])
   roleId String
 
-  STS         STS[]
-  landfill    LandFill[]
-  issueReport IssueReport[]
+  STS          STS[]
+  landfill     LandFill[]
+  issueReport  IssueReport[]
   locationPoll LocationPoll[]
-  workforces  Workforce[]
-  contractor  Contractor?
+  workforces   Workforce[]
+  contractor   Contractor?
 }
 
 model Role {
@@ -141,7 +141,7 @@ model Contractor {
   createdAt   DateTime     @default(now())
   tin         String       @unique
   contact     String
-  size        Int
+  size        Int          @default(0)
   salary      Float
   wasteVolume Float
   termination DateTime?
@@ -152,6 +152,7 @@ model Contractor {
   manager     User?        @relation(fields: [userId], references: [id])
   userId      String?      @unique
   WasteEntry  WasteEntry[]
+  duration    Float?
 }
 
 model Workforce {
@@ -167,6 +168,19 @@ model Workforce {
   userId       String?
   contractor   Contractor? @relation(fields: [contractorId], references: [id])
   contractorId String?
+
+  leave    Int?
+  workHour WorkHour[]
+}
+
+model WorkHour {
+  id          String     @id @default(cuid())
+  startTime   DateTime
+  endTime     DateTime
+  date        DateTime
+  overtime    Float?
+  workforce   Workforce? @relation(fields: [workforceId], references: [id])
+  workforceId String?
 }
 
 model IssueReport {
@@ -180,10 +194,10 @@ model IssueReport {
 }
 
 model LocationPoll {
-    id          String  @id @default(cuid())
-    pollingTime     DateTime     @default(now())
-    longitude    Float?
-    latitude     Float?
-    user   User?   @relation(fields: [userId], references: [id])
-    userId String?
+  id          String   @id @default(cuid())
+  pollingTime DateTime @default(now())
+  longitude   Float?
+  latitude    Float?
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?
 }

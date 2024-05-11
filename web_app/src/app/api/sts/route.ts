@@ -1,11 +1,9 @@
-
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { validateTokenUser } from "@/lib/db-utils/auth";
 import { RoleType } from "@/constants/userContants";
 import { STS } from "@prisma/client";
 import { z } from "zod";
-
 
 export async function GET(request: NextRequest) {
   const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN);

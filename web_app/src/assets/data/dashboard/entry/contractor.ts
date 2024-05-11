@@ -13,7 +13,6 @@ export const contractorInfo: InputField[] = [
   { id: "contractId", title: "Contract ID" },
   { id: "tin", title: "TIN number" },
   { id: "contact", title: "Contact number" },
-  { id: "size", title: "Workforce size", type: "number" },
   { id: "salary", title: "Payment per tonnage of waste", type: "number" },
   {
     id: "wasteVolume",
@@ -22,6 +21,7 @@ export const contractorInfo: InputField[] = [
   },
   { id: "termination", title: "Termination Date", type: "date" },
   { id: "wardNumber", title: "Ward Number" },
+  { id: "duration", title: "Duration (hrs)", type: "number" },
 ];
 
 export const type = "contractor";

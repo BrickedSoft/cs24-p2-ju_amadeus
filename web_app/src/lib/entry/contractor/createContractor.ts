@@ -13,12 +13,12 @@ export const createContractor = async (prevState: any, formData: FormData) => {
     contractId: z.string().min(1),
     tin: z.string().min(1),
     contact: z.string().min(1),
-    size: z.string().min(1),
     salary: z.string().min(1),
     wasteVolume: z.string().min(1),
     termination: z.string().pipe(z.coerce.date()),
     wardNumber: z.string().optional().nullable(),
     stsId: z.string().optional().nullable(),
+    duration: z.string(),
   });
 
   const parsed = schema.parse({
@@ -26,12 +26,12 @@ export const createContractor = async (prevState: any, formData: FormData) => {
     contractId: formData.get("contractId") || undefined,
     tin: formData.get("tin") || undefined,
     contact: formData.get("contact") || undefined,
-    size: formData.get("size" || undefined),
     salary: formData.get("salary" || undefined),
     wasteVolume: formData.get("wasteVolume" || undefined),
     termination: formData.get("termination" || undefined),
     wardNumber: formData.get("wardNumber" || undefined),
     stsId: formData.get("stsId" || undefined),
+    duration: formData.get("duration" || undefined),
   });
 
   const exists = await prisma.contractor.findUnique({
@@ -49,10 +49,10 @@ export const createContractor = async (prevState: any, formData: FormData) => {
     contractId: parsed.contractId,
     tin: parsed.tin,
     contact: parsed.contact,
-    size: parseInt(parsed.size),
     salary: parseFloat(parsed.salary),
     wasteVolume: parseFloat(parsed.wasteVolume),
     termination: parsed.termination,
+    duration: parseFloat(parsed.duration),
   };
 
   await prisma.contractor.create({

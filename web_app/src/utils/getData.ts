@@ -1,4 +1,4 @@
-import { Contractor, LandFill, STS, Workforce } from "@prisma/client";
+import { CollectionPlan, Contractor, LandFill, STS, Workforce } from "@prisma/client";
 
 import { CustomVehicleEntry, User } from "@allTypes";
 import {
@@ -97,6 +97,21 @@ export async function getWorkForces(cookieStore: any): Promise<Workforce[]> {
   });
 
   return workForceList;
+}
+
+
+export async function getCollectionPlans(cookieStore: any): Promise<CollectionPlan[]> {
+  let collectionPlans = await fetch(`${api}/collection-plans`, {
+    cache: "no-store",
+    headers: {
+      cookie: cookieStore,
+    },
+  }).then(async (res) => {
+    const data = await res.json();
+    return data.collectionPlans;
+  });
+
+  return collectionPlans;
 }
 
 export async function getWorkHours(cookieStore: any): Promise<Workforce[]> {

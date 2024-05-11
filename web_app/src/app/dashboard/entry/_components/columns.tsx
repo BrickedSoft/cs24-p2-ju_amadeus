@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import {
+  CollectionPlan,
   Contractor,
   LandFill,
   STS,
@@ -52,6 +53,7 @@ export const columns = ({
   | VehicleEntry
   | Contractor
   | Workforce
+  | CollectionPlan
   | WorkHour
 >[] => {
   //@ts-ignore
@@ -63,6 +65,7 @@ export const columns = ({
     | VehicleEntry
     | Contractor
     | Workforce
+    | CollectionPlan
     | WorkHour
   >[] = columnData.map((item) => ({
     accessorKey: item.accessorKey,
@@ -77,7 +80,8 @@ export const columns = ({
         | VehicleEntry
         | Contractor
         | Workforce
-        | WorkHour;
+        | WorkHour
+        | CollectionPlan;
     }) => <TableHeader column={column} name={item.name} />,
   }));
 
@@ -90,6 +94,7 @@ export const columns = ({
     | Contractor
     | Workforce
     | WorkHour
+    | CollectionPlan
   > = {
     id: "actions",
     cell: ({ row }: { row: any }) =>

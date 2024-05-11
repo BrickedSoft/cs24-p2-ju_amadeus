@@ -28,7 +28,7 @@ export const sideNavEntry = (roleType: RoleType): Link[] => {
     return [links.vehicleEntries, links.generateBill];
 
   if (roleType == RoleType.CONTRACTOR_MANAGER)
-    return [links.workForce, links.workingHourEntries];
+    return [links.workForce, links.collectionPlan, links.workingHourEntries];
 
   return [links.home];
 };

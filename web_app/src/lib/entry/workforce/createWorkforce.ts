@@ -2,7 +2,6 @@
 
 import { routes } from "@/assets/data/routes";
 import prisma from "@/lib/db";
-import { Contractor, STS } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -15,9 +14,9 @@ export const createWorkforce = async (prevState: any, formData: FormData) => {
     nid: z.string().min(1),
     designation: z.string().min(1),
     joiningDate: z.string().pipe(z.coerce.date()),
-    salary: z.string().min(1),
+    salary: z.string(),
     contact: z.string().min(1),
-    userId: z.string().min(1),
+    userId: z.string(),
     contractorId: z.string().optional().nullable(),
   });
 
@@ -38,12 +37,6 @@ export const createWorkforce = async (prevState: any, formData: FormData) => {
   });
   if (exists) return { message: "Workforce with the nid already exists." };
 
-  const contractor: Contractor | null = parsed.contractorId
-    ? await prisma.contractor.findUnique({
-        where: { id: parsed?.contractorId },
-      })
-    : null;
-
   const required = {
     name: parsed.name,
     dateOfBirth: parsed.dateOfBirth,
@@ -52,19 +45,19 @@ export const createWorkforce = async (prevState: any, formData: FormData) => {
     joiningDate: parsed.joiningDate,
     salary: parseFloat(parsed.salary),
     contact: parsed.contact,
-    user: { connect: { id: parsed.userId } },
+    manager: { connect: { id: parsed.userId } },
   };
 
   await prisma.workforce.create({
-    data: contractor
+    data: parsed.contractorId
       ? {
           ...required,
-          contractor: { connect: { id: contractor.id } },
+          contractor: { connect: { id: parsed.contractorId } },
         }
       : {
           ...required,
         },
   });
   revalidatePath("/");
-  redirect(routes.contractor);
+  redirect(routes.workForce);
 };

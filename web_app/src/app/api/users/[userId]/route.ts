@@ -43,6 +43,7 @@ export async function GET(
     {
       message: "success",
       user: {
+        id: user.id,
         name: user.name,
         email: user.email,
         roleId: user.roleId,

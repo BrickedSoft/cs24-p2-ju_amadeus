@@ -1,7 +1,8 @@
-import { Contractor, LandFill, STS } from "@prisma/client";
+import { Contractor, LandFill, STS, Workforce } from "@prisma/client";
 
-import { User } from "@allTypes";
+import { CustomVehicleEntry, User } from "@allTypes";
 import {
+  api,
   contractorDataEndpoint,
   landfillEndpoint,
   stsDataEndpoint,
@@ -66,4 +67,34 @@ export async function getContractors(cookieStore: any): Promise<Contractor[]> {
   });
 
   return contractorList;
+}
+
+export async function getWasteEntries(
+  cookieStore: any
+): Promise<CustomVehicleEntry[]> {
+  let wasteEntryList = await fetch(`${api}/waste-entries`, {
+    cache: "no-store",
+    headers: {
+      cookie: cookieStore,
+    },
+  }).then(async (res) => {
+    const data = await res.json();
+    return data.wasteEntries;
+  });
+
+  return wasteEntryList;
+}
+
+export async function getWorkForces(cookieStore: any): Promise<Workforce[]> {
+  let workForceList = await fetch(`${api}/work-forces`, {
+    cache: "no-store",
+    headers: {
+      cookie: cookieStore,
+    },
+  }).then(async (res) => {
+    const data = await res.json();
+    return data.workForces;
+  });
+
+  return workForceList;
 }

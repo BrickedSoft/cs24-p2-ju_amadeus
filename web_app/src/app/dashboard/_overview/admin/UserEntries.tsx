@@ -2,10 +2,11 @@ import { cookies } from "next/headers";
 
 import { userDataEndpoint } from "@assets/data/api/endpoints";
 import { People } from "@components/Icons";
+import { User } from "@/types";
 
 const UserEntries = async () => {
   const cookieStore = cookies();
-  const userList = await fetch(`${userDataEndpoint}`, {
+  const userList: User[] = await fetch(`${userDataEndpoint}`, {
     cache: "no-store",
     // @ts-ignore
     headers: {
@@ -13,16 +14,19 @@ const UserEntries = async () => {
     },
   }).then(async (res) => {
     const data = await res.json();
-    return data;
+    return data.users;
   });
 
   let userCount = {
     STSManager: 0,
     SystemAdmin: 0,
     LandfillManager: 0,
+    ContractManager: 0,
   };
 
-  userList.users.filter((user: any) => {
+  const filteredUsers = userList.filter((user) => user.role in userCount);
+
+  filteredUsers.filter((user: any) => {
     userCount[user.role as keyof typeof userCount]++;
   });
 
@@ -30,9 +34,10 @@ const UserEntries = async () => {
     STSManager: "STS Manager",
     SystemAdmin: "System Admin",
     LandfillManager: "Landfill Manager",
+    ContractManager: "Contract Manager",
   };
 
-  const colors = ["#048A52", "#339AF0", "#FF922B"];
+  const colors = ["#048A52", "#339AF0", "#FF922B", "#ae3ec9"];
 
   return (
     <div className="flex gap-4 justify-between items-center px-12 py-8 border border-gray-300 rounded-lg">

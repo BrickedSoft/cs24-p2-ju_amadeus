@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { z, ZodRawShape } from "zod";
 
-import { Coordinate, InputField } from "@allTypes";
+import { InputField } from "@allTypes";
 import { Form } from "@components/ui/form";
 import { Skeleton } from "@components/ui/skeleton";
 import { center } from "@constants/map";
@@ -38,7 +38,6 @@ const Create: React.FC<Props> = ({
   mapFieldTitle,
 }) => {
   const router = useRouter();
-  const [position, setPosition] = useState<Coordinate>(center);
 
   const formSchema = z.object(
     _.reduce(
@@ -67,13 +66,9 @@ const Create: React.FC<Props> = ({
     formState: { errors, isSubmitting },
   } = form;
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) =>
+  const onSubmit: SubmitHandler<FieldValues> = async () => {
     ecoSync
-      .post(endpoint, {
-        ...data,
-        longitude: position.lng,
-        latitude: position.lat,
-      })
+      .post(endpoint, control._formValues)
       .then(() => {
         router.back();
       })
@@ -85,6 +80,7 @@ const Create: React.FC<Props> = ({
           })
         );
       });
+  };
 
   return (
     <Suspense fallback={<Skeleton className="w-full h-28" />}>

@@ -23,7 +23,7 @@ export default async function WasteForces() {
   const values = Object.values(groupedData);
 
   return (
-    <div className="container h-full pt-8">
+    <div className="container h-full pt-8 flex flex-col gap-10">
       <Suspense fallback={<Loading />}>
         {ids.map((id, index) => {
           // @ts-ignore

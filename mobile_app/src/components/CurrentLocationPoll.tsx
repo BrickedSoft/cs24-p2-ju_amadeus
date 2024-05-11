@@ -56,7 +56,7 @@ export default function CurrentLocationPoll() {
         organization!
       </Text>
       <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
-        Logitude:{' '}
+        Longitude:{' '}
         <Text style={{ fontWeight: 'normal' }}>
           {location?.coords.longitude}
         </Text>

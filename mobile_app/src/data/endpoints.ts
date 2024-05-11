@@ -1,5 +1,5 @@
-// export const hostname =__DEV__ ? "http://192.168.137.246:3000" : "https://cs24-p2-ju-amadeus.onrender.com";
-export const hostname = "http://192.168.137.246:3000"
+export const hostname = "https://cs24-p2-ju-amadeus.onrender.com";
+// export const hostname = "http://192.168.137.246:3000"
 export const api = `${hostname}/api`;
 export const userDataEndpoint = `${api}/users`;
 export const login = "/auth/login";

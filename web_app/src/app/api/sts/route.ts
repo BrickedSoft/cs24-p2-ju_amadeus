@@ -1,9 +1,11 @@
+
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { validateTokenUser } from "@/lib/db-utils/auth";
 import { RoleType } from "@/constants/userContants";
+import { STS } from "@prisma/client";
 import { z } from "zod";
-import { STS, WasteEntry } from "@prisma/client";
+
 
 export async function GET(request: NextRequest) {
   const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN);
@@ -35,19 +37,17 @@ export async function GET(request: NextRequest) {
     { status: 200 }
   );
 }
-
 const schema = z.object({
-  wasteVolume: z.string(),
-  collectionDate: z.string().pipe(z.coerce.date()),
-  vehicleId: z.string().min(1),
-  wasteType: z.string().min(1),
-  contractorId: z.string().min(1),
-  stsId: z.string().min(1),
+  name: z.string().min(1),
+  wardNumber: z.string().min(1),
+  capacity: z.string(),
+  longitude: z.number(),
+  latitude: z.number(),
 });
 
 export async function POST(request: NextRequest) {
-  console.log(request);
   const authAdmin = await validateTokenUser(request, RoleType.SYSTEM_ADMIN);
+  const stsManager = await validateTokenUser(request, RoleType.STS_MANAGER);
 
   const parsed = schema.safeParse(await request.json());
 
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
 
-  if (!authAdmin)
+  if (!authAdmin && !stsManager)
     return NextResponse.json(
       {
         message: "Insuficient permission",
@@ -67,30 +67,22 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
 
-  const {
-    wasteVolume,
-    collectionDate,
-    vehicleId,
-    wasteType,
-    contractorId,
-    stsId,
-  } = parsed.data;
+  const { name, wardNumber, capacity, longitude, latitude } = parsed.data;
 
   // Create a STS
-  const wasteEntries: WasteEntry = await prisma.wasteEntry.create({
+  const sts: STS = await prisma.sTS.create({
     data: {
-      wasteVolume: parseFloat(wasteVolume),
-      collectionDate: collectionDate,
-      vehicleId: vehicleId,
-      wasteType: wasteType,
-      contractorId: contractorId,
-      stsId: stsId,
+      name: name,
+      wardNumber: wardNumber,
+      capacity: parseFloat(capacity),
+      longitude: longitude,
+      latitude: latitude,
     },
   });
 
   return NextResponse.json(
     {
-      wasteEntries: wasteEntries,
+      sts: sts,
     },
     { status: 200 }
   );

@@ -55,5 +55,5 @@ export const addWorkHour = async (prevState: any, formData: FormData) => {
   });
 
   revalidatePath("/");
-  redirect(routes.wasteEntries);
+  redirect(routes.workingHourEntries);
 };
